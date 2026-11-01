@@ -2587,6 +2587,57 @@
       clearTimeout(mostrarToast.timer);
       mostrarToast.timer = setTimeout(() => { toast.style.display = "none"; }, 3800);
     }
-  </script>
+  
+    function abrirModalCambiarPassword() {
+      if (!esAdmin()) {
+        mostrarToast("Acceso restringido al Administrador.");
+        return;
+      }
+      abrirModalGenerico(`
+        <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
+        <h3 style="margin-bottom:1rem;">Seguridad: Cambiar Contraseña de Administrador</h3>
+        <form onsubmit="guardarNuevaPasswordAdmin(event)">
+          <div class="form-group">
+            <label style="color:var(--primary);">Contraseña Actual</label>
+            <input type="password" name="passActual" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Nueva Contraseña</label>
+            <input type="password" name="passNuevo" class="form-control" minlength="4" required>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Confirmar Nueva Contraseña</label>
+            <input type="password" name="passConfirm" class="form-control" minlength="4" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; margin-top:0.6rem;">Actualizar Contraseña</button>
+        </form>
+      `);
+    }
+
+    function guardarNuevaPasswordAdmin(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const actual = fd.get("passActual");
+      const nuevo = fd.get("passNuevo");
+      const confirm = fd.get("passConfirm");
+
+      const adminCuenta = CUENTAS.find(c => c.email === USUARIO_ACTUAL.email);
+
+      if (!adminCuenta || adminCuenta.pass !== actual) {
+        mostrarToast("La contraseña actual no es correcta.");
+        return;
+      }
+      if (nuevo !== confirm) {
+        mostrarToast("Las nuevas contraseñas no coinciden.");
+        return;
+      }
+
+      adminCuenta.pass = nuevo;
+      USUARIO_ACTUAL.pass = nuevo;
+      cerrarModal("modalDinamico");
+      mostrarToast("Contraseña de administrador actualizada exitosamente.");
+    }
+
+</script>
 </body>
 </html>
