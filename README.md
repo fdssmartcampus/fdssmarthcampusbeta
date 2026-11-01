@@ -1,0 +1,2 @@
+# fdssmarthcampusbeta
+github.pages
