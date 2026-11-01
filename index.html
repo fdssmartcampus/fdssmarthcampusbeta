@@ -1,1 +1,2594 @@
-<h1>fds smarth campus beta</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#06214c">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%23ffc20e%22/%3E%3Cg%20transform%3D%22translate%286%206%29%20scale%28.81%29%22%3E%3Cpath%20d%3D%22M13%2023%20L9%208%20L25%2015z%20M51%2023%20L55%208%20L39%2015z%22%20fill%3D%22%230a2f6b%22/%3E%0A%3Cpath%20d%3D%22M32%209C21%209%2013%2016%2012%2027c-1%2013%205%2025%2020%2031%2015-6%2021-18%2020-31C51%2016%2043%209%2032%209z%22%20fill%3D%22%230a2f6b%22/%3E%0A%3Cpath%20d%3D%22M32%2042c-6%200-10%205-10%2011%203%203%206%204%2010%205%204-1%207-2%2010-5%200-6-4-11-10-11z%22%20fill%3D%22%231d6fe0%22%20opacity%3D%22.55%22/%3E%0A%3Ccircle%20cx%3D%2223%22%20cy%3D%2228%22%20r%3D%2210.5%22%20fill%3D%22%23fff%22/%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%2228%22%20r%3D%2210.5%22%20fill%3D%22%23fff%22/%3E%0A%3Ccircle%20cx%3D%2223%22%20cy%3D%2228%22%20r%3D%227%22%20fill%3D%22%23ffc20e%22/%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%2228%22%20r%3D%227%22%20fill%3D%22%23ffc20e%22/%3E%0A%3Ccircle%20cx%3D%2223%22%20cy%3D%2228%22%20r%3D%223.6%22%20fill%3D%22%2306214c%22/%3E%3Ccircle%20cx%3D%2241%22%20cy%3D%2228%22%20r%3D%223.6%22%20fill%3D%22%2306214c%22/%3E%0A%3Ccircle%20cx%3D%2224.6%22%20cy%3D%2226.4%22%20r%3D%221.3%22%20fill%3D%22%23fff%22/%3E%3Ccircle%20cx%3D%2242.6%22%20cy%3D%2226.4%22%20r%3D%221.3%22%20fill%3D%22%23fff%22/%3E%0A%3Cpath%20d%3D%22M28%2034h8l-4%208z%22%20fill%3D%22%23ffc20e%22/%3E%0A%3Cpath%20d%3D%22M24%2048q4%203.5%208%200q4%203.5%208%200M27%2053q5%203.5%2010%200%22%20stroke%3D%22%239cc4ff%22%20stroke-width%3D%221.8%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22/%3E%0A%3Cpath%20d%3D%22M32%202%20L55%2010.5%20L32%2019%20L9%2010.5z%22%20fill%3D%22%23ffc20e%22%20stroke%3D%22%2306214c%22%20stroke-width%3D%221.6%22%20stroke-linejoin%3D%22round%22/%3E%0A%3Cpath%20d%3D%22M20%2014.5v5.5q12%205%2024%200v-5.5%22%20fill%3D%22%23e6a800%22%20stroke%3D%22%2306214c%22%20stroke-width%3D%221.4%22%20stroke-linejoin%3D%22round%22/%3E%0A%3Cpath%20d%3D%22M52%2011.5v10%22%20stroke%3D%22%2306214c%22%20stroke-width%3D%221.6%22%20stroke-linecap%3D%22round%22/%3E%3Ccircle%20cx%3D%2252%22%20cy%3D%2223%22%20r%3D%222%22%20fill%3D%22%2306214c%22/%3E%3C/g%3E%3C/svg%3E">
+  <title>FDS SMART CAMPUS | Innovación, Ciencia y Laboratorios — EYR Digital</title>
+  
+  <!-- Tipografía institucional y legible -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Librería de iconos Lucide -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* ==========================================================================
+       FDS SMART CAMPUS — DISEÑO MEJORADO (azul · amarillo · blanco)
+       Rediseño visual: mismas clases y misma lógica, nueva presentación.
+       ========================================================================== */
+    :root {
+      --primary: #06214c;
+      --primary-mid: #0a2f6b;
+      --primary-light: #1d6fe0;
+      --primary-soft: #eef4ff;
+      --accent: #ffc20e;
+      --accent-hover: #ffd23f;
+      --accent-soft: #fff7dc;
+      --bg: #f3f7fd;
+      --surface: #ffffff;
+      --border: #dbe5f5;
+      --text: #0a2540;
+      --text-muted: #4a5d78;
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 28px;
+      --shadow-sm: 0 2px 6px rgba(6,33,76,.05), 0 8px 22px rgba(6,33,76,.07);
+      --shadow-md: 0 4px 10px rgba(6,33,76,.07), 0 18px 40px rgba(6,33,76,.14);
+      --shadow-lg: 0 30px 70px rgba(6,33,76,.30);
+      --glow: 0 0 0 4px rgba(255,194,14,.28);
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+      --ease: cubic-bezier(.22,.8,.3,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 17px; scroll-padding-top: 90px; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.68;
+      font-size: 1.04rem;
+      -webkit-font-smoothing: antialiased;
+    }
+    ::selection { background: var(--accent); color: var(--primary); }
+    h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.18; font-weight: 800; color: var(--primary); letter-spacing: -.01em; }
+    a { text-decoration: none; color: inherit; }
+    button, input, select, textarea { font-family: inherit; font-size: inherit; }
+    button { cursor: pointer; border: none; outline: none; }
+    img, video { max-width: 100%; display: block; }
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+    .wrap { width: min(1280px, 92%); margin-inline: auto; }
+    * { scrollbar-width: thin; scrollbar-color: var(--primary-light) transparent; }
+
+    /* ---------- Barra de progreso de lectura ---------- */
+    @supports (animation-timeline: scroll()) {
+      body::before {
+        content: ""; position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 2000;
+        background: linear-gradient(90deg, var(--accent), #fff3b0, var(--accent));
+        transform-origin: 0 50%; transform: scaleX(0);
+        animation: progreso linear both; animation-timeline: scroll(root);
+      }
+    }
+    @keyframes progreso { to { transform: scaleX(1); } }
+
+    /* ---------- Logotipo ---------- */
+    .brand-logo { display: flex; align-items: center; gap: 12px; font-family: var(--font-display); font-weight: 800; font-size: 1.32rem; color: #fff; letter-spacing: .01em; }
+    .owl-icon {
+      width: 50px; height: 50px; background: var(--accent); border-radius: 15px;
+      display: flex; align-items: center; justify-content: center; color: var(--primary);
+      box-shadow: 0 8px 20px rgba(255,194,14,.45), inset 0 -3px 0 rgba(6,33,76,.12);
+      flex-shrink: 0; transition: transform .4s var(--ease);
+    }
+    .owl-icon svg { width: 82%; height: 82%; }
+    .brand-logo:hover .owl-icon { transform: rotate(-8deg) scale(1.08); }
+
+    /* ---------- Botones ---------- */
+    .btn {
+      position: relative; overflow: hidden;
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      font-weight: 700; font-size: .98rem; letter-spacing: .01em;
+      padding: .85rem 1.6rem; border-radius: 14px;
+      transition: transform .25s var(--ease), box-shadow .25s, background .25s, color .25s, border-color .25s;
+      white-space: nowrap;
+    }
+    .btn svg { width: 1.15em; height: 1.15em; flex-shrink: 0; }
+    .btn::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.4) 50%, transparent 70%);
+      transform: translateX(-130%); transition: transform .7s var(--ease);
+    }
+    .btn:hover::after { transform: translateX(130%); }
+    .btn:active { transform: translateY(0) scale(.98) !important; }
+    .btn-accent { background: linear-gradient(180deg, #ffd23f, var(--accent)); color: var(--primary); box-shadow: 0 8px 22px rgba(255,194,14,.40), inset 0 -2px 0 rgba(6,33,76,.12); }
+    .btn-accent:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(255,194,14,.55), inset 0 -2px 0 rgba(6,33,76,.12); }
+    .btn-primary { background: linear-gradient(180deg, #1456b8, var(--primary-mid)); color: #fff; box-shadow: 0 8px 20px rgba(10,47,107,.32); }
+    .btn-primary:hover { background: linear-gradient(180deg, #2a82f5, var(--primary-light)); transform: translateY(-3px); }
+    .btn-outline { background: rgba(255,255,255,.08); border: 2px solid rgba(255,194,14,.9); color: #fff; backdrop-filter: blur(6px); }
+    .btn-outline:hover { background: var(--accent); color: var(--primary); transform: translateY(-3px); }
+    .btn-white { background: #fff; color: var(--primary); border: 1.5px solid var(--border); box-shadow: 0 4px 12px rgba(6,33,76,.08); }
+    .btn-white:hover { background: var(--primary-soft); border-color: var(--primary-light); transform: translateY(-3px); }
+    .btn-sm { padding: .55rem 1.1rem; font-size: .9rem; border-radius: 11px; }
+    .btn-xs { padding: .38rem .8rem; font-size: .8rem; border-radius: 9px; }
+
+    /* ---------- Barra superior ---------- */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 13px 0;
+      background: rgba(6,33,76,.88); backdrop-filter: blur(16px) saturate(1.4);
+      border-bottom: 1px solid rgba(255,194,14,.55);
+      box-shadow: 0 10px 30px rgba(3,14,36,.28);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .menu { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
+    .menu a:not(.btn) { position: relative; color: #fff; font-weight: 600; font-size: .96rem; padding: .35rem 0; transition: color .2s; }
+    .menu a:not(.btn)::after { content: ""; position: absolute; left: 0; bottom: -3px; height: 3px; width: 0; border-radius: 3px; background: var(--accent); transition: width .3s var(--ease); }
+    .menu a:not(.btn):hover { color: var(--accent); }
+    .menu a:not(.btn):hover::after { width: 100%; }
+    .burger { display: none; background: rgba(255,255,255,.1); color: #fff; width: 46px; height: 46px; border-radius: 12px; align-items: center; justify-content: center; }
+
+    .admin-float-bar {
+      background: linear-gradient(90deg, var(--accent), #ffdd6e); color: var(--primary);
+      padding: 9px 16px; font-weight: 800; font-size: .92rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 74px; z-index: 990; box-shadow: 0 6px 18px rgba(0,0,0,.18);
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative; isolation: isolate; overflow: hidden; color: #fff;
+      padding: 150px 0 100px;
+      background:
+        radial-gradient(900px 520px at 90% 8%, rgba(255,194,14,.26), transparent 62%),
+        radial-gradient(900px 600px at 0% 100%, rgba(29,111,224,.65), transparent 60%),
+        linear-gradient(135deg, #04183a 0%, var(--primary-mid) 58%, #1259c9 100%);
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; z-index: -1;
+      background-image: radial-gradient(rgba(255,255,255,.16) 1.2px, transparent 1.4px); background-size: 30px 30px;
+      -webkit-mask-image: linear-gradient(to bottom, #000 10%, transparent 85%); mask-image: linear-gradient(to bottom, #000 10%, transparent 85%);
+    }
+    .hero::after {
+      content: ""; position: absolute; z-index: -1; width: 520px; height: 520px; right: -140px; bottom: -220px; border-radius: 50%;
+      border: 60px solid rgba(255,194,14,.10); animation: giro 40s linear infinite;
+    }
+    @keyframes giro { to { transform: rotate(360deg) scale(1.05); } }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 3.4rem; align-items: center; position: relative; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 9px; padding: 8px 18px; border-radius: 999px;
+      background: rgba(255,194,14,.16); border: 1px solid rgba(255,194,14,.8); color: var(--accent);
+      font-weight: 700; font-size: .92rem; margin-bottom: 1.4rem; backdrop-filter: blur(6px);
+    }
+    .hero h1 { font-size: clamp(2.4rem, 4.6vw, 3.9rem); color: #fff; margin-bottom: 1.3rem; line-height: 1.07; letter-spacing: -.02em; }
+    .hero h1 span { background: linear-gradient(90deg, var(--accent), #fff1a8, var(--accent)); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: brillo 6s linear infinite; }
+    @keyframes brillo { to { background-position: 200% center; } }
+    .hero p { font-size: 1.22rem; color: #dbe8ff; margin-bottom: 2.2rem; max-width: 600px; }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.6rem; }
+    .hero-grid > div:first-child > * { animation: rise .9s var(--ease) backwards; }
+    .hero-grid > div:first-child > *:nth-child(2) { animation-delay: .08s; }
+    .hero-grid > div:first-child > *:nth-child(3) { animation-delay: .16s; }
+    .hero-grid > div:first-child > *:nth-child(4) { animation-delay: .24s; }
+    .hero-grid > div:first-child > *:nth-child(5) { animation-delay: .32s; }
+    /* estadísticas del hero */
+    .hero [style*="gap:2.4rem"] { gap: 1.2rem !important; border-top: 0 !important; padding-top: 0 !important; }
+    .hero [style*="gap:2.4rem"] > div { flex: 1 1 150px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 18px; padding: 1rem 1.3rem; backdrop-filter: blur(8px); transition: transform .3s var(--ease), background .3s; }
+    .hero [style*="gap:2.4rem"] > div:hover { transform: translateY(-4px); background: rgba(255,255,255,.14); }
+    .hero [style*="gap:2.4rem"] b { font-size: 2.1rem !important; line-height: 1.1; }
+
+    /* ---------- Tarjeta de video ---------- */
+    .video-card {
+      background: var(--primary); border-radius: var(--radius-lg); overflow: hidden; position: relative;
+      box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,194,14,.7), 0 0 60px rgba(255,194,14,.18);
+      animation: flota 7s ease-in-out infinite;
+    }
+    @keyframes flota { 50% { transform: translateY(-12px); } }
+    .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
+    .video-wrapper video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .video-overlay-badge {
+      position: absolute; top: 14px; left: 14px; z-index: 2;
+      background: rgba(6,33,76,.85); backdrop-filter: blur(6px); padding: 7px 14px; border-radius: 10px;
+      font-size: .85rem; font-weight: 700; color: var(--accent); display: flex; align-items: center; gap: 8px; border: 1px solid rgba(255,194,14,.7);
+    }
+    .pulse-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 0 rgba(255,194,14,.7); animation: pulso 1.6s infinite; }
+    @keyframes pulso { 70% { box-shadow: 0 0 0 12px rgba(255,194,14,0); } 100% { box-shadow: 0 0 0 0 rgba(255,194,14,0); } }
+
+    /* ---------- Secciones ---------- */
+    .sec { padding: 100px 0; position: relative; }
+    .sec-alt { background: linear-gradient(180deg, #fff 0%, #f7faff 100%); }
+    .sec-title-wrap { text-align: center; max-width: 800px; margin: 0 auto 3.6rem; }
+    .sec-kicker {
+      display: inline-flex; align-items: center; gap: 10px; text-transform: uppercase; font-size: .82rem; letter-spacing: .18em; font-weight: 800;
+      color: var(--primary-light); background: var(--primary-soft); padding: 7px 18px; border-radius: 99px; margin-bottom: .9rem; border: 1px solid #cfe0ff;
+    }
+    .sec-kicker::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px rgba(255,194,14,.3); }
+    .sec-title { font-size: clamp(2rem, 3.4vw, 2.9rem); color: var(--primary); margin-bottom: 1rem; }
+    .sec-title::after { content: ""; display: block; width: 72px; height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--accent), var(--primary-light)); margin: 1rem auto 0; }
+    .sec-subtitle { font-size: 1.14rem; color: var(--text-muted); }
+
+    /* ---------- Áreas ---------- */
+    .areas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 1.8rem; counter-reset: area; }
+    .area-card {
+      counter-increment: area; background: var(--surface); border-radius: var(--radius-md); padding: 2.3rem 1.9rem 2rem;
+      border: 1px solid var(--border); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; position: relative; overflow: hidden;
+      transition: transform .4s var(--ease), box-shadow .4s, border-color .4s;
+    }
+    .area-card::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: linear-gradient(90deg, var(--primary-mid), var(--primary-light)); transition: background .4s; }
+    .area-card::after { content: "0" counter(area); position: absolute; right: 18px; top: 6px; font-family: var(--font-display); font-weight: 900; font-size: 4.8rem; line-height: 1; color: rgba(10,47,107,.06); }
+    .area-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-md); border-color: rgba(255,194,14,.8); }
+    .area-card:hover::before { background: linear-gradient(90deg, var(--accent), #ffe38a); }
+    .area-icon {
+      width: 64px; height: 64px; border-radius: 18px; background: linear-gradient(145deg, var(--primary-mid), var(--primary));
+      color: var(--accent); display: flex; align-items: center; justify-content: center; margin-bottom: 1.4rem;
+      box-shadow: 0 10px 22px rgba(6,33,76,.28); transition: transform .4s var(--ease);
+    }
+    .area-card:hover .area-icon { transform: rotate(-8deg) scale(1.1); }
+    .area-card h3 { font-size: 1.4rem; margin-bottom: .6rem; }
+    .area-card p { font-size: 1rem; color: var(--text-muted); flex-grow: 1; margin-bottom: 1.3rem; }
+    .area-badge { display: inline-block; font-weight: 800; font-size: .82rem; color: var(--primary); background: var(--accent); padding: 6px 14px; border-radius: 99px; align-self: flex-start; box-shadow: 0 4px 12px rgba(255,194,14,.4); }
+
+    /* ---------- Laboratorios ---------- */
+    .labs-group { margin-bottom: 4rem; }
+    .labs-group-header {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 1.8rem; padding: 1.1rem 1.6rem;
+      background: linear-gradient(100deg, var(--primary), var(--primary-mid)); color: #fff; border-radius: 16px; border-left: 8px solid var(--accent);
+      box-shadow: var(--shadow-sm);
+    }
+    .labs-group-header h3 { font-size: 1.4rem; color: #fff; display: flex; align-items: center; gap: 12px; letter-spacing: .02em; }
+    .labs-group-header h3 svg { color: var(--accent); }
+    .badge-counter { background: var(--accent); color: var(--primary); font-size: .88rem; font-weight: 800; padding: 6px 15px; border-radius: 99px; }
+    .labs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2rem; }
+    .lab-card {
+      background: var(--surface); border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; transition: transform .4s var(--ease), box-shadow .4s, border-color .4s;
+    }
+    .lab-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-md); border-color: var(--primary-light); }
+    .lab-visual { height: 215px; position: relative; background-size: cover; background-position: center; display: flex; align-items: flex-end; justify-content: space-between; padding: 1.1rem; transition: transform .8s var(--ease); }
+    .lab-card:hover .lab-visual { transform: scale(1.07); }
+    .lab-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,33,76,.92) 0%, rgba(6,33,76,.12) 72%); }
+    .lab-tag { position: relative; z-index: 2; background: var(--accent); color: var(--primary); font-weight: 800; font-size: .8rem; padding: 5px 14px; border-radius: 99px; box-shadow: 0 4px 12px rgba(0,0,0,.25); }
+    .lab-content { padding: 1.6rem; display: flex; flex-direction: column; flex-grow: 1; background: var(--surface); position: relative; }
+    .lab-content h4 { font-size: 1.28rem; margin-bottom: .55rem; }
+    .lab-content p { font-size: .98rem; color: var(--text-muted); margin-bottom: 1.4rem; flex-grow: 1; }
+
+    /* ---------- Almanaque y horarios ---------- */
+    .almanaque-toolbar {
+      display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;
+      background: linear-gradient(100deg, var(--primary), var(--primary-mid)); color: #fff; padding: 1.3rem 1.7rem; border-radius: var(--radius-md) var(--radius-md) 0 0;
+      border-bottom: 5px solid var(--accent); margin-bottom: 0;
+    }
+    .almanaque-wrap { background: #fff; border-radius: 0 0 var(--radius-md) var(--radius-md); border: 1px solid var(--border); border-top: 0; box-shadow: var(--shadow-md); overflow-x: auto; }
+    .almanaque-table { width: 100%; border-collapse: separate; border-spacing: 5px; min-width: 840px; table-layout: fixed; }
+    .almanaque-table th { background: var(--primary-mid); color: #fff; padding: 15px 10px; text-align: center; font-size: .92rem; border-radius: 12px; border: 0; letter-spacing: .02em; text-transform: none; }
+    .almanaque-table th { overflow-wrap: anywhere; line-height: 1.25; }
+    .almanaque-table th.col-hora { width: 156px; background: var(--primary); color: var(--accent); }
+    .almanaque-table td { height: 82px; padding: 0; border: 0; text-align: center; vertical-align: middle; font-size: .86rem; background: transparent; }
+    .almanaque-table tr:hover td { background: transparent; }
+    .slot-box { width: 100%; height: 100%; min-height: 72px; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 7px; transition: transform .2s var(--ease), box-shadow .2s, background .2s; }
+    .slot-disponible { background: var(--primary-soft); color: var(--primary-mid); border: 2px dashed #8db8f5; cursor: pointer; }
+    .slot-disponible:hover { background: var(--accent); color: var(--primary); border: 2px solid var(--primary); font-weight: 700; transform: scale(1.05); box-shadow: 0 10px 22px rgba(6,33,76,.25); }
+    .slot-ocupado { background: linear-gradient(145deg, var(--primary), var(--primary-mid)); color: #fff; border-left: 6px solid var(--accent); box-shadow: 0 6px 14px rgba(6,33,76,.25); }
+    .slot-pendiente { background: var(--accent-soft); color: var(--primary); border: 2px solid var(--accent); }
+    .slot-receso { background: repeating-linear-gradient(135deg, var(--accent) 0 12px, #ffd964 12px 24px); color: var(--primary); font-weight: 800; letter-spacing: .06em; display: flex; align-items: center; justify-content: center; gap: 7px; border-radius: 12px; height: 100%; padding: 7px; font-size: .82rem; }
+
+    /* ---------- Chatbot ---------- */
+    .chatbot-fab {
+      position: fixed; bottom: 26px; right: 26px; z-index: 3000; background: linear-gradient(180deg, #ffd23f, var(--accent)); color: var(--primary);
+      border: 3px solid var(--primary); border-radius: 999px; padding: 13px 22px; font-weight: 800; font-size: .96rem; display: flex; align-items: center; gap: 10px;
+      box-shadow: var(--shadow-lg); transition: transform .3s var(--ease); animation: rebote 4s ease-in-out infinite;
+    }
+    @keyframes rebote { 0%, 90%, 100% { transform: translateY(0); } 95% { transform: translateY(-8px); } }
+    .chatbot-fab:hover { transform: translateY(-5px) scale(1.05); animation: none; }
+    .chatbot-window { position: fixed; bottom: 92px; right: 26px; width: min(380px, calc(100vw - 52px)); background: #fff; border-radius: var(--radius-md); border: 3px solid var(--primary); box-shadow: var(--shadow-lg); z-index: 3000; overflow: hidden; display: none; flex-direction: column; animation: pop .35s var(--ease); }
+    .chatbot-header { background: linear-gradient(100deg, var(--primary), var(--primary-mid)); color: #fff; padding: 15px 17px; border-bottom: 4px solid var(--accent); display: flex; align-items: center; justify-content: space-between; }
+    .chatbot-messages { padding: 15px; height: 280px; overflow-y: auto; background: var(--primary-soft); display: flex; flex-direction: column; gap: 10px; }
+    .chat-bubble { padding: 11px 14px; border-radius: 14px; font-size: .9rem; line-height: 1.5; max-width: 88%; animation: rise .35s var(--ease) backwards; }
+    .chat-bot { background: #fff; color: var(--primary); border: 1px solid var(--border); border-bottom-left-radius: 4px; align-self: flex-start; box-shadow: 0 3px 8px rgba(6,33,76,.06); }
+    .chat-user { background: linear-gradient(145deg, var(--primary-mid), var(--primary)); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+    .chat-quick-btns { display: flex; gap: 7px; flex-wrap: wrap; padding: 10px 13px; background: #fff; border-top: 1px solid var(--border); }
+    .chatbot-footer { padding: 11px 13px; background: #fff; border-top: 1px solid var(--border); display: flex; gap: 8px; }
+
+    /* ---------- Noticias ---------- */
+    .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 2rem; }
+    .news-card { background: #fff; border-radius: var(--radius-md); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; transition: transform .4s var(--ease), box-shadow .4s, border-color .4s; }
+    .news-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-md); border-color: var(--accent); }
+    .news-img { height: 200px; width: 100%; object-fit: cover; border-bottom: 4px solid var(--accent); transition: transform .8s var(--ease); }
+    .news-card:hover .news-img { transform: scale(1.04); }
+    .news-body { padding: 1.6rem; display: flex; flex-direction: column; flex-grow: 1; background: #fff; position: relative; }
+    .news-meta { display: flex; justify-content: space-between; font-size: .82rem; font-weight: 700; color: var(--primary-light); margin-bottom: .6rem; }
+    .news-body h4 { font-size: 1.25rem; margin-bottom: .6rem; }
+    .news-body p { font-size: .97rem; color: var(--text-muted); flex-grow: 1; margin-bottom: 1rem; }
+
+    /* ---------- Registro ---------- */
+    .register-section {
+      position: relative; overflow: hidden; color: #fff; padding: 100px 0;
+      background: radial-gradient(700px 400px at 100% 0%, rgba(255,194,14,.20), transparent 60%), linear-gradient(135deg, #04183a 0%, var(--primary-mid) 100%);
+    }
+    .register-section::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.10) 1.2px, transparent 1.4px); background-size: 30px 30px; pointer-events: none; }
+    .register-section .wrap { position: relative; }
+    .register-boxes { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; }
+    .reg-card { background: rgba(255,255,255,.07); backdrop-filter: blur(14px); border: 1px solid rgba(255,194,14,.45); border-radius: var(--radius-lg); padding: 2.4rem; transition: transform .4s var(--ease), border-color .4s, box-shadow .4s; }
+    .reg-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 24px 50px rgba(0,0,0,.35); }
+    .reg-card-header { display: flex; align-items: center; gap: 15px; margin-bottom: 1.4rem; }
+    .reg-card-icon { width: 58px; height: 58px; border-radius: 16px; background: var(--accent); color: var(--primary); display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(255,194,14,.4); }
+    .form-group { margin-bottom: 1.15rem; }
+    .form-group label { display: block; font-weight: 700; font-size: .9rem; margin-bottom: .4rem; color: inherit; }
+    .form-control { width: 100%; padding: .85rem 1rem; border-radius: 12px; border: 2px solid var(--border); background: #fff; color: var(--primary); font-weight: 500; transition: border-color .2s, box-shadow .2s; }
+    .form-control:hover { border-color: #a9c6f5; }
+    .form-control:focus { outline: none; border-color: var(--accent); box-shadow: var(--glow); }
+    .email-domain-group { display: flex; align-items: stretch; background: #fff; border-radius: 12px; overflow: hidden; border: 2px solid var(--border); transition: border-color .2s, box-shadow .2s; }
+    .email-domain-group:focus-within { border-color: var(--accent); box-shadow: var(--glow); }
+    .email-domain-group input { border: none; padding: .85rem 1rem; flex: 1; min-width: 0; color: var(--primary); font-weight: 700; outline: none; }
+    .email-domain-tag { background: var(--accent); color: var(--primary); padding: 0 14px; display: flex; align-items: center; font-weight: 800; font-size: .85rem; white-space: nowrap; }
+
+    /* ---------- Pie de página ---------- */
+    .site-footer { position: relative; background: linear-gradient(180deg, var(--primary) 0%, #041633 100%); color: #cbd7ea; padding: 70px 0 28px; }
+    .site-footer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: linear-gradient(90deg, var(--accent), var(--primary-light), var(--accent)); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 2.8rem; }
+    .footer-col h4 { color: var(--accent); margin-bottom: 1.1rem; font-size: 1.12rem; }
+    .footer-col ul { list-style: none; display: grid; gap: .7rem; }
+    .footer-col a { transition: color .2s, padding-left .25s var(--ease); }
+    .footer-col a:hover { color: var(--accent); padding-left: 6px; }
+    .eyr-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,194,14,.14); border: 1px solid rgba(255,194,14,.8); color: var(--accent); padding: 7px 17px; border-radius: 99px; font-weight: 800; font-size: .92rem; }
+
+    /* ---------- Panel interno ---------- */
+    #panelInternoView { min-height: 100vh; background: var(--bg); display: grid; grid-template-columns: 295px 1fr; }
+    .admin-sidebar { background: linear-gradient(180deg, var(--primary) 0%, #041633 100%); color: #fff; padding: 24px 16px; display: flex; flex-direction: column; border-right: 4px solid var(--accent); position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+    .admin-nav { list-style: none; display: grid; gap: 6px; margin-top: 1.8rem; flex-grow: 1; align-content: start; }
+    .admin-nav-btn { position: relative; display: flex; align-items: center; gap: 12px; width: 100%; padding: 13px 16px; border-radius: 12px; color: #dbe8ff; background: transparent; font-size: .97rem; font-weight: 600; text-align: left; transition: background .25s, color .25s, transform .25s var(--ease), padding-left .25s var(--ease); }
+    .admin-nav-btn svg { width: 1.2em; height: 1.2em; flex-shrink: 0; }
+    .admin-nav-btn:hover { background: rgba(255,255,255,.1); color: #fff; padding-left: 20px; }
+    .admin-nav-btn.active { background: linear-gradient(90deg, var(--accent), #ffdc6a); color: var(--primary); font-weight: 800; box-shadow: 0 8px 20px rgba(255,194,14,.3); }
+    .badge-count { margin-left: auto; background: var(--primary-light); color: #fff; font-size: .75rem; font-weight: 800; padding: 3px 9px; border-radius: 99px; }
+    .admin-nav-btn.active .badge-count { background: var(--primary); color: var(--accent); }
+    .admin-content { padding: 30px; overflow-y: auto; }
+    .admin-topbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem; background: #fff; padding: 20px 26px; border-radius: var(--radius-md); border: 1px solid var(--border); border-left: 8px solid var(--accent); box-shadow: var(--shadow-sm); }
+    .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.3rem; margin-bottom: 2rem; }
+    .kpi-card { position: relative; overflow: hidden; background: #fff; padding: 1.4rem 1.6rem; border-radius: var(--radius-md); border: 1px solid var(--border); display: flex; align-items: center; gap: 16px; box-shadow: var(--shadow-sm); transition: transform .35s var(--ease), box-shadow .35s; }
+    .kpi-card::after { content: ""; position: absolute; left: 0; bottom: 0; height: 4px; width: 100%; background: linear-gradient(90deg, var(--accent), var(--primary-light)); transform: scaleX(.25); transform-origin: left; transition: transform .5s var(--ease); }
+    .kpi-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+    .kpi-card:hover::after { transform: scaleX(1); }
+    .kpi-icon { width: 54px; height: 54px; border-radius: 15px; background: linear-gradient(145deg, var(--primary-mid), var(--primary)); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 8px 18px rgba(6,33,76,.25); }
+    .kpi-val { font-family: var(--font-display); font-size: 1.95rem; font-weight: 800; color: var(--primary); line-height: 1; }
+    .kpi-lab { font-size: .88rem; color: var(--text-muted); font-weight: 600; margin-top: 5px; }
+    .area-tabs { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .area-tab-btn { padding: .7rem 1.3rem; border-radius: 12px; background: #fff; color: var(--primary); border: 2px solid var(--border); font-weight: 700; font-size: .93rem; transition: all .25s var(--ease); }
+    .area-tab-btn:hover { border-color: var(--primary-light); transform: translateY(-2px); }
+    .area-tab-btn.active { background: linear-gradient(145deg, var(--primary-mid), var(--primary)); color: var(--accent); border-color: var(--primary); box-shadow: 0 8px 18px rgba(6,33,76,.25); }
+
+    /* ---------- Tablas ---------- */
+    .table-responsive { background: #fff; border-radius: var(--radius-md); border: 1px solid var(--border); overflow-x: auto; margin-bottom: 2rem; box-shadow: var(--shadow-sm); }
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th { background: linear-gradient(100deg, var(--primary), var(--primary-mid)); color: #fff; padding: 14px 18px; font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; white-space: nowrap; }
+    td { padding: 14px 18px; border-bottom: 1px solid #e8eefa; vertical-align: middle; font-size: .95rem; }
+    tbody tr:nth-child(even) td { background: #fafcff; }
+    tr:hover td { background: var(--primary-soft) !important; }
+    .tag-status { display: inline-flex; align-items: center; gap: 6px; padding: 5px 13px; border-radius: 99px; font-size: .8rem; font-weight: 800; }
+    .st-pendiente { background: var(--accent-soft); color: var(--primary); border: 1px solid var(--accent); }
+    .st-aprobado { background: linear-gradient(145deg, var(--primary-mid), var(--primary)); color: var(--accent); }
+    .st-inactivo { background: #e2e8f0; color: #475569; }
+
+    /* ---------- Modales y avisos ---------- */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(4,20,48,.82); backdrop-filter: blur(8px); z-index: 2500; display: grid; place-items: center; padding: 1rem; animation: fundido .3s; }
+    @keyframes fundido { from { opacity: 0; } }
+    .modal-box { background: #fff; color: var(--text); border-radius: var(--radius-lg); width: min(760px, 98%); max-height: 90vh; overflow-y: auto; padding: 2.2rem; position: relative; border-top: 8px solid var(--accent); box-shadow: var(--shadow-lg); animation: pop .4s var(--ease); }
+    @keyframes pop { from { opacity: 0; transform: translateY(24px) scale(.96); } }
+    .modal-close { position: absolute; top: 1rem; right: 1rem; background: var(--primary-soft); color: var(--primary); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; transition: transform .3s var(--ease), background .2s; }
+    .modal-close:hover { background: var(--accent); transform: rotate(90deg); }
+    .toast-alert { position: fixed; top: 96px; right: 26px; z-index: 3500; background: var(--primary); color: #fff; padding: 16px 24px; border-radius: 14px; border-left: 7px solid var(--accent); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; font-weight: 700; animation: entrada .45s var(--ease); }
+    @keyframes entrada { from { opacity: 0; transform: translateX(60px); } }
+
+    /* ---------- Animaciones de aparición ---------- */
+    @keyframes rise { from { opacity: 0; transform: translateY(30px); } }
+    .sec-title-wrap, .area-card, .lab-card, .news-card, .reg-card, .kpi-card, .labs-group-header, .almanaque-toolbar, .almanaque-wrap { animation: rise .8s var(--ease) backwards; }
+    @supports (animation-timeline: view()) {
+      .sec-title-wrap, .area-card, .lab-card, .news-card, .reg-card, .labs-group-header, .almanaque-toolbar, .almanaque-wrap {
+        animation: rise linear backwards; animation-timeline: view(); animation-range: entry 0% entry 38%;
+      }
+    }
+
+    /* ---------- Adaptable ---------- */
+    @media (max-width: 1180px) {
+      .burger { display: flex; }
+      .menu { display: none; position: absolute; top: 100%; left: 0; right: 0; background: rgba(6,33,76,.98); backdrop-filter: blur(14px); flex-direction: column; align-items: flex-start; padding: 1.6rem 4%; gap: 1.1rem; border-bottom: 3px solid var(--accent); }
+      .menu.open { display: flex; animation: rise .35s var(--ease); }
+    }
+    @media (max-width: 960px) {
+      .hero-grid, .register-boxes, #panelInternoView, .footer-grid { grid-template-columns: 1fr; }
+      .hero { padding: 130px 0 80px; }
+      .admin-sidebar { height: auto; position: static; border-right: 0; border-bottom: 4px solid var(--accent); }
+      .labs-grid, .news-grid { grid-template-columns: 1fr; }
+      .sec, .register-section { padding: 72px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+    @media print { .topbar, .chatbot-fab, .chatbot-window, .admin-sidebar { display: none !important; } }
+
+    /* ---------- Detalle de laboratorios ---------- */
+    .lab-visual { background-color: var(--primary-mid); }
+    .lab-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 1.3rem; list-style: none; }
+    .lab-chips span, .lab-chips li { background: var(--primary-soft); color: var(--primary-mid); font-size: .8rem; font-weight: 700; padding: 5px 12px; border-radius: 99px; border: 1px solid #cfe0ff; }
+    .lab-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+
+  <!-- =====================================================================
+       VISTA PÚBLICA PRINCIPAL
+       ===================================================================== -->
+  <div id="vistaPublica">
+    
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="topbar">
+      <div class="wrap nav">
+        <a href="#inicio" class="brand-logo">
+          <div class="owl-icon"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13 23 L9 8 L25 15z M51 23 L55 8 L39 15z" fill="#0a2f6b"/>
+<path d="M32 9C21 9 13 16 12 27c-1 13 5 25 20 31 15-6 21-18 20-31C51 16 43 9 32 9z" fill="#0a2f6b"/>
+<path d="M32 42c-6 0-10 5-10 11 3 3 6 4 10 5 4-1 7-2 10-5 0-6-4-11-10-11z" fill="#1d6fe0" opacity=".55"/>
+<circle cx="23" cy="28" r="10.5" fill="#fff"/><circle cx="41" cy="28" r="10.5" fill="#fff"/>
+<circle cx="23" cy="28" r="7" fill="#ffc20e"/><circle cx="41" cy="28" r="7" fill="#ffc20e"/>
+<circle cx="23" cy="28" r="3.6" fill="#06214c"/><circle cx="41" cy="28" r="3.6" fill="#06214c"/>
+<circle cx="24.6" cy="26.4" r="1.3" fill="#fff"/><circle cx="42.6" cy="26.4" r="1.3" fill="#fff"/>
+<path d="M28 34h8l-4 8z" fill="#ffc20e"/>
+<path d="M24 48q4 3.5 8 0q4 3.5 8 0M27 53q5 3.5 10 0" stroke="#9cc4ff" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<path d="M32 2 L55 10.5 L32 19 L9 10.5z" fill="#ffc20e" stroke="#06214c" stroke-width="1.6" stroke-linejoin="round"/>
+<path d="M20 14.5v5.5q12 5 24 0v-5.5" fill="#e6a800" stroke="#06214c" stroke-width="1.4" stroke-linejoin="round"/>
+<path d="M52 11.5v10" stroke="#06214c" stroke-width="1.6" stroke-linecap="round"/><circle cx="52" cy="23" r="2" fill="#06214c"/></svg></div>
+          <div>
+            <span>FDS SMART CAMPUS</span>
+            <span style="display:block; font-size:0.65rem; color:var(--accent); letter-spacing:1px; font-weight:700; text-transform:uppercase;">Creado por EYR Digital</span>
+          </div>
+        </a>
+
+        <button class="burger" id="burgerToggle" aria-label="Menú">
+          <i data-lucide="menu"></i>
+        </button>
+
+        <ul class="menu" id="mainMenu">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#areas">Áreas</a></li>
+          <li><a href="#laboratorios">Laboratorios</a></li>
+          <li><a href="#almanaque">Uso de Labs</a></li>
+          <li><a href="#horario-clases">Horario de Clases</a></li>
+          <li><a href="#noticias">Noticias</a></li>
+          <li><a href="#registro">Registro</a></li>
+          <li><button class="btn btn-accent btn-sm" onclick="abrirModalLogin()" id="btnTopLogin"><i data-lucide="log-in"></i> Acceso Portal</button></li>
+        </ul>
+      </div>
+    </header>
+
+    <!-- BARRA DE EDICIÓN EXCLUSIVA DEL ADMINISTRADOR CUANDO NAVEGA LA WEB -->
+    <div id="adminEditBanner" class="admin-float-bar" style="display:none;">
+      <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+        <span><i data-lucide="shield-check" style="vertical-align:middle;"></i> <b>MODO EDICIÓN ADMINISTRADOR ACTIVO:</b> Puedes editar textos, laboratorios y noticias directamente en la página.</span>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-primary btn-xs" onclick="abrirModalEditarHero()"><i data-lucide="edit-3"></i> Editar Portada</button>
+          <button class="btn btn-primary btn-xs" onclick="irAlPanelInterno()"><i data-lucide="layout-dashboard"></i> Volver al Panel Admin</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO CON VIDEO DE LABORATORIOS -->
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="hero-tag"><i data-lucide="award"></i> Plataforma Oficial · EYR Digital</span>
+          <h1 id="heroTitleText">FDS SMART CAMPUS <br><span>CIENCIA E INNOVACIÓN</span></h1>
+          <p id="heroDescText">Ecosistema académico inteligente para la supervisión, reserva en almanaque y aprendizaje práctico en nuestros laboratorios de Enfermería, Farmacia, Gastronomía y Cómputo.</p>
+          <div class="hero-cta">
+            <a href="#almanaque" class="btn btn-accent"><i data-lucide="calendar-days"></i> Ver Almanaque de Horarios</a>
+            <a href="#registro" class="btn btn-outline"><i data-lucide="user-plus"></i> Crear Cuenta Institucional</a>
+          </div>
+          <div style="display:flex; gap:2.4rem; border-top:1px solid rgba(255,255,255,0.2); padding-top:1.4rem; flex-wrap:wrap;">
+            <div>
+              <b style="font-size:2rem; font-family:var(--font-display); color:var(--accent); display:block;">7</b>
+              <span style="font-size:0.92rem; color:#e2ecff;">Laboratorios Especializados</span>
+            </div>
+            <div>
+              <b style="font-size:2rem; font-family:var(--font-display); color:var(--accent); display:block;">4</b>
+              <span style="font-size:0.92rem; color:#e2ecff;">Áreas Independientes</span>
+            </div>
+            <div>
+              <b style="font-size:2rem; font-family:var(--font-display); color:var(--accent); display:block;">EYR Digital</b>
+              <span style="font-size:0.92rem; color:#e2ecff;">Ingeniería & Diseño</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- VIDEO DE LABORATORIOS -->
+        <div id="video-laboratorios" class="video-card">
+          <div class="video-wrapper">
+            <video id="labVideo" controls poster="assets/video/poster.jpg" preload="metadata">
+              <source src="assets/video/laboratorios.mp4" type="video/mp4">
+            </video>
+            <div class="video-overlay-badge">
+              <span class="pulse-dot"></span>
+              <span>Recorrido Virtual FDS SMART CAMPUS</span>
+            </div>
+          </div>
+          <div style="padding:1.2rem 1.4rem; background:var(--primary); display:flex; justify-content:space-between; align-items:center; gap:1rem;">
+            <div>
+              <h4 style="color:#fff; font-size:1.1rem;">Video Institucional de Laboratorios</h4>
+              <p style="font-size:0.86rem; color:#cbd5e1;">Equipamiento clínico, farmacéutico, gastronómico e informático.</p>
+            </div>
+            <button class="btn btn-sm btn-accent" onclick="reproducirVideo()"><i data-lucide="play"></i> Ver Video</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÁREAS ACADÉMICAS SEPARADAS -->
+    <section class="sec sec-alt" id="areas">
+      <div class="wrap">
+        <div class="sec-title-wrap">
+          <span class="sec-kicker">Estructura Académica</span>
+          <h2 class="sec-title">Áreas de Especialización Independientes</h2>
+          <p class="sec-subtitle">Cada área cuenta con ambientes exclusivos, protocolos propios e inventario especializado.</p>
+        </div>
+
+        <div class="areas-grid">
+          <div class="area-card">
+            <div class="area-icon"><i data-lucide="heart-pulse"></i></div>
+            <h3>Área de Enfermería</h3>
+            <p>Simulación clínica integral, atención primaria, urgencias hospitalarias y cuidado materno-infantil.</p>
+            <span class="area-badge">3 Laboratorios de Enfermería</span>
+          </div>
+
+          <div class="area-card">
+            <div class="area-icon"><i data-lucide="flask-conical"></i></div>
+            <h3>Área de Farmacia</h3>
+            <p>Farmacotecnia, preparación de fórmulas magistrales, bioquímica y control de calidad microbiológico.</p>
+            <span class="area-badge">2 Laboratorios de Farmacia</span>
+          </div>
+
+          <div class="area-card">
+            <div class="area-icon"><i data-lucide="utensils"></i></div>
+            <h3>Área de Gastronomía</h3>
+            <p>Cocina académica industrial para alta culinaria, panadería, pastelería e inocuidad alimentaria.</p>
+            <span class="area-badge">1 Laboratorio Gastronómico</span>
+          </div>
+
+          <div class="area-card">
+            <div class="area-icon"><i data-lucide="monitor"></i></div>
+            <h3>Área de Cómputo</h3>
+            <p>Centro de cómputo de última generación para programación, sistemas informáticos y software aplicado.</p>
+            <span class="area-badge">1 Laboratorio de Cómputo</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATÁLOGO DE LOS 7 LABORATORIOS -->
+    <section class="sec" id="laboratorios">
+      <div class="wrap">
+        <div class="sec-title-wrap">
+          <span class="sec-kicker">Nuestros Ambientes</span>
+          <h2 class="sec-title">Laboratorios de FDS SMART CAMPUS</h2>
+          <p class="sec-subtitle">Explora el equipamiento detallado de cada ambiente o solicita su separación horaria.</p>
+        </div>
+
+        <div class="labs-group">
+          <div class="labs-group-header">
+            <h3><i data-lucide="heart-pulse"></i> ÁREA DE ENFERMERÍA</h3>
+            <span class="badge-counter">3 Laboratorios</span>
+          </div>
+          <div class="labs-grid" id="gridEnfermeria"></div>
+        </div>
+
+        <div class="labs-group">
+          <div class="labs-group-header">
+            <h3><i data-lucide="flask-conical"></i> ÁREA DE FARMACIA</h3>
+            <span class="badge-counter">2 Laboratorios</span>
+          </div>
+          <div class="labs-grid" id="gridFarmacia"></div>
+        </div>
+
+        <div class="labs-group">
+          <div class="labs-group-header">
+            <h3><i data-lucide="utensils"></i> ÁREA DE GASTRONOMÍA</h3>
+            <span class="badge-counter">1 Laboratorio</span>
+          </div>
+          <div class="labs-grid" id="gridGastronomia"></div>
+        </div>
+
+        <div class="labs-group">
+          <div class="labs-group-header">
+            <h3><i data-lucide="monitor"></i> ÁREA DE CÓMPUTO</h3>
+            <span class="badge-counter">1 Laboratorio</span>
+          </div>
+          <div class="labs-grid" id="gridComputo"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALMANAQUE ORDENADO DE DISPONIBILIDAD DE LABORATORIOS -->
+    <section class="sec sec-alt" id="almanaque">
+      <div class="wrap">
+        <div class="sec-title-wrap">
+          <span class="sec-kicker">Disponibilidad de 9:00 a 1:00 p. m.</span>
+          <h2 class="sec-title">Almanaque de Uso de Laboratorios</h2>
+          <p class="sec-subtitle">Horario oficial de <b>09:00 a 13:00 (1:00 p. m.)</b> con receso institucional de 20 minutos de <b>11:00 a 11:20</b>.</p>
+        </div>
+
+        <div class="almanaque-toolbar">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <label style="font-weight:800; color:var(--accent);">Seleccionar Laboratorio:</label>
+            <select id="selectLabAlmanaquePublico" class="form-control" style="width:auto; min-width:260px;" onchange="renderizarAlmanaque('publico')"></select>
+          </div>
+          <div style="display:flex; gap:14px; align-items:center; font-size:0.88rem; flex-wrap:wrap;">
+            <span><b style="display:inline-block; width:12px; height:12px; background:var(--primary-soft); border:1px solid var(--primary-light); border-radius:3px;"></b> Disponible</span>
+            <span><b style="display:inline-block; width:12px; height:12px; background:var(--accent); border-radius:3px;"></b> Receso / Pendiente</span>
+            <span><b style="display:inline-block; width:12px; height:12px; background:var(--primary); border:1px solid var(--accent); border-radius:3px;"></b> Reservado</span>
+          </div>
+        </div>
+
+        <div class="almanaque-wrap" id="contenedorAlmanaquePublico"></div>
+      </div>
+    </section>
+
+    <!-- APARTADO DE HORARIO DE CLASES DE LOS ESTUDIANTES (PÚBLICO) -->
+    <section class="sec" id="horario-clases">
+      <div class="wrap">
+        <div class="sec-title-wrap">
+          <span class="sec-kicker">Calendario Académico Estudiantil</span>
+          <h2 class="sec-title">Horario de Clases de los Estudiantes</h2>
+          <p class="sec-subtitle">Consulta el horario de clases teóricas y prácticas por cada área académica (de 09:00 a 13:00 con receso de 11:00 a 11:20).</p>
+        </div>
+
+        <div class="almanaque-toolbar">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <label style="font-weight:800; color:var(--accent);">Filtrar por Área de Estudio:</label>
+            <select id="selectAreaHorarioPublico" class="form-control" style="width:auto; min-width:240px;" onchange="renderizarHorarioClases('publico')">
+              <option value="Enfermería">Área de Enfermería</option>
+              <option value="Farmacia">Área de Farmacia</option>
+              <option value="Gastronomía">Área de Gastronomía</option>
+              <option value="Cómputo">Área de Cómputo</option>
+            </select>
+          </div>
+          <span style="font-size:0.88rem; color:var(--accent); font-weight:700;"><i data-lucide="clock" style="width:15px; vertical-align:middle;"></i> Receso Oficial: 11:00 - 11:20 (20 min)</span>
+        </div>
+
+        <div class="almanaque-wrap" id="contenedorHorarioClasesPublico"></div>
+      </div>
+    </section>
+
+    <!-- APARTADO DE NOTICIAS INSTITUCIONALES -->
+    <section class="sec sec-alt" id="noticias">
+      <div class="wrap">
+        <div class="sec-title-wrap">
+          <span class="sec-kicker">Actualidad Académica</span>
+          <h2 class="sec-title">Noticias y Comunicados FDS SMART CAMPUS</h2>
+          <p class="sec-subtitle">Novedades sobre equipamiento, horarios de prácticas y eventos científicos del campus.</p>
+          <div id="btnAdminNuevaNoticiaPublico" style="margin-top:1rem; display:none;">
+            <button class="btn btn-primary btn-sm" onclick="abrirModalNoticia()"><i data-lucide="plus-circle"></i> Publicar Nueva Noticia (Solo Admin)</button>
+          </div>
+        </div>
+
+        <div class="news-grid" id="gridNoticiasPublico"></div>
+      </div>
+    </section>
+
+    <!-- REGISTRO DE CUENTAS BAJO EL DOMINIO @fdssmartcampus.edu.pe -->
+    <section class="register-section" id="registro">
+      <div class="wrap">
+        <div class="sec-title-wrap">
+          <span class="sec-kicker" style="background:var(--accent); color:var(--primary);">Credenciales Institucionales</span>
+          <h2 class="sec-title" style="color:#fff;">Creación de Cuenta en FDS SMART CAMPUS</h2>
+          <p class="sec-subtitle" style="color:#e2ecff;">No necesitas correo externo: crea tu propio usuario bajo el dominio <b>@fdssmartcampus.edu.pe</b> y tu contraseña. Tu solicitud llegará de inmediato al panel del Administrador para su aprobación.</p>
+        </div>
+
+        <div class="register-boxes">
+          <!-- REGISTRO DOCENTE -->
+          <div class="reg-card">
+            <div class="reg-card-header">
+              <div class="reg-card-icon"><i data-lucide="briefcase"></i></div>
+              <div>
+                <h3 style="color:#fff; font-size:1.5rem;">Registro de Docentes</h3>
+                <span style="font-size:0.88rem; color:var(--accent);">Habilita separación de laboratorios y requerimientos</span>
+              </div>
+            </div>
+
+            <form onsubmit="procesarRegistroCuenta(event, 'docente')">
+              <div class="form-group">
+                <label>Nombres y Apellidos del Docente</label>
+                <input type="text" name="nombre" class="form-control" placeholder="Ej. Mg. Ricardo Palma" required>
+              </div>
+              <div class="form-group">
+                <label>Crear Usuario Institucional</label>
+                <div class="email-domain-group">
+                  <input type="text" name="usuario" placeholder="rpalma" required pattern="[a-zA-Z0-9._-]+" title="Solo letras, números, puntos o guiones">
+                  <span class="email-domain-tag">@fdssmartcampus.edu.pe</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Crear Contraseña de Acceso</label>
+                <input type="password" name="pass" class="form-control" placeholder="Mínimo 4 caracteres" minlength="4" required>
+              </div>
+              <div class="form-group">
+                <label>Área Académica Asignada</label>
+                <select name="area" class="form-control" required>
+                  <option value="Área de Enfermería">Área de Enfermería</option>
+                  <option value="Área de Farmacia">Área de Farmacia</option>
+                  <option value="Área de Gastronomía">Área de Gastronomía</option>
+                  <option value="Área de Cómputo">Área de Cómputo</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>DNI o Código Docente</label>
+                <input type="text" name="documento" class="form-control" placeholder="Ej. DNI 42109832" required>
+              </div>
+              <button type="submit" class="btn btn-accent" style="width:100%; margin-top:0.6rem;">
+                <i data-lucide="send"></i> Solicitar Aprobación de Cuenta Docente
+              </button>
+            </form>
+          </div>
+
+          <!-- REGISTRO ESTUDIANTE -->
+          <div class="reg-card">
+            <div class="reg-card-header">
+              <div class="reg-card-icon"><i data-lucide="graduation-cap"></i></div>
+              <div>
+                <h3 style="color:#fff; font-size:1.5rem;">Registro de Estudiantes</h3>
+                <span style="font-size:0.88rem; color:var(--accent);">Acceso a horarios de prácticas, guías y noticias</span>
+              </div>
+            </div>
+
+            <form onsubmit="procesarRegistroCuenta(event, 'estudiante')">
+              <div class="form-group">
+                <label>Nombres y Apellidos del Estudiante</label>
+                <input type="text" name="nombre" class="form-control" placeholder="Ej. Lucía Fernández" required>
+              </div>
+              <div class="form-group">
+                <label>Crear Usuario Institucional</label>
+                <div class="email-domain-group">
+                  <input type="text" name="usuario" placeholder="lfernandez" required pattern="[a-zA-Z0-9._-]+" title="Solo letras, números, puntos o guiones">
+                  <span class="email-domain-tag">@fdssmartcampus.edu.pe</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Crear Contraseña de Acceso</label>
+                <input type="password" name="pass" class="form-control" placeholder="Mínimo 4 caracteres" minlength="4" required>
+              </div>
+              <div class="form-group">
+                <label>Área / Carrera Profesional</label>
+                <select name="area" class="form-control" required>
+                  <option value="Área de Enfermería">Área de Enfermería</option>
+                  <option value="Área de Farmacia">Área de Farmacia</option>
+                  <option value="Área de Gastronomía">Área de Gastronomía</option>
+                  <option value="Área de Cómputo">Área de Cómputo</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Código de Matrícula o DNI</label>
+                <input type="text" name="documento" class="form-control" placeholder="Ej. 2026-I-104" required>
+              </div>
+              <button type="submit" class="btn btn-white" style="width:100%; margin-top:0.6rem;">
+                <i data-lucide="send"></i> Solicitar Aprobación de Cuenta Estudiante
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PIE DE PÁGINA CON CRÉDITO EYR DIGITAL -->
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom:1rem;">
+            <div class="owl-icon" style="width:40px; height:40px;"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13 23 L9 8 L25 15z M51 23 L55 8 L39 15z" fill="#0a2f6b"/>
+<path d="M32 9C21 9 13 16 12 27c-1 13 5 25 20 31 15-6 21-18 20-31C51 16 43 9 32 9z" fill="#0a2f6b"/>
+<path d="M32 42c-6 0-10 5-10 11 3 3 6 4 10 5 4-1 7-2 10-5 0-6-4-11-10-11z" fill="#1d6fe0" opacity=".55"/>
+<circle cx="23" cy="28" r="10.5" fill="#fff"/><circle cx="41" cy="28" r="10.5" fill="#fff"/>
+<circle cx="23" cy="28" r="7" fill="#ffc20e"/><circle cx="41" cy="28" r="7" fill="#ffc20e"/>
+<circle cx="23" cy="28" r="3.6" fill="#06214c"/><circle cx="41" cy="28" r="3.6" fill="#06214c"/>
+<circle cx="24.6" cy="26.4" r="1.3" fill="#fff"/><circle cx="42.6" cy="26.4" r="1.3" fill="#fff"/>
+<path d="M28 34h8l-4 8z" fill="#ffc20e"/>
+<path d="M24 48q4 3.5 8 0q4 3.5 8 0M27 53q5 3.5 10 0" stroke="#9cc4ff" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<path d="M32 2 L55 10.5 L32 19 L9 10.5z" fill="#ffc20e" stroke="#06214c" stroke-width="1.6" stroke-linejoin="round"/>
+<path d="M20 14.5v5.5q12 5 24 0v-5.5" fill="#e6a800" stroke="#06214c" stroke-width="1.4" stroke-linejoin="round"/>
+<path d="M52 11.5v10" stroke="#06214c" stroke-width="1.6" stroke-linecap="round"/><circle cx="52" cy="23" r="2" fill="#06214c"/></svg></div>
+            <span>FDS SMART CAMPUS</span>
+          </div>
+          <p style="margin-bottom:1.2rem;">Plataforma integral de supervisión, planificación en almanaque y control de laboratorios académicos.</p>
+          <span class="eyr-badge"><i data-lucide="code-2"></i> Creado por EYR Digital</span>
+        </div>
+        <div class="footer-col">
+          <h4>Secciones del Campus</h4>
+          <ul>
+            <li><a href="#inicio">Inicio y Video</a></li>
+            <li><a href="#areas">Áreas Académicas</a></li>
+            <li><a href="#laboratorios">7 Laboratorios</a></li>
+            <li><a href="#almanaque">Almanaque de Horarios</a></li>
+            <li><a href="#noticias">Noticias Institucionales</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Portal por Roles</h4>
+          <p style="font-size:0.9rem; margin-bottom:1rem;">Funciones diferenciadas para Administrador, Docente y Estudiante.</p>
+          <button class="btn btn-accent btn-sm" onclick="abrirModalLogin()"><i data-lucide="lock"></i> Ingresar al Sistema</button>
+        </div>
+      </div>
+      <div class="wrap" style="text-align:center; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,0.15); font-size:0.9rem;">
+        © 2026 <b>FDS SMART CAMPUS</b> — Todos los derechos reservados · <b>Creado por EYR Digital</b>
+      </div>
+    </footer>
+  </div>
+
+  <!-- =====================================================================
+       PANEL INTERNO ADAPTADO POR ROL (ADMINISTRADOR / DOCENTE / ESTUDIANTE)
+       ===================================================================== -->
+  <div id="panelInternoView" style="display:none;">
+    
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div class="brand-logo" style="margin-bottom:0.8rem;">
+        <div class="owl-icon" style="width:40px; height:40px;"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13 23 L9 8 L25 15z M51 23 L55 8 L39 15z" fill="#0a2f6b"/>
+<path d="M32 9C21 9 13 16 12 27c-1 13 5 25 20 31 15-6 21-18 20-31C51 16 43 9 32 9z" fill="#0a2f6b"/>
+<path d="M32 42c-6 0-10 5-10 11 3 3 6 4 10 5 4-1 7-2 10-5 0-6-4-11-10-11z" fill="#1d6fe0" opacity=".55"/>
+<circle cx="23" cy="28" r="10.5" fill="#fff"/><circle cx="41" cy="28" r="10.5" fill="#fff"/>
+<circle cx="23" cy="28" r="7" fill="#ffc20e"/><circle cx="41" cy="28" r="7" fill="#ffc20e"/>
+<circle cx="23" cy="28" r="3.6" fill="#06214c"/><circle cx="41" cy="28" r="3.6" fill="#06214c"/>
+<circle cx="24.6" cy="26.4" r="1.3" fill="#fff"/><circle cx="42.6" cy="26.4" r="1.3" fill="#fff"/>
+<path d="M28 34h8l-4 8z" fill="#ffc20e"/>
+<path d="M24 48q4 3.5 8 0q4 3.5 8 0M27 53q5 3.5 10 0" stroke="#9cc4ff" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<path d="M32 2 L55 10.5 L32 19 L9 10.5z" fill="#ffc20e" stroke="#06214c" stroke-width="1.6" stroke-linejoin="round"/>
+<path d="M20 14.5v5.5q12 5 24 0v-5.5" fill="#e6a800" stroke="#06214c" stroke-width="1.4" stroke-linejoin="round"/>
+<path d="M52 11.5v10" stroke="#06214c" stroke-width="1.6" stroke-linecap="round"/><circle cx="52" cy="23" r="2" fill="#06214c"/></svg></div>
+        <div>
+          <span style="font-size:1.1rem; display:block;">FDS SMART CAMPUS</span>
+          <small style="color:var(--accent); font-size:0.7rem; font-weight:700;">Creado por EYR Digital</small>
+        </div>
+      </div>
+
+      <!-- Menú dinámico según el rol -->
+      <ul class="admin-nav" id="sidebarMenuLinks"></ul>
+
+      <div style="margin-top:auto; border-top:1px solid rgba(255,255,255,0.18); padding-top:1rem;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:1rem;">
+          <div id="sideAvatar" style="width:40px; height:40px; border-radius:50%; background:var(--accent); color:var(--primary); font-weight:800; display:grid; place-items:center;">A</div>
+          <div style="overflow:hidden;">
+            <b id="sideUserName" style="color:#fff; display:block; font-size:0.92rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Usuario</b>
+            <span id="sideUserRole" style="color:var(--accent); font-size:0.76rem; font-weight:800; text-transform:uppercase;">ROL</span>
+          </div>
+        </div>
+        <button class="btn btn-outline btn-sm" style="width:100%; margin-bottom:6px;" onclick="volverSitioPublico()">
+          <i data-lucide="globe"></i> Ver Página Web
+        </button>
+        <button class="btn btn-accent btn-sm" style="width:100%;" onclick="cerrarSesion()">
+          <i data-lucide="log-out"></i> Cerrar Sesión
+        </button>
+      </div>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL DEL PANEL -->
+    <main class="admin-content">
+      <div class="admin-topbar">
+        <div>
+          <span id="panelRoleBadge" class="tag-status st-aprobado" style="margin-bottom:4px;">MODO ADMINISTRADOR</span>
+          <h2 id="panelHeaderTitle" style="font-size:1.55rem;">Gestión del Campus</h2>
+        </div>
+        <div style="display:flex; gap:10px; align-items:center;" id="topAdminActions"></div>
+      </div>
+
+      <!-- PESTAÑA 1: APROBACIÓN Y GESTIÓN DE CUENTAS (SOLO ADMIN) -->
+      <div id="tabCuentas" class="panel-tab" style="display:none;">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon"><i data-lucide="clock"></i></div>
+            <div><div class="kpi-val" id="kpiCuentasPend">0</div><div class="kpi-lab">Solicitudes por Aprobar</div></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon"><i data-lucide="user-check"></i></div>
+            <div><div class="kpi-val" id="kpiCuentasActivas">0</div><div class="kpi-lab">Cuentas Activas</div></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon"><i data-lucide="user-x"></i></div>
+            <div><div class="kpi-val" id="kpiCuentasInactivas">0</div><div class="kpi-lab">Cuentas Desactivadas / Rechazadas</div></div>
+          </div>
+        </div>
+
+        <div style="background:#fff; padding:1rem 1.4rem; border-radius:var(--radius-sm); border:2px solid var(--border); margin-bottom:1rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <p style="font-size:0.94rem;"><b>Control de Seguridad:</b> Si aprobaste o agregaste un usuario por error, puedes <b>Desactivar</b> su cuenta temporalmente, <b>Editar</b> sus datos o <b>Eliminarla</b> definitivamente.</p>
+          <button class="btn btn-primary btn-sm" onclick="abrirModalCrearCuentaManual()"><i data-lucide="user-plus"></i> Agregar Usuario Manualmente</button>
+        </div>
+
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Rol</th>
+                <th>Nombre Completo</th>
+                <th>Usuario Institucional</th>
+                <th>Área / Carrera</th>
+                <th>Documento</th>
+                <th>Estado de Cuenta</th>
+                <th style="text-align:right;">Acciones del Administrador</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyCuentas"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PESTAÑA 2: PANEL DE SEPARACIÓN DE LABORATORIOS (APROBAR / RECHAZAR) -->
+      <div id="tabSeparaciones" class="panel-tab" style="display:none;">
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon"><i data-lucide="calendar-clock"></i></div>
+            <div><div class="kpi-val" id="kpiSepPend">0</div><div class="kpi-lab">Separaciones Pendientes</div></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon"><i data-lucide="check-circle-2"></i></div>
+            <div><div class="kpi-val" id="kpiSepAprob">0</div><div class="kpi-lab">Separaciones Aprobadas</div></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon"><i data-lucide="x-circle"></i></div>
+            <div><div class="kpi-val" id="kpiSepRech">0</div><div class="kpi-lab">Rechazadas / Canceladas</div></div>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:10px;">
+          <h3 style="font-size:1.25rem;">Solicitudes para Separar Laboratorios</h3>
+          <button class="btn btn-accent btn-sm" onclick="abrirModalSolicitarSeparacion()"><i data-lucide="calendar-plus"></i> Nueva Solicitud de Separación</button>
+        </div>
+
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Laboratorio</th>
+                <th>Día y Bloque Horario</th>
+                <th>Docente / Solicitante</th>
+                <th>Curso / Práctica</th>
+                <th>Estado</th>
+                <th style="text-align:right;">Gestión</th>
+              </tr>
+            </thead>
+            <tbody id="tbodySeparaciones"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PESTAÑA 3: ALMANAQUE DE HORARIOS ORDENADO -->
+      <div id="tabAlmanaque" class="panel-tab" style="display:none;">
+        <div class="almanaque-toolbar">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <label style="font-weight:800; color:var(--accent);">Laboratorio:</label>
+            <select id="selectLabAlmanaquePanel" class="form-control" style="width:auto; min-width:250px;" onchange="renderizarAlmanaque('panel')"></select>
+          </div>
+          <button class="btn btn-accent btn-sm" id="btnNuevaSepAlmanaque" onclick="abrirModalSolicitarSeparacion()">
+            <i data-lucide="plus"></i> Separar Horario de Laboratorio
+          </button>
+        </div>
+        <div class="almanaque-wrap" id="contenedorAlmanaquePanel"></div>
+      </div>
+
+      <!-- PESTAÑA NUEVA: HORARIO DE CLASES DE LOS ESTUDIANTES -->
+      <div id="tabHorarioClases" class="panel-tab" style="display:none;">
+        <div class="almanaque-toolbar">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <label style="font-weight:800; color:var(--accent);">Área Académica:</label>
+            <select id="selectAreaHorarioPanel" class="form-control" style="width:auto; min-width:240px;" onchange="renderizarHorarioClases('panel')">
+              <option value="Enfermería">Área de Enfermería</option>
+              <option value="Farmacia">Área de Farmacia</option>
+              <option value="Gastronomía">Área de Gastronomía</option>
+              <option value="Cómputo">Área de Cómputo</option>
+            </select>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <span style="font-size:0.86rem; color:#fff;">Jornada: 09:00 - 13:00 (Receso 11:00 - 11:20)</span>
+            <button class="btn btn-accent btn-sm admin-only-btn" onclick="abrirModalEditarClaseEstudiante()">
+              <i data-lucide="edit-3"></i> Asignar / Editar Clase (Admin)
+            </button>
+          </div>
+        </div>
+        <div class="almanaque-wrap" id="contenedorHorarioClasesPanel"></div>
+      </div>
+
+      <!-- PESTAÑA 4: INVENTARIO Y REQUERIMIENTOS SEPARADOS POR ÁREAS -->
+      <div id="tabInventario" class="panel-tab" style="display:none;">
+        <div class="area-tabs" id="areaTabsContainer">
+          <button class="area-tab-btn active" onclick="seleccionarAreaInventario('Enfermería', this)">Área de Enfermería (3 Labs)</button>
+          <button class="area-tab-btn" onclick="seleccionarAreaInventario('Farmacia', this)">Área de Farmacia (2 Labs)</button>
+          <button class="area-tab-btn" onclick="seleccionarAreaInventario('Gastronomía', this)">Área de Gastronomía (1 Lab)</button>
+          <button class="area-tab-btn" onclick="seleccionarAreaInventario('Cómputo', this)">Área de Cómputo (1 Lab)</button>
+        </div>
+
+        <!-- Sub-bloque Inventario del Área -->
+        <div id="bloqueTablaInventario">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem; flex-wrap:wrap; gap:10px;">
+            <h3 id="tituloInvArea" style="font-size:1.3rem;">Inventario — Área de Enfermería</h3>
+            <button class="btn btn-primary btn-sm admin-only-btn" onclick="abrirModalItemInventario()">
+              <i data-lucide="plus"></i> Añadir Artículo al Área
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table>
+              <thead>
+                <tr>
+                  <th>Laboratorio</th>
+                  <th>Equipo / Material</th>
+                  <th>Categoría</th>
+                  <th>Cantidad Actual</th>
+                  <th>Stock Mínimo</th>
+                  <th>Estado</th>
+                  <th style="text-align:right;">Acciones (Admin)</th>
+                </tr>
+              </thead>
+              <tbody id="tbodyInventarioArea"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Sub-bloque Requerimientos del Área (Visible para Admin, Docente y Estudiante) -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin: 1.5rem 0 0.8rem; flex-wrap:wrap; gap:10px;">
+          <h3 id="tituloReqArea" style="font-size:1.3rem;">Requerimientos y Solicitudes — Área de Enfermería</h3>
+          <button class="btn btn-accent btn-sm" id="btnNuevoReqArea" onclick="abrirModalRequerimiento()">
+            <i data-lucide="file-plus"></i> Nuevo Requerimiento
+          </button>
+        </div>
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>Código</th>
+                <th>Laboratorio</th>
+                <th>Solicitante</th>
+                <th>Detalle del Requerimiento</th>
+                <th>Prioridad</th>
+                <th>Estado</th>
+                <th style="text-align:right;">Opciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyRequerimientosArea"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- PESTAÑA 5: NOTICIAS Y EDICIÓN DE LA PLATAFORMA -->
+      <div id="tabNoticiasWeb" class="panel-tab" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem; flex-wrap:wrap; gap:10px;">
+          <div>
+            <h3 style="font-size:1.35rem;">Publicaciones y Noticias del Campus</h3>
+            <p style="font-size:0.92rem; color:var(--text-muted);">Solo el Administrador puede crear, editar o eliminar comunicados y modificar los laboratorios.</p>
+          </div>
+          <div style="display:flex; gap:10px;" class="admin-only-btn">
+            <button class="btn btn-white btn-sm" onclick="abrirModalEditarHero()"><i data-lucide="layout"></i> Editar Textos Portada</button>
+            <button class="btn btn-accent btn-sm" onclick="abrirModalNoticia()"><i data-lucide="plus"></i> Nueva Noticia</button>
+          </div>
+        </div>
+        <div class="news-grid" id="gridNoticiasPanel"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- =====================================================================
+       VENTANAS MODALES (SIN USAR ALERT NI CONFIRM DEL NAVEGADOR)
+       ===================================================================== -->
+
+  <!-- MODAL LOGIN CON SELECTOR DE ROLES DEMO Y ACCESO REAL -->
+  <div class="modal-backdrop" id="modalLogin" style="display:none;">
+    <div class="modal-box" style="max-width:480px;">
+      <button class="modal-close" onclick="cerrarModal('modalLogin')"><i data-lucide="x"></i></button>
+      <div style="text-align:center; margin-bottom:1.2rem;">
+        <div class="owl-icon" style="margin:0 auto 10px; width:52px; height:52px;"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M13 23 L9 8 L25 15z M51 23 L55 8 L39 15z" fill="#0a2f6b"/>
+<path d="M32 9C21 9 13 16 12 27c-1 13 5 25 20 31 15-6 21-18 20-31C51 16 43 9 32 9z" fill="#0a2f6b"/>
+<path d="M32 42c-6 0-10 5-10 11 3 3 6 4 10 5 4-1 7-2 10-5 0-6-4-11-10-11z" fill="#1d6fe0" opacity=".55"/>
+<circle cx="23" cy="28" r="10.5" fill="#fff"/><circle cx="41" cy="28" r="10.5" fill="#fff"/>
+<circle cx="23" cy="28" r="7" fill="#ffc20e"/><circle cx="41" cy="28" r="7" fill="#ffc20e"/>
+<circle cx="23" cy="28" r="3.6" fill="#06214c"/><circle cx="41" cy="28" r="3.6" fill="#06214c"/>
+<circle cx="24.6" cy="26.4" r="1.3" fill="#fff"/><circle cx="42.6" cy="26.4" r="1.3" fill="#fff"/>
+<path d="M28 34h8l-4 8z" fill="#ffc20e"/>
+<path d="M24 48q4 3.5 8 0q4 3.5 8 0M27 53q5 3.5 10 0" stroke="#9cc4ff" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<path d="M32 2 L55 10.5 L32 19 L9 10.5z" fill="#ffc20e" stroke="#06214c" stroke-width="1.6" stroke-linejoin="round"/>
+<path d="M20 14.5v5.5q12 5 24 0v-5.5" fill="#e6a800" stroke="#06214c" stroke-width="1.4" stroke-linejoin="round"/>
+<path d="M52 11.5v10" stroke="#06214c" stroke-width="1.6" stroke-linecap="round"/><circle cx="52" cy="23" r="2" fill="#06214c"/></svg></div>
+        <h3 style="font-size:1.5rem;">Ingresar a FDS SMART CAMPUS</h3>
+        <p style="font-size:0.88rem; color:var(--text-muted);">Creado por EYR Digital</p>
+      </div>
+
+      <form onsubmit="iniciarSesionFormulario(event)">
+        <div class="form-group">
+          <label style="color:var(--primary);">Usuario o Correo Institucional</label>
+          <input type="text" id="loginEmail" class="form-control" placeholder="usuario@fdssmartcampus.edu.pe" value="admin@fdssmartcampus.edu.pe" required>
+        </div>
+        <div class="form-group">
+          <label style="color:var(--primary);">Contraseña</label>
+          <input type="password" id="loginPass" class="form-control" value="admin123" required>
+        </div>
+        <div id="loginErrorBox" style="display:none; background:var(--accent-soft); color:var(--primary); border:1.5px solid var(--accent); padding:10px; border-radius:8px; font-size:0.88rem; font-weight:700; margin-bottom:1rem;"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%; margin-bottom:1.2rem;"><i data-lucide="log-in"></i> Iniciar Sesión</button>
+      </form>
+
+      <div style="background:var(--primary-soft); padding:14px; border-radius:12px; border:1px solid var(--border);">
+        <span style="font-size:0.82rem; font-weight:800; color:var(--primary); display:block; margin-bottom:8px;">ACCESO RÁPIDO PARA PROBAR CADA ROL:</span>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px;">
+          <button type="button" class="btn btn-accent btn-xs" onclick="accesoDirectoRol('administrador')"><i data-lucide="shield"></i> Admin</button>
+          <button type="button" class="btn btn-primary btn-xs" onclick="accesoDirectoRol('docente')"><i data-lucide="briefcase"></i> Docente</button>
+          <button type="button" class="btn btn-white btn-xs" onclick="accesoDirectoRol('estudiante')"><i data-lucide="graduation-cap"></i> Estudiante</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL GENÉRICO DINÁMICO PARA EDICIÓN / CREACIÓN / CONFIRMACIÓN -->
+  <div class="modal-backdrop" id="modalDinamico" style="display:none;">
+    <div class="modal-box" id="modalDinamicoContent"></div>
+  </div>
+
+  <!-- TOAST NOTIFICACIÓN -->
+  <div id="toastNotification" class="toast-alert" style="display:none;">
+    <i data-lucide="bell" style="color:var(--accent);"></i>
+    <span id="toastMsg">Notificación</span>
+  </div>
+
+  <!-- CHATBOT INTELIGENTE CONECTADO A WHATSAPP 906041978 -->
+  <button class="chatbot-fab" onclick="toggleChatbot()">
+    <i data-lucide="message-circle"></i>
+    <span>Asistente FDS · 906041978</span>
+  </button>
+
+  <div class="chatbot-window" id="chatbotWindow">
+    <div class="chatbot-header">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <div class="owl-icon" style="width:34px; height:34px; border-radius:9px;">
+          <i data-lucide="bot" style="width:18px; height:18px;"></i>
+        </div>
+        <div>
+          <b style="font-size:0.95rem; display:block;">Chatbot FDS SMART CAMPUS</b>
+          <small style="color:var(--accent); font-size:0.74rem;">En línea · Directo al 906 041 978</small>
+        </div>
+      </div>
+      <button onclick="toggleChatbot()" style="background:none; color:#fff;"><i data-lucide="x"></i></button>
+    </div>
+
+    <div class="chatbot-messages" id="chatMessages">
+      <div class="chat-bubble chat-bot">
+        ¡Hola! Soy el asistente virtual de <b>FDS SMART CAMPUS</b> (EYR Digital). ¿En qué puedo ayudarte hoy?
+      </div>
+      <div class="chat-bubble chat-bot">
+        Puedes escribir tu consulta aquí o enviarla directamente al WhatsApp oficial del Administrador (<b>906 041 978</b>).
+      </div>
+    </div>
+
+    <div class="chat-quick-btns">
+      <button class="btn btn-white btn-xs" onclick="respuestaRapidaChat('Horarios de Laboratorios')">Horarios 9:00 - 1:00</button>
+      <button class="btn btn-white btn-xs" onclick="respuestaRapidaChat('Aprobar mi cuenta')">Aprobar cuenta</button>
+      <button class="btn btn-accent btn-xs" onclick="enviarDirectoWhatsApp('Hola, me comunico desde FDS SMART CAMPUS para realizar una consulta.')">
+        <i data-lucide="phone-forwarded" style="width:13px;"></i> Ir a WhatsApp 906041978
+      </button>
+    </div>
+
+    <form class="Chatbot-footer" onsubmit="enviarMensajeChatUsuario(event)">
+      <input type="text" id="chatInputTxt" class="form-control" placeholder="Escribe tu mensaje aquí..." style="padding:0.55rem 0.75rem; font-size:0.88rem;" required>
+      <button type="submit" class="btn btn-primary btn-sm"><i data-lucide="send"></i></button>
+    </form>
+  </div>
+
+  <!-- =====================================================================
+       JAVASCRIPT INTEGRAL: DATOS, PERMISOS POR ROL, ALMANAQUE Y EDICIÓN
+       ===================================================================== -->
+  <script>
+    /* 1. ESTADO DE SESIÓN Y ROLES */
+    let USUARIO_ACTUAL = null; // { id, nombre, email, rol: 'administrador'|'docente'|'estudiante', area }
+    let AREA_INVENTARIO_ACTUAL = "Enfermería";
+    const TELEFONO_ADMIN_WHATSAPP = "51906041978";
+
+    const DIAS_SEMANA = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    
+    /* HORARIO DE 09:00 A 13:00 (1:00 PM) CON RECESO DE 20 MINUTOS DE 11:00 A 11:20 */
+    const BLOQUES_HORARIOS = [
+      "09:00 - 10:00",
+      "10:00 - 11:00",
+      "11:00 - 11:20 (RECESO)",
+      "11:20 - 12:10",
+      "12:10 - 13:00"
+    ];
+
+    /* 2. BASE DE DATOS DE LOS 7 LABORATORIOS (SOLO LABORATORIO 1, 2 O 3) */
+    let LABORATORIOS = [
+      {
+        id: "enf-01",
+        nombre: "Laboratorio 1",
+        area: "Enfermería",
+        img: "https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=800&q=80",
+        desc: "Práctica de procedimientos básicos, control de signos vitales y atención asistencial con camillas hospitalarias.",
+        equipos: ["Camas hospitalarias articuladas", "Maniquíes de simulación básica", "Tensiómetros y estetoscopios", "Carro de curaciones"],
+        capacidad: "25 estudiantes"
+      },
+      {
+        id: "enf-02",
+        nombre: "Laboratorio 2",
+        area: "Enfermería",
+        img: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80",
+        desc: "Ambiente de simulación avanzada para urgencias, reanimación cardiopulmonar (RCP) y cuidados.",
+        equipos: ["Simulador RCP con telemetría", "Monitor multiparámetro", "Desfibrilador de instrucción", "Bombas de infusión"],
+        capacidad: "20 estudiantes"
+      },
+      {
+        id: "enf-03",
+        nombre: "Laboratorio 3",
+        area: "Enfermería",
+        img: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80",
+        desc: "Ambiente equipado con unidades de simulación integral, incubadoras y estaciones de bioseguridad.",
+        equipos: ["Incubadora de práctica", "Simulador de procedimientos", "Balanza y tallímetro", "Estación de bioseguridad"],
+        capacidad: "20 estudiantes"
+      },
+      {
+        id: "far-01",
+        nombre: "Laboratorio 1",
+        area: "Farmacia",
+        img: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80",
+        desc: "Elaboración de preparados magistrales, pesaje analítico y acondicionamiento de productos.",
+        equipos: ["Balanzas analíticas digitales", "Baño maría termostatado", "Estufa de esterilización", "Morteros y cristalería graduada"],
+        capacidad: "24 estudiantes"
+      },
+      {
+        id: "far-02",
+        nombre: "Laboratorio 2",
+        area: "Farmacia",
+        img: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+        desc: "Reconocimiento de principios activos, análisis cualitativo, control microbiológico y medición de pH.",
+        equipos: ["Microscopios binoculares LED", "Espectrofotómetro UV-Vis", "pH-metros de mesa", "Centrífuga de 12 tubos"],
+        capacidad: "22 estudiantes"
+      },
+      {
+        id: "gas-01",
+        nombre: "Laboratorio 1",
+        area: "Gastronomía",
+        img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80",
+        desc: "Cocina académica profesional equipada con estaciones en acero inoxidable, hornos combinados y pastelería.",
+        equipos: ["Cocinas industriales de 6 hornillas", "Horno convector programable", "Mesas refrigeradas de trabajo", "Batería culinaria profesional"],
+        capacidad: "26 estudiantes"
+      },
+      {
+        id: "com-01",
+        nombre: "Laboratorio 1",
+        area: "Cómputo",
+        img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80",
+        desc: "Centro de tecnología e informática con estaciones de alto rendimiento para sistemas, redes y software.",
+        equipos: ["30 Estaciones Core i7 / 32GB RAM", "Red Gigabit con fibra óptica", "Pizarra interactiva Smart 85\"", "Servidor académico local"],
+        capacidad: "30 estudiantes"
+      }
+    ];
+
+    /* 3. CUENTAS Y SOLICITUDES DE REGISTRO (@fdssmartcampus.edu.pe) */
+    let CUENTAS = [
+      { id: "USR-01", fecha: "2026-10-28", rol: "administrador", nombre: "Administrador General EYR", email: "admin@fdssmartcampus.edu.pe", pass: "admin123", area: "Dirección General", documento: "ADMIN-001", estado: "Aprobado" },
+      { id: "USR-02", fecha: "2026-10-30", rol: "docente", nombre: "Dra. Carmen Montes", email: "cmontes@fdssmartcampus.edu.pe", pass: "docente123", area: "Área de Enfermería", documento: "DNI 44321908", estado: "Aprobado" },
+      { id: "USR-03", fecha: "2026-10-31", rol: "estudiante", nombre: "Jorge Luis Huamán", email: "jhuaman@fdssmartcampus.edu.pe", pass: "alumno123", area: "Área de Cómputo", documento: "Mat. 2026-089", estado: "Aprobado" },
+      { id: "USR-04", fecha: "2026-11-01", rol: "docente", nombre: "Chef Marco Bellido", email: "mbellido@fdssmartcampus.edu.pe", pass: "1234", area: "Área de Gastronomía", documento: "DNI 41009281", estado: "Pendiente" },
+      { id: "USR-05", fecha: "2026-11-01", rol: "estudiante", nombre: "Valeria Quispe Ramos", email: "vquispe@fdssmartcampus.edu.pe", pass: "1234", area: "Área de Farmacia", documento: "Mat. 2026-112", estado: "Pendiente" }
+    ];
+
+    /* 4. SOLICITUDES DE SEPARACIÓN DE LABORATORIOS (HORARIO 09:00 - 13:00) */
+    let SEPARACIONES = [
+      { id: "SEP-01", labId: "enf-01", dia: "Lunes", bloque: "09:00 - 10:00", docente: "Dra. Carmen Montes", curso: "Procedimientos de Enfermería I", estado: "Aprobado" },
+      { id: "SEP-02", labId: "enf-01", dia: "Miércoles", bloque: "10:00 - 11:00", docente: "Dra. Carmen Montes", curso: "Bioseguridad Hospitalaria", estado: "Aprobado" },
+      { id: "SEP-03", labId: "enf-02", dia: "Martes", bloque: "11:20 - 12:10", docente: "Lic. Rosa Palacios", curso: "Urgencias y RCP Avanzado", estado: "Pendiente" },
+      { id: "SEP-04", labId: "gas-01", dia: "Jueves", bloque: "09:00 - 10:00", docente: "Chef Marco Bellido", curso: "Técnicas Culinarias", estado: "Pendiente" },
+      { id: "SEP-05", labId: "com-01", dia: "Viernes", bloque: "12:10 - 13:00", docente: "Ing. Luis Valdez", curso: "Desarrollo de Aplicaciones Web", estado: "Aprobado" }
+    ];
+
+    /* 4B. HORARIO DE CLASES DE LOS ESTUDIANTES POR ÁREA (09:00 - 13:00 CON RECESO 11:00 - 11:20) */
+    let HORARIO_CLASES = [
+      { area: "Enfermería", dia: "Lunes", bloque: "09:00 - 10:00", curso: "Anatomía Funcional", aula: "Laboratorio 1" },
+      { area: "Enfermería", dia: "Lunes", bloque: "10:00 - 11:00", curso: "Fundamentos de Enfermería", aula: "Laboratorio 1" },
+      { area: "Enfermería", dia: "Martes", bloque: "09:00 - 10:00", curso: "Primeros Auxilios e Inyectables", aula: "Laboratorio 2" },
+      { area: "Enfermería", dia: "Miércoles", bloque: "11:20 - 12:10", curso: "Bioseguridad Clínica", aula: "Laboratorio 3" },
+      { area: "Enfermería", dia: "Viernes", bloque: "12:10 - 13:00", curso: "Atención del Paciente", aula: "Laboratorio 2" },
+
+      { area: "Farmacia", dia: "Lunes", bloque: "09:00 - 10:00", curso: "Química Inorgánica", aula: "Laboratorio 1" },
+      { area: "Farmacia", dia: "Miércoles", bloque: "10:00 - 11:00", curso: "Farmacología General", aula: "Laboratorio 1" },
+      { area: "Farmacia", dia: "Jueves", bloque: "11:20 - 12:10", curso: "Control Microbiológico", aula: "Laboratorio 2" },
+
+      { area: "Gastronomía", dia: "Martes", bloque: "09:00 - 10:00", curso: "Técnicas de Corte y Cocción", aula: "Laboratorio 1" },
+      { area: "Gastronomía", dia: "Jueves", bloque: "11:20 - 12:10", curso: "Pastelería y Panadería", aula: "Laboratorio 1" },
+
+      { area: "Cómputo", dia: "Lunes", bloque: "10:00 - 11:00", curso: "Algoritmos y Programación", aula: "Laboratorio 1" },
+      { area: "Cómputo", dia: "Miércoles", bloque: "11:20 - 12:10", curso: "Base de Datos SQL", aula: "Laboratorio 1" },
+      { area: "Cómputo", dia: "Viernes", bloque: "12:10 - 13:00", curso: "Diseño Web Moderno", aula: "Laboratorio 1" }
+    ];
+
+    /* 5. INVENTARIO Y REQUERIMIENTOS SEPARADOS POR ÁREAS */
+    let INVENTARIO = [
+      { id: "INV-01", area: "Enfermería", lab: "Laboratorio 1", nombre: "Guantes de nitrilo estériles", categoria: "Material", cantidad: 45, minimo: 30, unidad: "Cajas" },
+      { id: "INV-02", area: "Enfermería", lab: "Laboratorio 2", nombre: "Maniquí RCP con sensor luminoso", categoria: "Equipo", cantidad: 4, minimo: 4, unidad: "Unidades" },
+      { id: "INV-03", area: "Enfermería", lab: "Laboratorio 3", nombre: "Incubadora de práctica", categoria: "Equipo", cantidad: 2, minimo: 2, unidad: "Unidades" },
+      { id: "INV-04", area: "Farmacia", lab: "Laboratorio 1", nombre: "Balanza analítica de precisión", categoria: "Equipo", cantidad: 6, minimo: 5, unidad: "Unidades" },
+      { id: "INV-05", area: "Farmacia", lab: "Laboratorio 2", nombre: "Kit de reactivos indicadores de pH", categoria: "Insumo", cantidad: 8, minimo: 12, unidad: "Juegos" },
+      { id: "INV-06", area: "Gastronomía", lab: "Laboratorio 1", nombre: "Juego de cuchillos profesionales chef", categoria: "Equipo", cantidad: 18, minimo: 15, unidad: "Juegos" },
+      { id: "INV-07", area: "Cómputo", lab: "Laboratorio 1", nombre: "Estaciones de trabajo Core i7", categoria: "Equipo", cantidad: 30, minimo: 28, unidad: "Unidades" }
+    ];
+
+    let REQUERIMIENTOS = [
+      { id: "REQ-001", area: "Enfermería", lab: "Laboratorio 1", solicitante: "Dra. Carmen Montes", detalle: "Reposición de 20 cajas de gasas estériles y jeringas de práctica", prioridad: "Alta", estado: "Pendiente" },
+      { id: "REQ-002", area: "Farmacia", lab: "Laboratorio 2", solicitante: "Q.F. Alberto Soto", detalle: "Adquisición de reactivos para análisis químico", prioridad: "Urgente", estado: "Aprobado" },
+      { id: "REQ-003", area: "Gastronomía", lab: "Laboratorio 1", solicitante: "Chef Marco Bellido", detalle: "Recarga de balones de gas industrial e insumos de pastelería", prioridad: "Media", estado: "Pendiente" },
+      { id: "REQ-004", area: "Cómputo", lab: "Laboratorio 1", solicitante: "Jorge Luis Huamán (Estudiante)", detalle: "Solicitud de auriculares y adaptadores de red para práctica", prioridad: "Media", estado: "Pendiente" }
+    ];
+
+    /* 6. NOTICIAS INSTITUCIONALES */
+    let NOTICIAS = [
+      {
+        id: "NOT-01",
+        fecha: "01 Nov 2026",
+        categoria: "Equipamiento",
+        titulo: "Inauguración del Laboratorio 3 del Área de Enfermería",
+        resumen: "FDS SMART CAMPUS amplía el Área de Enfermería con su Laboratorio 3 equipado con simuladores de última generación.",
+        img: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "NOT-02",
+        fecha: "29 Oct 2026",
+        categoria: "Tecnología EYR Digital",
+        titulo: "Nuevo Horario de Laboratorios de 9:00 a 1:00 p. m.",
+        resumen: "Se actualiza el almanaque de uso de laboratorios y horario estudiantil con receso institucional de 11:00 a 11:20 a. m.",
+        img: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: "NOT-03",
+        fecha: "25 Oct 2026",
+        categoria: "Jornada Académica",
+        titulo: "Taller de Inocuidad y Alta Cocina en el Área de Gastronomía",
+        resumen: "Estudiantes desarrollan prácticas intensivas de técnicas culinarias en el Laboratorio 1 de Gastronomía.",
+        img: "https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=800&q=80"
+      }
+    ];
+
+    /* =========================================================================
+       INICIALIZACIÓN GENERAL
+       ========================================================================= */
+    document.addEventListener("DOMContentLoaded", () => {
+      cargarSelectoresLaboratorios();
+      renderizarLaboratoriosPublicos();
+      renderizarAlmanaque("publico");
+      renderizarHorarioClases("publico");
+      renderizarNoticias();
+
+      const burger = document.getElementById("burgerToggle");
+      const menu = document.getElementById("mainMenu");
+      if (burger && menu) {
+        burger.addEventListener("click", () => menu.classList.toggle("open"));
+        menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => menu.classList.remove("open")));
+      }
+      lucide.createIcons();
+    });
+
+    function esAdmin() {
+      return USUARIO_ACTUAL && USUARIO_ACTUAL.rol === "administrador";
+    }
+    function esDocente() {
+      return USUARIO_ACTUAL && USUARIO_ACTUAL.rol === "docente";
+    }
+
+    function cargarSelectoresLaboratorios() {
+      const htmlOpts = LABORATORIOS.map(l => `<option value="${l.id}">${l.nombre} — Área de ${l.area}</option>`).join("");
+      const sPub = document.getElementById("selectLabAlmanaquePublico");
+      const sPan = document.getElementById("selectLabAlmanaquePanel");
+      if (sPub) sPub.innerHTML = htmlOpts;
+      if (sPan) sPan.innerHTML = htmlOpts;
+    }
+
+    /* =========================================================================
+       ALMANAQUE ORDENADO DE HORARIOS DE LABORATORIOS (09:00 - 13:00 + RECESO)
+       ========================================================================= */
+    function irAlAlmanaqueDeLab(labId) {
+      const sel = document.getElementById("selectLabAlmanaquePublico");
+      if (sel) {
+        sel.value = labId;
+        renderizarAlmanaque("publico");
+        document.getElementById("almanaque").scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    function renderizarAlmanaque(modo) {
+      const selectEl = document.getElementById(modo === "publico" ? "selectLabAlmanaquePublico" : "selectLabAlmanaquePanel");
+      const contEl = document.getElementById(modo === "publico" ? "contenedorAlmanaquePublico" : "contenedorAlmanaquePanel");
+      if (!selectEl || !contEl) return;
+
+      const labId = selectEl.value || LABORATORIOS[0].id;
+      const reservasLab = SEPARACIONES.filter(s => s.labId === labId && s.estado !== "Rechazado");
+
+      let html = `
+        <table class="almanaque-table">
+          <thead>
+            <tr>
+              <th class="col-hora">HORARIO / DÍA</th>
+              ${DIAS_SEMANA.map(d => `<th>${d.toUpperCase()}</th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      BLOQUES_HORARIOS.forEach(bloque => {
+        const esReceso = bloque.includes("RECESO");
+        html += `<tr><th class="col-hora" style="font-size:0.82rem;">${bloque}</th>`;
+
+        if (esReceso) {
+          html += `
+            <td colspan="${DIAS_SEMANA.length}" style="height:54px;">
+              <div class="slot-receso">
+                <i data-lucide="coffee" style="width:16px; height:16px;"></i>
+                <span>RECESO INSTITUCIONAL DE 20 MINUTOS (11:00 A 11:20 A. M.)</span>
+              </div>
+            </td>
+          `;
+        } else {
+          DIAS_SEMANA.forEach(dia => {
+            const res = reservasLab.find(r => r.dia === dia && r.bloque === bloque);
+            if (res) {
+              const claseEstado = res.estado === "Aprobado" ? "slot-ocupado" : "slot-pendiente";
+              const etiquetaEstado = res.estado === "Aprobado" ? "OCUPADO" : "PENDIENTE";
+              html += `
+                <td>
+                  <div class="slot-box ${claseEstado}">
+                    <b style="font-size:0.75rem; letter-spacing:0.5px;">${etiquetaEstado}</b>
+                    <span style="font-weight:700; line-height:1.15; margin:2px 0;">${res.curso}</span>
+                    <small style="opacity:0.9; font-size:0.74rem;">${res.docente}</small>
+                  </div>
+                </td>
+              `;
+            } else {
+              html += `
+                <td>
+                  <div class="slot-box slot-disponible" onclick="clicSlotDisponible('${labId}', '${dia}', '${bloque}')">
+                    <b>DISPONIBLE</b>
+                    <small style="font-size:0.74rem;">Separar turno</small>
+                  </div>
+                </td>
+              `;
+            }
+          });
+        }
+        html += `</tr>`;
+      });
+
+      html += `</tbody></table>`;
+      contEl.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function clicSlotDisponible(labId, dia, bloque) {
+      if (USUARIO_ACTUAL && USUARIO_ACTUAL.rol === "estudiante") {
+        mostrarToast("Los estudiantes pueden enviar Requerimientos en su apartado, pero la separación de horario la realiza el Docente.");
+        return;
+      }
+      abrirModalSolicitarSeparacion(labId, dia, bloque);
+    }
+
+    /* =========================================================================
+       HORARIO DE CLASES DE LOS ESTUDIANTES (09:00 - 13:00 CON RECESO 11:00-11:20)
+       ========================================================================= */
+    function renderizarHorarioClases(modo) {
+      const selEl = document.getElementById(modo === "publico" ? "selectAreaHorarioPublico" : "selectAreaHorarioPanel");
+      const contEl = document.getElementById(modo === "publico" ? "contenedorHorarioClasesPublico" : "contenedorHorarioClasesPanel");
+      if (!selEl || !contEl) return;
+
+      const area = selEl.value || "Enfermería";
+      const clasesArea = HORARIO_CLASES.filter(c => c.area === area);
+
+      let html = `
+        <table class="almanaque-table">
+          <thead>
+            <tr>
+              <th class="col-hora">HORA / DÍA</th>
+              ${DIAS_SEMANA.map(d => `<th>${d.toUpperCase()}</th>`).join("")}
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      BLOQUES_HORARIOS.forEach(bloque => {
+        const esReceso = bloque.includes("RECESO");
+        html += `<tr><th class="col-hora" style="font-size:0.82rem;">${bloque}</th>`;
+
+        if (esReceso) {
+          html += `
+            <td colspan="${DIAS_SEMANA.length}" style="height:54px;">
+              <div class="slot-receso">
+                <i data-lucide="coffee" style="width:16px; height:16px;"></i>
+                <span>RECESO ESTUDIANTIL (11:00 - 11:20 A. M. · 20 MINUTOS)</span>
+              </div>
+            </td>
+          `;
+        } else {
+          DIAS_SEMANA.forEach(dia => {
+            const cl = clasesArea.find(x => x.dia === dia && x.bloque === bloque);
+            if (cl) {
+              html += `
+                <td>
+                  <div class="slot-box slot-ocupado" ${esAdmin() ? `style="cursor:pointer;" onclick="abrirModalEditarClaseEstudiante('${area}','${dia}','${bloque}')"` : ""}>
+                    <span style="font-weight:800; line-height:1.15; color:var(--accent);">${cl.curso}</span>
+                    <small style="font-size:0.75rem; margin-top:3px;">${cl.aula}</small>
+                  </div>
+                </td>
+              `;
+            } else {
+              html += `
+                <td>
+                  <div class="slot-box" style="background:var(--primary-soft); color:var(--text-muted);" ${esAdmin() ? `onclick="abrirModalEditarClaseEstudiante('${area}','${dia}','${bloque}')"` : ""}>
+                    <small>Hora Libre / Estudio</small>
+                  </div>
+                </td>
+              `;
+            }
+          });
+        }
+        html += `</tr>`;
+      });
+
+      html += `</tbody></table>`;
+      contEl.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function abrirModalEditarClaseEstudiante(areaPre = "Enfermería", diaPre = "Lunes", bloquePre = "09:00 - 10:00") {
+      if (!esAdmin()) return;
+      const bloquesValidos = BLOQUES_HORARIOS.filter(b => !b.includes("RECESO"));
+      const actual = HORARIO_CLASES.find(c => c.area === areaPre && c.dia === diaPre && c.bloque === bloquePre) || { curso: "", aula: "Laboratorio 1" };
+
+      abrirModalGenerico(`
+        <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
+        <h3 style="margin-bottom:1rem;">Asignar / Editar Horario de Clases (Admin)</h3>
+        <form onsubmit="guardarClaseEstudiante(event)">
+          <div class="form-group">
+            <label style="color:var(--primary);">Área de Estudio</label>
+            <select name="area" class="form-control" required>
+              ${["Enfermería", "Farmacia", "Gastronomía", "Cómputo"].map(a => `<option value="${a}" ${a === areaPre ? 'selected' : ''}>Área de ${a}</option>`).join("")}
+            </select>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="form-group">
+              <label style="color:var(--primary);">Día</label>
+              <select name="dia" class="form-control" required>
+                ${DIAS_SEMANA.map(d => `<option value="${d}" ${d === diaPre ? 'selected' : ''}>${d}</option>`).join("")}
+              </select>
+            </div>
+            <div class="form-group">
+              <label style="color:var(--primary);">Bloque (9:00 a 1:00)</label>
+              <select name="bloque" class="form-control" required>
+                ${bloquesValidos.map(b => `<option value="${b}" ${b === bloquePre ? 'selected' : ''}>${b}</option>`).join("")}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Nombre de la Asignatura / Curso</label>
+            <input type="text" name="curso" class="form-control" value="${actual.curso}" placeholder="Dejar vacío para liberar hora">
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Laboratorio / Aula</label>
+            <input type="text" name="aula" class="form-control" value="${actual.aula}" placeholder="Ej. Laboratorio 1" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Guardar en Horario de Estudiantes</button>
+        </form>
+      `);
+    }
+
+    function guardarClaseEstudiante(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const area = fd.get("area");
+      const dia = fd.get("dia");
+      const bloque = fd.get("bloque");
+      const curso = fd.get("curso").trim();
+      const aula = fd.get("aula").trim();
+
+      HORARIO_CLASES = HORARIO_CLASES.filter(c => !(c.area === area && c.dia === dia && c.bloque === bloque));
+      if (curso) {
+        HORARIO_CLASES.push({ area, dia, bloque, curso, aula });
+      }
+      cerrarModal("modalDinamico");
+      renderizarHorarioClases("publico");
+      renderizarHorarioClases("panel");
+      mostrarToast("Horario de clases de estudiantes actualizado.");
+    }
+
+    /* =========================================================================
+       NOTICIAS (SOLO EL ADMINISTRADOR CREA, EDITA O ELIMINA)
+       ========================================================================= */
+    function renderizarNoticias() {
+      const html = NOTICIAS.map(n => `
+        <article class="news-card">
+          <img src="${n.img}" alt="${n.titulo}" class="news-img">
+          <div class="news-body">
+            <div class="news-meta">
+              <span>${n.categoria.toUpperCase()}</span>
+              <span>${n.fecha}</span>
+            </div>
+            <h4>${n.titulo}</h4>
+            <p>${n.resumen}</p>
+            ${esAdmin() ? `
+              <div style="display:flex; gap:8px; border-top:1px solid var(--border); padding-top:10px;">
+                <button class="btn btn-white btn-xs" onclick="abrirModalNoticia('${n.id}')"><i data-lucide="edit-2"></i> Editar</button>
+                <button class="btn btn-primary btn-xs" onclick="confirmarEliminarNoticia('${n.id}')"><i data-lucide="trash-2"></i> Eliminar</button>
+              </div>
+            ` : ""}
+          </div>
+        </article>
+      `).join("");
+
+      const gPub = document.getElementById("gridNoticiasPublico");
+      const gPan = document.getElementById("gridNoticiasPanel");
+      if (gPub) gPub.innerHTML = html;
+      if (gPan) gPan.innerHTML = html;
+
+      const btnPub = document.getElementById("btnAdminNuevaNoticiaPublico");
+      if (btnPub) btnPub.style.display = esAdmin() ? "block" : "none";
+      lucide.createIcons();
+    }
+
+    function abrirModalNoticia(id = null) {
+      if (!esAdmin()) {
+        mostrarToast("Acceso restringido: Solo el Administrador puede publicar o editar noticias.");
+        return;
+      }
+      const n = id ? NOTICIAS.find(x => x.id === id) : { titulo: "", categoria: "Comunicado Oficial", resumen: "", img: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=800&q=80" };
+      abrirModalGenerico(`
+        <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
+        <h3 style="margin-bottom:1rem;">${id ? "Editar Noticia" : "Publicar Nueva Noticia"} (Administrador)</h3>
+        <form onsubmit="guardarNoticia(event, '${id || ""}')">
+          <div class="form-group">
+            <label style="color:var(--primary);">Título de la Noticia</label>
+            <input type="text" name="titulo" class="form-control" value="${n.titulo}" required>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Categoría</label>
+            <input type="text" name="categoria" class="form-control" value="${n.categoria}" required>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Resumen / Contenido</label>
+            <textarea name="resumen" class="form-control" rows="3" required>${n.resumen}</textarea>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">URL de Imagen</label>
+            <input type="url" name="img" class="form-control" value="${n.img}" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">${id ? "Guardar Cambios" : "Publicar Ahora"}</button>
+        </form>
+      `);
+    }
+
+    function guardarNoticia(e, id) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      if (id) {
+        const n = NOTICIAS.find(x => x.id === id);
+        if (n) {
+          n.titulo = fd.get("titulo");
+          n.categoria = fd.get("categoria");
+          n.resumen = fd.get("resumen");
+          n.img = fd.get("img");
+        }
+      } else {
+        NOTICIAS.unshift({
+          id: "NOT-" + Date.now(),
+          fecha: "Hoy",
+          titulo: fd.get("titulo"),
+          categoria: fd.get("categoria"),
+          resumen: fd.get("resumen"),
+          img: fd.get("img")
+        });
+      }
+      renderizarNoticias();
+      cerrarModal("modalDinamico");
+      mostrarToast("Noticia guardada correctamente.");
+    }
+
+    function confirmarEliminarNoticia(id) {
+      if (!esAdmin()) return;
+      NOTICIAS = NOTICIAS.filter(n => n.id !== id);
+      renderizarNoticias();
+      mostrarToast("Noticia eliminada.");
+    }
+
+    /* =========================================================================
+       REGISTRO DE CUENTAS CON @fdssmartcampus.edu.pe Y GESTIÓN DE APROBACIÓN
+       ========================================================================= */
+    function procesarRegistroCuenta(e, rol) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const userClean = fd.get("usuario").trim().toLowerCase().replace(/@.*$/, "");
+      const emailCompleto = `${userClean}@fdssmartcampus.edu.pe`;
+
+      if (CUENTAS.some(c => c.email.toLowerCase() === emailCompleto)) {
+        mostrarToast("Ese nombre de usuario ya existe en @fdssmartcampus.edu.pe. Elige otro.");
+        return;
+      }
+
+      CUENTAS.unshift({
+        id: "USR-" + String(CUENTAS.length + 1).padStart(2, "0"),
+        fecha: new Date().toISOString().split("T")[0],
+        rol: rol,
+        nombre: fd.get("nombre").trim(),
+        email: emailCompleto,
+        pass: fd.get("pass"),
+        area: fd.get("area"),
+        documento: fd.get("documento").trim(),
+        estado: "Pendiente"
+      });
+
+      e.target.reset();
+      actualizarVistasPanel();
+      mostrarToast(`Solicitud creada para ${emailCompleto}. Pendiente de aprobación por el Administrador.`);
+    }
+
+    function renderizarTablaCuentas() {
+      const tbody = document.getElementById("tbodyCuentas");
+      if (!tbody) return;
+
+      const pend = CUENTAS.filter(c => c.estado === "Pendiente").length;
+      const act = CUENTAS.filter(c => c.estado === "Aprobado").length;
+      const inact = CUENTAS.filter(c => c.estado === "Desactivado" || c.estado === "Rechazado").length;
+
+      document.getElementById("kpiCuentasPend").textContent = pend;
+      document.getElementById("kpiCuentasActivas").textContent = act;
+      document.getElementById("kpiCuentasInactivas").textContent = inact;
+
+      tbody.innerHTML = CUENTAS.map(c => {
+        let badgeClass = "st-pendiente";
+        if (c.estado === "Aprobado") badgeClass = "st-aprobado";
+        if (c.estado === "Desactivado" || c.estado === "Rechazado") badgeClass = "st-inactivo";
+
+        let accionesHTML = "";
+        if (c.estado === "Pendiente") {
+          accionesHTML = `
+            <button class="btn btn-accent btn-xs" onclick="cambiarEstadoCuenta('${c.id}', 'Aprobado')"><i data-lucide="check"></i> Aprobar</button>
+            <button class="btn btn-white btn-xs" onclick="cambiarEstadoCuenta('${c.id}', 'Rechazado')"><i data-lucide="x"></i> Descartar</button>
+          `;
+        } else if (c.estado === "Aprobado") {
+          accionesHTML = `
+            <button class="btn btn-white btn-xs" onclick="cambiarEstadoCuenta('${c.id}', 'Desactivado')" title="Desactivar si aprobaste por error"><i data-lucide="pause-circle"></i> Desactivar</button>
+          `;
+        } else {
+          accionesHTML = `
+            <button class="btn btn-accent btn-xs" onclick="cambiarEstadoCuenta('${c.id}', 'Aprobado')"><i data-lucide="refresh-cw"></i> Reactivar / Aprobar</button>
+          `;
+        }
+
+        return `
+          <tr>
+            <td><small>${c.fecha}</small></td>
+            <td><b style="text-transform:capitalize;">${c.rol}</b></td>
+            <td><b>${c.nombre}</b></td>
+            <td><code>${c.email}</code></td>
+            <td>${c.area}</td>
+            <td>${c.documento}</td>
+            <td><span class="tag-status ${badgeClass}">${c.estado}</span></td>
+            <td style="text-align:right;">
+              <div style="display:inline-flex; gap:6px; flex-wrap:wrap; justify-content:flex-end;">
+                ${accionesHTML}
+                <button class="btn btn-white btn-xs" onclick="abrirModalEditarCuenta('${c.id}')" title="Editar usuario"><i data-lucide="edit-2"></i></button>
+                <button class="btn btn-primary btn-xs" onclick="confirmarEliminarCuenta('${c.id}')" title="Eliminar definitivamente"><i data-lucide="trash-2"></i> Eliminar</button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+      lucide.createIcons();
+    }
+
+    function cambiarEstadoCuenta(id, nuevoEstado) {
+      if (!esAdmin()) return;
+      const c = CUENTAS.find(x => x.id === id);
+      if (c) {
+        c.estado = nuevoEstado;
+        actualizarVistasPanel();
+        mostrarToast(`Cuenta ${c.email} actualizada a estado: ${nuevoEstado}`);
+      }
+    }
+
+    function confirmarEliminarCuenta(id) {
+      if (!esAdmin()) return;
+      const c = CUENTAS.find(x => x.id === id);
+      if (!c) return;
+      abrirModalGenerico(`
+        <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
+        <h3 style="margin-bottom:0.8rem;">¿Eliminar cuenta definitivamente?</h3>
+        <p style="margin-bottom:1.4rem;">Estás por eliminar la cuenta de <b>${c.nombre}</b> (<code>${c.email}</code>). Si prefieres solo bloquear su acceso temporalmente, puedes usar la opción <b>Desactivar</b>.</p>
+        <div style="display:flex; gap:10px; justify-content:flex-end;">
+          <button class="btn btn-white btn-sm" onclick="cerrarModal('modalDinamico')">Cancelar</button>
+          <button class="btn btn-accent btn-sm" onclick="cambiarEstadoCuenta('${c.id}', 'Desactivado'); cerrarModal('modalDinamico');">Solo Desactivar</button>
+          <button class="btn btn-primary btn-sm" onclick="ejecutarEliminarCuenta('${c.id}')">Sí, Eliminar Cuenta</button>
+        </div>
+      `);
+    }
+
+    function ejecutarEliminarCuenta(id) {
+      CUENTAS = CUENTAS.filter(x => x.id !== id);
+      cerrarModal("modalDinamico");
+      actualizarVistasPanel();
+      mostrarToast("Cuenta eliminada del sistema.");
+    }
+
+    function abrirModalEditarCuenta(id) {
+      const c = CUENTAS.find(x => x.id === id);
+      if (!c) return;
+      abrirModalGenerico(`
+        <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
+        <h3 style="margin-bottom:1rem;">Editar Usuario</h3>
+        <form onsubmit="guardarEdicionCuenta(event, '${c.id}')">
+          <div class="form-group">
+            <label style="color:var(--primary);">Nombre Completo</label>
+            <input type="text" name="nombre" class="form-control" value="${c.nombre}" required>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Rol en la Plataforma</label>
+            <select name="rol" class="form-control">
+              <option value="docente" ${c.rol === 'docente' ? 'selected' : ''}>Docente</option>
+              <option value="estudiante" ${c.rol === 'estudiante' ? 'selected' : ''}>Estudiante</option>
+              <option value="administrador" ${c.rol === 'administrador' ? 'selected' : ''}>Administrador</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Área / Especialidad</label>
+            <input type="text" name="area" class="form-control" value="${c.area}" required>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Documento / Código</label>
+            <input type="text" name="documento" class="form-control" value="${c.documento}" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Guardar Cambios</button>
+        </form>
+      `);
+    }
+
+    function guardarEdicionCuenta(e, id) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const c = CUENTAS.find(x => x.id === id);
+      if (c) {
+        c.nombre = fd.get("nombre");
+        c.rol = fd.get("rol");
+        c.area = fd.get("area");
+        c.documento = fd.get("documento");
+        cerrarModal("modalDinamico");
+        actualizarVistasPanel();
+        mostrarToast("Datos del usuario actualizados.");
+      }
+    }
+
+    function abrirModalCrearCuentaManual() {
+      abrirModalGenerico(`
+        <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
+        <h3 style="margin-bottom:1rem;">Agregar Usuario Directamente (Aprobado)</h3>
+        <form onsubmit="guardarCuentaManual(event)">
+          <div class="form-group">
+            <label style="color:var(--primary);">Nombre Completo</label>
+            <input type="text" name="nombre" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Usuario Institucional</label>
+            <div class="email-domain-group">
+              <input type="text" name="usuario" placeholder="usuario" required>
+              <span class="email-domain-tag">@fdssmartcampus.edu.pe</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Contraseña</label>
+            <input type="text" name="pass" class="form-control" value="campus2026" required>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Rol</label>
+            <select name="rol" class="form-control">
+              <option value="docente">Docente</option>
+              <option value="estudiante">Estudiante</option>
+              <option value="administrador">Administrador</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Área</label>
+            <select name="area" class="form-control">
+              <option value="Área de Enfermería">Área de Enfermería</option>
+              <option value="Área de Farmacia">Área de Farmacia</option>
+              <option value="Área de Gastronomía">Área de Gastronomía</option>
+              <option value="Área de Cómputo">Área de Cómputo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">DNI / Código</label>
+            <input type="text" name="documento" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Crear y Aprobar Usuario</button>
+        </form>
+      `);
+    }
+
+    function guardarCuentaManual(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const userClean = fd.get("usuario").trim().toLowerCase().replace(/@.*$/, "");
+      CUENTAS.unshift({
+        id: "USR-" + Date.now(),
+        fecha: new Date().toISOString().split("T")[0],
+        rol: fd.get("rol"),
+        nombre: fd.get("nombre"),
+        email: `${userClean}@fdssmartcampus.edu.pe`,
+        pass: fd.get("pass"),
+        area: fd.get("area"),
+        documento: fd.get("documento"),
+        estado: "Aprobado"
+      });
+      cerrarModal("modalDinamico");
+      actualizarVistasPanel();
+      mostrarToast("Usuario creado y aprobado.");
+    }
+
+    /* =========================================================================
+       PANEL DE SEPARACIÓN DE LABORATORIOS (APROBAR / RECHAZAR / EDITAR)
+       ========================================================================= */
+    function renderizarTablaSeparaciones() {
+      const tbody = document.getElementById("tbodySeparaciones");
+      if (!tbody) return;
+
+      document.getElementById("kpiSepPend").textContent = SEPARACIONES.filter(s => s.estado === "Pendiente").length;
+      document.getElementById("kpiSepAprob").textContent = SEPARACIONES.filter(s => s.estado === "Aprobado").length;
+      document.getElementById("kpiSepRech").textContent = SEPARACIONES.filter(s => s.estado === "Rechazado").length;
+
+      tbody.innerHTML = SEPARACIONES.map(s => {
+        const labObj = LABORATORIOS.find(l => l.id === s.labId) || { nombre: s.labId, area: "" };
+        let stClass = "st-pendiente";
+        if (s.estado === "Aprobado") stClass = "st-aprobado";
+        if (s.estado === "Rechazado") stClass = "st-inactivo";
+
+        const controlesAdmin = esAdmin() ? `
+          <button class="btn btn-accent btn-xs" onclick="cambiarEstadoSeparacion('${s.id}', 'Aprobado')"><i data-lucide="check"></i> Aprobar</button>
+          <button class="btn btn-white btn-xs" onclick="cambiarEstadoSeparacion('${s.id}', 'Rechazado')"><i data-lucide="x"></i> Rechazar</button>
+          <button class="btn btn-primary btn-xs" onclick="eliminarSeparacion('${s.id}')" title="Eliminar"><i data-lucide="trash-2"></i></button>
+        ` : `<small style="color:var(--text-muted);">Revisión por Admin</small>`;
+
+        return `
+          <tr>
+            <td><b>${labObj.nombre}</b> <small>(${labObj.area})</small></td>
+            <td>${s.dia} · <b>${s.bloque}</b></td>
+            <td>${s.docente}</td>
+            <td>${s.curso}</td>
+            <td><span class="tag-status ${stClass}">${s.estado}</span></td>
+            <td style="text-align:right;">
+              <div style="display:inline-flex; gap:6px; flex-wrap:wrap;">${controlesAdmin}</div>
+            </td>
+          </tr>
+        `;
+      }).join("");
+      lucide.createIcons();
+    }
+
+    function cambiarEstadoSeparacion(id, estado) {
+      if (!esAdmin()) return;
+      const s = SEPARACIONES.find(x => x.id === id);
+      if (s) {
+        s.estado = estado;
+        actualizarVistasPanel();
+        renderizarAlmanaque("publico");
+        mostrarToast(`Separación de laboratorio marcada como: ${estado}`);
+      }
+    }
+
+    function eliminarSeparacion(id) {
+      if (!esAdmin()) return;
+      SEPARACIONES = SEPARACIONES.filter(x => x.id !== id);
+      actualizarVistasPanel();
+      renderizarAlmanaque("publico");
+      mostrarToast("Registro de separación eliminado y horario liberado.");
+    }
+
+    function abrirModalSolicitarSeparacion(labPre = "", diaPre = "Lunes", bloquePre = BLOQUES_HORARIOS[0]) {
+      const docNombre = USUARIO_ACTUAL ? USUARIO_ACTUAL.nombre : "";
+      const bloquesSinReceso = BLOQUES_HORARIOS.filter(b => !b.includes("RECESO"));
+      abrirModalGenerico(`
+        <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
+        <h3 style="margin-bottom:0.5rem;">Solicitar Separación de Laboratorio</h3>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.2rem;">Horario disponible de 09:00 a 13:00 (con receso de 11:00 a 11:20).</p>
+        <form onsubmit="guardarSolicitudSeparacion(event)">
+          <div class="form-group">
+            <label style="color:var(--primary);">Laboratorio Solicitado</label>
+            <select name="labId" class="form-control" required>
+              ${LABORATORIOS.map(l => `<option value="${l.id}" ${l.id === labPre ? 'selected' : ''}>${l.nombre} — Área de ${l.area}</option>`).join("")}
+            </select>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="form-group">
+              <label style="color:var(--primary);">Día de la Semana</label>
+              <select name="dia" class="form-control" required>
+                ${DIAS_SEMANA.map(d => `<option value="${d}" ${d === diaPre ? 'selected' : ''}>${d}</option>`).join("")}
+              </select>
+            </div>
+            <div class="form-group">
+              <label style="color:var(--primary);">Bloque Horario (09:00 - 13:00)</label>
+              <select name="bloque" class="form-control" required>
+                ${bloquesSinReceso.map(b => `<option value="${b}" ${b === bloquePre ? 'selected' : ''}>${b}</option>`).join("")}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Docente Responsable</label>
+            <input type="text" name="docente" class="form-control" value="${docNombre}" placeholder="Nombre del docente" required>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Asignatura / Práctica a Realizar</label>
+            <input type="text" name="curso" class="form-control" placeholder="Ej. Simulación II" required>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Enviar Solicitud de Separación</button>
+        </form>
+      `);
+    }
+
+    function guardarSolicitudSeparacion(e) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const labId = fd.get("labId");
+      const dia = fd.get("dia");
+      const bloque = fd.get("bloque");
+
+      const ocupado = SEPARACIONES.some(s => s.labId === labId && s.dia === dia && s.bloque === bloque && s.estado !== "Rechazado");
+      if (ocupado) {
+        mostrarToast("Ese bloque horario ya se encuentra reservado o pendiente en este laboratorio.");
+        return;
+      }
+
+      SEPARACIONES.unshift({
+        id: "SEP-" + Date.now(),
+        labId,
+        dia,
+        bloque,
+        docente: fd.get("docente"),
+        curso: fd.get("curso"),
+        estado: esAdmin() ? "Aprobado" : "Pendiente"
+      });
+
+      cerrarModal("modalDinamico");
+      renderizarAlmanaque("publico");
+      actualizarVistasPanel();
+      mostrarToast(esAdmin() ? "Horario separado y aprobado directamente." : "Solicitud enviada al Panel de Separación de Laboratorios.");
+    }
+
+    /* =========================================================================
+       INVENTARIO Y REQUERIMIENTOS SEPARADOS POR ÁREAS
+       ========================================================================= */
+    function seleccionarAreaInventario(area, btnEl) {
+      AREA_INVENTARIO_ACTUAL = area;
+      document.querySelectorAll(".area-tab-btn").forEach(b => b.classList.remove("active"));
+      if (btnEl) btnEl.classList.add("active");
+      renderizarInventarioYReqPorArea();
+    }
+
+    function renderizarInventarioYReqPorArea() {
+      const area = AREA_INVENTARIO_ACTUAL;
+      document.getElementById("tituloInvArea").textContent = `Inventario — Área de ${area}`;
+      document.getElementById("tituloReqArea").textContent = `Requerimientos — Área de ${area}`;
+
+      const items = INVENTARIO.filter(i => i.area === area);
+      const reqs = REQUERIMIENTOS.filter(r => r.area === area);
+
+      const tbodyInv = document.getElementById("tbodyInventarioArea");
+      tbodyInv.innerHTML = items.length ? items.map(i => {
+        const reponer = i.cantidad <= i.minimo;
+        return `
+          <tr>
+            <td><b>${i.lab}</b></td>
+            <td>${i.nombre}</td>
+            <td>${i.categoria}</td>
+            <td><b>${i.cantidad}</b> ${i.unidad}</td>
+            <td>${i.minimo} ${i.unidad}</td>
+            <td><span class="tag-status ${reponer ? 'st-pendiente' : 'st-aprobado'}">${reponer ? 'Por Reponer' : 'Stock Óptimo'}</span></td>
+            <td style="text-align:right;">
+              ${esAdmin() ? `
+                <button class="btn btn-white btn-xs" onclick="abrirModalItemInventario('${i.id}')"><i data-lucide="edit-2"></i> Editar</button>
+                <button class="btn btn-primary btn-xs" onclick="eliminarItemInventario('${i.id}')"><i data-lucide="trash-2"></i></button>
+              ` : `<small style="color:var(--text-muted);">Solo lectura</small>`}
+            </td>
+          </tr>
+        `;
+      }).join("") : `<tr><td colspan="7" style="text-align:center;">Sin artículos en esta área.</td></tr>`;
+
+      const tbodyReq = document.getElementById("tbodyRequerimientosArea");
+      tbodyReq.innerHTML = reqs.length ? reqs.map(r => `
+        <tr>
+          <td><b>${r.id}</b></td>
+          <td>${r.lab}</td>
+          <td>${r.solicitante}</td>
+          <td>${r.detalle}</td>
+          <td><b>${r.prioridad}</b></td>
+          <td><span class="tag-status ${r.estado === 'Aprobado' ? 'st-aprobado' : r.estado === 'Rechazado' ? 'st-inactivo' : 'st-pendiente'}">${r.estado}</span></td>
+          <td style="text-align:right;">
+            ${esAdmin() ? `
+              <button class="btn btn-accent btn-xs" onclick="cambiarEstadoReq('${r.id}', 'Aprobado')"><i data-lucide="check"></i></button>
+              <button class="btn btn-white btn-xs" onclick="abrirModalRequerimiento('${r.id}')"><i data-lucide="edit-2"></i> Editar</button>
+              <button class="btn btn-primary btn-xs" onclick="eliminarRequerimiento('${r.id}')"><i data-lucide="trash-2"></i></button>
+            ` : `<small style="color:var(--text-muted);">Enviado</small>`}
+          </td>
+        </tr>
+      `).join("") : `<tr><td colspan="7" style="text-align:center;">No hay requerimientos en esta área.</td></tr>`;
+
+      lucide.createIcons();
+    }
+
+    function abrirModalItemInventario(id = null) {
+      if (!esAdmin()) return;
+      const item = id ? INVENTARIO.find(x => x.id === id) : { area: AREA_INVENTARIO_ACTUAL, lab: "", nombre: "", categoria: "Equipo", cantidad: 10, minimo: 5, unidad: "Unidades" };
+      const labsArea = LABORATORIOS.filter(l => l.area === AREA_INVENTARIO_ACTUAL);
+
+      abrirModalGenerico(`
+        <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
+        <h3 style="margin-bottom:1rem;">${id ? "Modificar Artículo" : "Añadir Artículo"} — Área de ${AREA_INVENTARIO_ACTUAL}</h3>
+        <form onsubmit="guardarItemInventario(event, '${id || ""}')">
+          <div class="form-group">
+            <label style="color:var(--primary);">Laboratorio del Área</label>
+            <select name="lab" class="form-control" required>
+              ${labsArea.map(l => `<option value="${l.nombre}" ${l.nombre === item.lab ? 'selected' : ''}>${l.nombre}</option>`).join("")}
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Nombre del Equipo o Material</label>
+            <input type="text" name="nombre" class="form-control" value="${item.nombre}" required>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+            <div class="form-group">
+              <label style="color:var(--primary);">Cantidad</label>
+              <input type="number" name="cantidad" class="form-control" value="${item.cantidad}" required>
+            </div>
+            <div class="form-group">
+              <label style="color:var(--primary);">Mínimo</label>
+              <input type="number" name="minimo" class="form-control" value="${item.minimo}" required>
+            </div>
+            <div class="form-group">
+              <label style="color:var(--primary);">Unidad</label>
+              <input type="text" name="unidad" class="form-control" value="${item.unidad}" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Guardar en Inventario</button>
+        </form>
+      `);
+    }
+
+    function guardarItemInventario(e, id) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      if (id) {
+        const it = INVENTARIO.find(x => x.id === id);
+        if (it) {
+          it.lab = fd.get("lab");
+          it.nombre = fd.get("nombre");
+          it.cantidad = Number(fd.get("cantidad"));
+          it.minimo = Number(fd.get("minimo"));
+          it.unidad = fd.get("unidad");
+        }
+      } else {
+        INVENTARIO.push({
+          id: "INV-" + Date.now(),
+          area: AREA_INVENTARIO_ACTUAL,
+          lab: fd.get("lab"),
+          nombre: fd.get("nombre"),
+          categoria: "Material / Equipo",
+          cantidad: Number(fd.get("cantidad")),
+          minimo: Number(fd.get("minimo")),
+          unidad: fd.get("unidad")
+        });
+      }
+      cerrarModal("modalDinamico");
+      renderizarInventarioYReqPorArea();
+      mostrarToast("Inventario actualizado.");
+    }
+
+    function eliminarItemInventario(id) {
+      if (!esAdmin()) return;
+      INVENTARIO = INVENTARIO.filter(x => x.id !== id);
+      renderizarInventarioYReqPorArea();
+      mostrarToast("Artículo eliminado del inventario.");
+    }
+
+    function abrirModalRequerimiento(id = null) {
+      const req = id ? REQUERIMIENTOS.find(x => x.id === id) : { area: AREA_INVENTARIO_ACTUAL, lab: "", solicitante: USUARIO_ACTUAL ? USUARIO_ACTUAL.nombre : "", detalle: "", prioridad: "Media" };
+      const labsArea = LABORATORIOS.filter(l => l.area === AREA_INVENTARIO_ACTUAL);
+
+      abrirModalGenerico(`
+        <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
+        <h3 style="margin-bottom:1rem;">${id ? "Modificar Requerimiento" : "Nuevo Requerimiento"} — Área de ${AREA_INVENTARIO_ACTUAL}</h3>
+        <form onsubmit="guardarRequerimiento(event, '${id || ""}')">
+          <div class="form-group">
+            <label style="color:var(--primary);">Laboratorio</label>
+            <select name="lab" class="form-control" required>
+              ${labsArea.map(l => `<option value="${l.nombre}" ${l.nombre === req.lab ? 'selected' : ''}>${l.nombre}</option>`).join("")}
+            </select>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Responsable Solicitante</label>
+            <input type="text" name="solicitante" class="form-control" value="${req.solicitante}" required>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Detalle de Materiales o Equipos Requeridos</label>
+            <textarea name="detalle" class="form-control" rows="3" required>${req.detalle}</textarea>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Prioridad</label>
+            <select name="prioridad" class="form-control">
+              <option value="Baja" ${req.prioridad === 'Baja' ? 'selected' : ''}>Baja</option>
+              <option value="Media" ${req.prioridad === 'Media' ? 'selected' : ''}>Media</option>
+              <option value="Alta" ${req.prioridad === 'Alta' ? 'selected' : ''}>Alta</option>
+              <option value="Urgente" ${req.prioridad === 'Urgente' ? 'selected' : ''}>Urgente</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Guardar Requerimiento</button>
+        </form>
+      `);
+    }
+
+    function guardarRequerimiento(e, id) {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      if (id) {
+        const r = REQUERIMIENTOS.find(x => x.id === id);
+        if (r) {
+          r.lab = fd.get("lab");
+          r.solicitante = fd.get("solicitante");
+          r.detalle = fd.get("detalle");
+          r.prioridad = fd.get("prioridad");
+        }
+      } else {
+        REQUERIMIENTOS.unshift({
+          id: "REQ-00" + (REQUERIMIENTOS.length + 1),
+          area: AREA_INVENTARIO_ACTUAL,
+          lab: fd.get("lab"),
+          solicitante: fd.get("solicitante"),
+          detalle: fd.get("detalle"),
+          prioridad: fd.get("prioridad"),
+          estado: esAdmin() ? "Aprobado" : "Pendiente"
+        });
+      }
+      cerrarModal("modalDinamico");
+      renderizarInventarioYReqPorArea();
+      mostrarToast("Requerimiento registrado en el área.");
+    }
+
+    function cambiarEstadoReq(id, est) {
+      if (!esAdmin()) return;
+      const r = REQUERIMIENTOS.find(x => x.id === id);
+      if (r) { r.estado = est; renderizarInventarioYReqPorArea(); mostrarToast("Requerimiento aprobado."); }
+    }
+
+    function eliminarRequerimiento(id) {
+      if (!esAdmin()) return;
+      REQUERIMIENTOS = REQUERIMIENTOS.filter(x => x.id !== id);
+      renderizarInventarioYReqPorArea();
+      mostrarToast("Requerimiento eliminado.");
+    }
+
+    /* =========================================================================
+       AUTENTICACIÓN Y SEPARACIÓN ESTRICTA DE FUNCIONES POR ROL
+       ========================================================================= */
+    function abrirModalLogin() {
+      if (USUARIO_ACTUAL) {
+        irAlPanelInterno();
+        return;
+      }
+      document.getElementById("loginErrorBox").style.display = "none";
+      document.getElementById("modalLogin").style.display = "grid";
+      lucide.createIcons();
+    }
+
+    function iniciarSesionFormulario(e) {
+      e.preventDefault();
+      const mail = document.getElementById("loginEmail").value.trim().toLowerCase();
+      const pass = document.getElementById("loginPass").value;
+      const errBox = document.getElementById("loginErrorBox");
+
+      const cuenta = CUENTAS.find(c => c.email.toLowerCase() === mail && c.pass === pass);
+      if (!cuenta) {
+        errBox.textContent = "Usuario o contraseña incorrectos.";
+        errBox.style.display = "block";
+        return;
+      }
+      if (cuenta.estado !== "Aprobado") {
+        errBox.textContent = `Tu cuenta se encuentra en estado "${cuenta.estado}". Debe estar Aprobada por el Administrador para ingresar.`;
+        errBox.style.display = "block";
+        return;
+      }
+
+      autenticarUsuario(cuenta);
+    }
+
+    function accesoDirectoRol(rol) {
+      const cuenta = CUENTAS.find(c => c.rol === rol && c.estado === "Aprobado") || CUENTAS[0];
+      autenticarUsuario(cuenta);
+    }
+
+    function autenticarUsuario(cuenta) {
+      USUARIO_ACTUAL = cuenta;
+      cerrarModal("modalLogin");
+
+      // Actualizar controles de edición en la vista pública
+      document.getElementById("adminEditBanner").style.display = esAdmin() ? "block" : "none";
+      document.getElementById("btnTopLogin").innerHTML = `<i data-lucide="user"></i> Panel (${cuenta.rol.toUpperCase()})`;
+      renderizarLaboratoriosPublicos();
+      renderizarNoticias();
+
+      irAlPanelInterno();
+      mostrarToast(`Bienvenido(a), ${cuenta.nombre} [${cuenta.rol.toUpperCase()}]`);
+    }
+
+    function configurarPanelPorRol() {
+      const u = USUARIO_ACTUAL;
+      if (!u) return;
+
+      document.getElementById("sideAvatar").textContent = u.nombre[0].toUpperCase();
+      document.getElementById("sideUserName").textContent = u.nombre;
+      document.getElementById("sideUserRole").textContent = u.rol;
+      document.getElementById("panelRoleBadge").textContent = `PERFIL ACTIVO: ${u.rol.toUpperCase()}`;
+
+      // Ocultar botones exclusivos de administrador para docentes y estudiantes
+      document.querySelectorAll(".admin-only-btn").forEach(el => {
+        el.style.display = esAdmin() ? "" : "none";
+      });
+
+      const nav = document.getElementById("sidebarMenuLinks");
+      const pendCuentas = CUENTAS.filter(c => c.estado === "Pendiente").length;
+      const pendSep = SEPARACIONES.filter(s => s.estado === "Pendiente").length;
+      const bloqueInv = document.getElementById("bloqueTablaInventario");
+
+      if (esAdmin()) {
+        if (bloqueInv) bloqueInv.style.display = "block";
+        document.getElementById("btnNuevaSepAlmanaque").style.display = "inline-flex";
+        document.getElementById("btnNuevoReqArea").style.display = "inline-flex";
+        nav.innerHTML = `
+          <li><button class="admin-nav-btn active" onclick="mostrarTabPanel('tabCuentas', 'Panel de Aprobación de Cuentas', this)"><i data-lucide="user-check"></i> Aprobación de Cuentas <span class="badge-count">${pendCuentas}</span></button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabSeparaciones', 'Separación de Laboratorios (Aprobar/Rechazar)', this)"><i data-lucide="calendar-check"></i> Separación de Labs <span class="badge-count">${pendSep}</span></button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabAlmanaque', 'Almanaque de Uso de Laboratorios (9:00 - 1:00)', this)"><i data-lucide="calendar-days"></i> Almanaque de Labs</button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabHorarioClases', 'Horario de Clases de los Estudiantes', this)"><i data-lucide="clock"></i> Horario de Clases</button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabInventario', 'Inventario y Requerimientos por Áreas', this)"><i data-lucide="boxes"></i> Inventario y Requerimientos</button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabNoticiasWeb', 'Noticias y Edición de Plataforma', this)"><i data-lucide="newspaper"></i> Noticias y Editar Web</button></li>
+        `;
+        mostrarTabPanel("tabCuentas", "Panel de Aprobación de Cuentas");
+      } else if (esDocente()) {
+        if (bloqueInv) bloqueInv.style.display = "block";
+        document.getElementById("btnNuevaSepAlmanaque").style.display = "inline-flex";
+        document.getElementById("btnNuevoReqArea").style.display = "inline-flex";
+        nav.innerHTML = `
+          <li><button class="admin-nav-btn active" onclick="mostrarTabPanel('tabAlmanaque', 'Almanaque y Separación de Laboratorios (9:00 - 1:00)', this)"><i data-lucide="calendar-days"></i> Almanaque y Separar Lab</button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabSeparaciones', 'Estado de Mis Separaciones', this)"><i data-lucide="calendar-check"></i> Solicitudes de Laboratorio</button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabHorarioClases', 'Horario de Clases de los Estudiantes', this)"><i data-lucide="clock"></i> Horario de Clases</button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabInventario', 'Requerimientos y Stock por Área', this)"><i data-lucide="clipboard-list"></i> Requerimientos por Área</button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabNoticiasWeb', 'Noticias Institucionales', this)"><i data-lucide="newspaper"></i> Noticias del Campus</button></li>
+        `;
+        mostrarTabPanel("tabAlmanaque", "Almanaque y Separación de Laboratorios (9:00 - 1:00)");
+      } else {
+        // ESTUDIANTE: Incluye Horario de Clases, Requerimientos, Almanaque de Uso de Labs y Noticias
+        if (bloqueInv) bloqueInv.style.display = "none"; // Muestra directamente la sección de Requerimientos para el estudiante
+        document.getElementById("btnNuevaSepAlmanaque").style.display = "none";
+        document.getElementById("btnNuevoReqArea").style.display = "inline-flex";
+        nav.innerHTML = `
+          <li><button class="admin-nav-btn active" onclick="mostrarTabPanel('tabHorarioClases', 'Mi Horario de Clases (9:00 a 1:00 p. m.)', this)"><i data-lucide="clock"></i> Horario de Clases</button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabInventario', 'Mis Requerimientos de Práctica por Área', this)"><i data-lucide="clipboard-list"></i> Requerimientos</button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabAlmanaque', 'Uso y Disponibilidad de Laboratorios', this)"><i data-lucide="calendar-days"></i> Horario de Laboratorios</button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabNoticiasWeb', 'Noticias y Comunicados para Estudiantes', this)"><i data-lucide="newspaper"></i> Noticias del Campus</button></li>
+        `;
+        mostrarTabPanel("tabHorarioClases", "Mi Horario de Clases (9:00 a 1:00 p. m.)");
+      }
+
+      actualizarVistasPanel();
+      lucide.createIcons();
+    }
+
+    function mostrarTabPanel(tabId, titulo, btnEl = null) {
+      document.querySelectorAll(".panel-tab").forEach(t => t.style.display = "none");
+      document.getElementById(tabId).style.display = "block";
+      document.getElementById("panelHeaderTitle").textContent = titulo;
+
+      if (btnEl) {
+        document.querySelectorAll(".admin-nav-btn").forEach(b => b.classList.remove("active"));
+        btnEl.classList.add("active");
+      }
+      actualizarVistasPanel();
+    }
+
+    function actualizarVistasPanel() {
+      renderizarTablaCuentas();
+      renderizarTablaSeparaciones();
+      renderizarAlmanaque("panel");
+      renderizarHorarioClases("panel");
+      renderizarInventarioYReqPorArea();
+      renderizarNoticias();
+    }
+
+    /* =========================================================================
+       CHATBOT INTERACTIVO ENLAZADO AL CELULAR 906041978
+       ========================================================================= */
+    function toggleChatbot() {
+      const w = document.getElementById("chatbotWindow");
+      w.style.display = w.style.display === "flex" ? "none" : "flex";
+      lucide.createIcons();
+    }
+
+    function agregarBurbujaChat(texto, tipo = "bot") {
+      const box = document.getElementById("chatMessages");
+      const div = document.createElement("div");
+      div.className = `chat-bubble ${tipo === "bot" ? "chat-bot" : "chat-user"}`;
+      div.innerHTML = texto;
+      box.appendChild(div);
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function respuestaRapidaChat(tema) {
+      agregarBurbujaChat(tema, "user");
+      if (tema.includes("Horarios")) {
+        agregarBurbujaChat("El uso de laboratorios y las clases son de <b>9:00 a. m. a 1:00 p. m.</b>, con un receso de 20 minutos de <b>11:00 a 11:20 a. m.</b>", "bot");
+      } else {
+        agregarBurbujaChat("Si ya te registraste con <b>@fdssmartcampus.edu.pe</b>, puedes avisar al Administrador directamente al WhatsApp <b>906 041 978</b> para su aprobación inmediata.", "bot");
+      }
+    }
+
+    function enviarMensajeChatUsuario(e) {
+      e.preventDefault();
+      const inp = document.getElementById("chatInputTxt");
+      const msg = inp.value.trim();
+      if (!msg) return;
+      agregarBurbujaChat(msg, "user");
+      inp.value = "";
+
+      const urlWa = `https://wa.me/${TELEFONO_ADMIN_WHATSAPP}?text=${encodeURIComponent("Hola Administrador de FDS SMART CAMPUS, mi consulta es: " + msg)}`;
+      setTimeout(() => {
+        agregarBurbujaChat(`He preparado tu mensaje para enviarlo directo al celular <b>906 041 978</b>:<br><a href="${urlWa}" target="_blank" rel="noopener" class="btn btn-accent btn-xs" style="margin-top:6px;"><i data-lucide="external-link" style="width:12px;"></i> Enviar ahora al 906041978</a>`, "bot");
+        lucide.createIcons();
+      }, 300);
+    }
+
+    function enviarDirectoWhatsApp(mensaje) {
+      const url = `https://wa.me/${TELEFONO_ADMIN_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, "_blank", "noopener");
+    }
+
+    function irAlPanelInterno() {
+      document.getElementById("vistaPublica").style.display = "none";
+      document.getElementById("panelInternoView").style.display = "grid";
+      configurarPanelPorRol();
+      window.scrollTo(0, 0);
+    }
+
+    function volverSitioPublico() {
+      document.getElementById("panelInternoView").style.display = "none";
+      document.getElementById("vistaPublica").style.display = "block";
+      renderizarAlmanaque("publico");
+      renderizarLaboratoriosPublicos();
+      renderizarNoticias();
+    }
+
+    function cerrarSesion() {
+      USUARIO_ACTUAL = null;
+      document.getElementById("adminEditBanner").style.display = "none";
+      document.getElementById("btnTopLogin").innerHTML = `<i data-lucide="log-in"></i> Acceso Portal`;
+      volverSitioPublico();
+      mostrarToast("Sesión finalizada correctamente.");
+    }
+
+    /* UTILIDADES DE VIDEO, MODAL Y TOAST */
+    function reproducirVideo() {
+      const v = document.getElementById("labVideo");
+      if (v) { v.scrollIntoView({ behavior: "smooth", block: "center" }); v.play(); }
+    }
+
+    function abrirModalGenerico(html) {
+      document.getElementById("modalDinamicoContent").innerHTML = html;
+      document.getElementById("modalDinamico").style.display = "grid";
+      lucide.createIcons();
+    }
+
+
+    /* =========================================================================
+       LABORATORIOS PÚBLICOS (función que faltaba en el archivo original)
+       ========================================================================= */
+    function renderizarLaboratoriosPublicos() {
+      const mapa = { "Enfermería": "gridEnfermeria", "Farmacia": "gridFarmacia", "Gastronomía": "gridGastronomia", "Cómputo": "gridComputo" };
+      const html = {};
+      LABORATORIOS.forEach(l => {
+        html[l.area] = (html[l.area] || "") + `
+          <article class="lab-card">
+            <div class="lab-visual" style="background-image:url('${l.img}')">
+              <span class="lab-tag">${l.area}</span>
+              <span class="lab-tag" style="background:#fff;">${l.capacidad || ""}</span>
+            </div>
+            <div class="lab-content">
+              <h4>${l.nombre} de ${l.area}</h4>
+              <p>${l.desc}</p>
+              <div class="lab-chips">${(l.equipos || []).slice(0, 3).map(e => `<span>${e}</span>`).join("")}</div>
+              <div class="lab-actions">
+                <button class="btn btn-primary btn-sm" onclick="abrirDetalleLab('${l.id}')"><i data-lucide="eye"></i> Ver laboratorio</button>
+                <button class="btn btn-accent btn-sm" onclick="irAlAlmanaqueDeLab('${l.id}')"><i data-lucide="calendar-plus"></i> Solicitar horario</button>
+              </div>
+            </div>
+          </article>`;
+      });
+      Object.entries(mapa).forEach(([area, gid]) => {
+        const g = document.getElementById(gid);
+        if (g) g.innerHTML = html[area] || "";
+      });
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function abrirDetalleLab(id) {
+      const l = LABORATORIOS.find(x => x.id === id);
+      if (!l) return;
+      abrirModalGenerico(`
+        <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
+        <div style="height:230px; border-radius:18px; background:url('${l.img}') center/cover, var(--primary-mid); margin-bottom:1.3rem;"></div>
+        <span class="tag-status st-aprobado">${l.area}</span>
+        <h3 style="font-size:1.9rem; margin:.7rem 0 .4rem;">${l.nombre} de ${l.area}</h3>
+        <p style="color:var(--text-muted); margin-bottom:1.2rem;">${l.desc}</p>
+        <h4 style="margin-bottom:.6rem;">Equipamiento</h4>
+        <ul class="lab-chips">${(l.equipos || []).map(e => `<li>${e}</li>`).join("")}</ul>
+        <p style="margin-bottom:1.4rem;"><b>Capacidad:</b> ${l.capacidad || "—"}</p>
+        <div class="lab-actions">
+          <button class="btn btn-accent" onclick="cerrarModal('modalDinamico'); irAlAlmanaqueDeLab('${l.id}')"><i data-lucide="calendar-plus"></i> Solicitar horario</button>
+          <button class="btn btn-white" onclick="cerrarModal('modalDinamico')">Cerrar</button>
+        </div>`);
+    }
+
+    /* =========================================================================
+       EDICIÓN DE PORTADA (función que faltaba en el archivo original)
+       ========================================================================= */
+    function textoSeguro(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+
+    function abrirModalEditarHero() {
+      const h1 = document.getElementById("heroTitleText");
+      const p = document.getElementById("heroDescText");
+      const linea1 = h1.childNodes[0] ? h1.childNodes[0].textContent.trim() : "";
+      const sp = h1.querySelector("span");
+      const linea2 = sp ? sp.textContent.trim() : "";
+      abrirModalGenerico(`
+        <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
+        <h3 style="font-size:1.6rem; margin-bottom:1.2rem;">Editar portada</h3>
+        <form onsubmit="guardarHero(event)">
+          <div class="form-group"><label style="color:var(--primary);">Título (línea 1)</label>
+            <input class="form-control" name="l1" value="${textoSeguro(linea1)}" required></div>
+          <div class="form-group"><label style="color:var(--primary);">Título destacado (línea 2, en amarillo)</label>
+            <input class="form-control" name="l2" value="${textoSeguro(linea2)}"></div>
+          <div class="form-group"><label style="color:var(--primary);">Descripción</label>
+            <textarea class="form-control" name="desc" rows="4" required>${textoSeguro(p.textContent.trim())}</textarea></div>
+          <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:1rem;">
+            <button type="button" class="btn btn-white btn-sm" onclick="cerrarModal('modalDinamico')">Cancelar</button>
+            <button type="submit" class="btn btn-accent btn-sm"><i data-lucide="save"></i> Guardar portada</button>
+          </div>
+        </form>`);
+    }
+
+    function aplicarHero(d) {
+      const h1 = document.getElementById("heroTitleText");
+      const p = document.getElementById("heroDescText");
+      if (!h1 || !p) return;
+      h1.innerHTML = textoSeguro(d.l1) + (d.l2 ? ` <br><span>${textoSeguro(d.l2)}</span>` : "");
+      p.textContent = d.desc;
+    }
+
+    function guardarHero(e) {
+      e.preventDefault();
+      const f = new FormData(e.target);
+      const d = { l1: f.get("l1").trim(), l2: f.get("l2").trim(), desc: f.get("desc").trim() };
+      aplicarHero(d);
+      try { localStorage.setItem("fds_hero", JSON.stringify(d)); } catch (err) {}
+      cerrarModal("modalDinamico");
+      mostrarToast("Portada actualizada correctamente.");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      try { const d = JSON.parse(localStorage.getItem("fds_hero") || "null"); if (d) aplicarHero(d); } catch (err) {}
+    });
+
+    function cerrarModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    function mostrarToast(msg) {
+      const toast = document.getElementById("toastNotification");
+      document.getElementById("toastMsg").textContent = msg;
+      toast.style.display = "flex";
+      clearTimeout(mostrarToast.timer);
+      mostrarToast.timer = setTimeout(() => { toast.style.display = "none"; }, 3800);
+    }
+  </script>
+</body>
+</html>
