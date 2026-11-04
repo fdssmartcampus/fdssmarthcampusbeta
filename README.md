@@ -21,3 +21,11 @@ La PWA abre `./app/`, manteniendo el mismo identificador de instalación. Las in
 Las actualizaciones del service worker se activan mediante el botón **Nueva versión disponible**, para evitar recargar formularios sin aviso. Incrementa VERSION en sw.js cuando cambies los archivos de instalación.
 
 Para ejecutar las pruebas sin dependencias: `node test-pwa.cjs` y `node test-app.cjs`.
+
+## Agenda y premios de Mi Campus
+
+En Inicio → Ver agenda, los estudiantes pueden consultar próximos eventos y eventos pasados, marcar Me interesa (preferencia local, sin reservar vacante) y descargar un recordatorio de calendario con hora de Perú. El administrador puede publicar y editar título, descripción, fecha, hora, lugar y enlace de inscripción.
+
+En Minijuegos → Mis premios aparecen cuatro insignias virtuales que se desbloquean según las mejores marcas locales: completar memoria, lograr memoria en 10 movimientos o menos, conseguir 10 aciertos y conseguir 20 aciertos en cálculo. No son canje automático por productos. El administrador puede publicar premios del instituto con requisitos, vigencia y enlace de participación; el instituto valida a los ganadores y la entrega.
+
+Eventos y convocatorias se guardan junto al contenido de la app en la clave existente `aplicacion`; se conservan cuestionarios, biblioteca y avisos anteriores. No se cambia el esquema ni las políticas de acceso. Pruebas: `node test-events.cjs`.
