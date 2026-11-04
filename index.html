@@ -416,6 +416,371 @@
     .lab-actions { display: flex; gap: 8px; flex-wrap: wrap; }
   </style>
 
+  <style id="campus-visual-update">
+    :root { --bg:#e1ebfc; --primary-soft:#dce9ff; --border:#b9ceec; }
+    body { background:linear-gradient(130deg,#dce9ff,#eaf1fc 60%,#fff1b9); }
+    .sec-alt { background:linear-gradient(130deg,#d3e4ff 0%,#edf3ff 65%,#fff0ae 100%); }
+    #almanaque { background:radial-gradient(ellipse at 95% 5%,#ffe17c88,transparent 48%),linear-gradient(130deg,#cbdfff,#e1ecff 65%,#fff0b8); }
+    #almanaque .sec-kicker { background:#fff2b4; border-color:#e6b62c; color:#06214c; }
+    .almanaque-wrap { border:1px solid #a9c4ec; box-shadow:0 14px 35px #06214c14; }
+    .area-card,.lab-card { background:linear-gradient(150deg,#f4f8ff,#e6efff); }
+    .panel-main { background:linear-gradient(135deg,#dce9fc,#edf3ff 70%,#fff5cf); }
+    .campus-refresh-wrap { display:flex; justify-content:flex-end; padding:10px 4%; background:#dce9fc; }
+    .campus-refresh { background:#0a2f6b; color:#ffcf28; padding:10px 16px; border:1px solid #ffc20e; border-radius:12px; box-shadow:0 4px 12px #06214c20; }
+    .campus-refresh:hover { background:#1552a3; transform:translateY(-2px); }
+    .campus-refresh:disabled { opacity:.65; cursor:wait; }
+    .campus-refresh.is-loading svg { animation:giro 1.2s linear infinite; }
+    .lab-filter-bar { display:flex; flex-wrap:wrap; align-items:center; gap:18px; margin:0 0 24px; padding:20px; background:linear-gradient(100deg,#0a2f6b,#174c99); color:#fff; border-left:6px solid #ffc20e; border-radius:16px; }
+    .lab-filter-bar label { font-weight:800; color:#ffda57; }
+    .lab-filter-bar p { font-size:.9rem; color:#dfeaff; margin-top:4px; }
+    .lab-filter-bar select { width:auto; min-width:220px; max-width:100%; background:#f0f5ff; color:#06214c; }
+    #resumenInventario { font-size:.86rem; color:#fff1b4; }
+    body.campus-locked { min-height:100dvh; background:#06214c; }
+    body.campus-locked > :not(#modalLogin):not(#authRegistration):not(#toastNotification):not(script):not(style) { display:none!important; }
+    body.campus-locked #modalLogin { display:grid!important; z-index:2500; padding:40px 20px; overflow-y:auto; background:radial-gradient(ellipse at 70% 70%,#ffcc4470,transparent 43%),radial-gradient(ellipse at 10% 100%,#2b7cc7,transparent 60%),linear-gradient(155deg,#04132f,#0e3b7d 62%,#e8bc55); }
+    body.campus-locked #modalLogin::before { content:''; position:fixed; inset:0; pointer-events:none; background-image:radial-gradient(#fff9 1px,transparent 1.5px),radial-gradient(#ffda57a0 1px,transparent 2px); background-size:100px 110px,170px 190px; }
+    body.campus-locked #modalLogin::after { content:''; position:fixed; inset:65% 0 0; pointer-events:none; background:linear-gradient(170deg,#0c3260,#03122b); clip-path:polygon(0 66%,15% 25%,29% 59%,45% 5%,63% 65%,80% 37%,100% 73%,100% 100%,0 100%); }
+    body.campus-locked #modalLogin .modal-box { position:relative; z-index:1; background:linear-gradient(135deg,#ffffff25,#ffffff0e); color:#fff; border:1px solid #f4d46b66; border-top:4px solid #ffc20e; border-radius:28px; backdrop-filter:blur(22px); box-shadow:0 30px 90px #0005; padding:36px; max-height:none; width:min(100%,480px); margin:auto; }
+    body.campus-locked #modalLogin h3 { color:#fff; font-size:1.9rem!important; }
+    body.campus-locked #modalLogin p { color:#d4e4ff!important; }
+    body.campus-locked #modalLogin label { color:#fff1b4!important; font-weight:600; }
+    body.campus-locked #modalLogin .form-control { background:#ffffff16; border:1px solid #c6ddff66; color:#fff; border-radius:14px; }
+    body.campus-locked #modalLogin input::placeholder { color:#d8e5fa; }
+    body.campus-locked #modalLogin [type=submit] { background:linear-gradient(100deg,#ffd858,#ffc20e); color:#06214c; }
+    body.campus-locked #modalLogin .modal-close { display:none; }
+    .auth-register-link { text-align:center; border-top:1px solid #c9dcff44; padding-top:18px; }
+    .auth-register-link button { margin-top:8px; background:transparent; color:#ffda57; font-weight:800; text-decoration:underline; text-underline-offset:5px; }
+    #authRegistration { display:none; }
+    body.campus-locked.auth-register #modalLogin { display:none!important; }
+    body.campus-locked.auth-register #authRegistration { display:block; min-height:100dvh; background:linear-gradient(135deg,#041b40,#124b98); }
+    #authRegistration > .auth-back { padding:24px 4% 0; }
+    #authRegistration .register-section { background:transparent; padding:36px 0 60px; }
+    #authRegistration .reg-card { background:#123b75; border:1px solid #8aace166; border-top:4px solid #ffc20e; }
+    #gateStatus { font-size:.82rem; margin:12px 0 0; color:#fff1b4; }
+    @media(max-width:600px) { .lab-filter-bar select { width:100%; } body.campus-locked #modalLogin .modal-box { padding:28px 22px; } .refresh-label { font-size:.88rem; } .register-boxes { grid-template-columns:1fr; } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; scroll-behavior:auto!important; } }
+  </style>
+
+<style id="campus-round2-design">
+  .wrap { width:min(1440px,94%); }
+  .topbar { padding:8px 0; }
+  .topbar .nav { gap:16px; }
+  .topbar .menu { gap:1.1rem; }
+  .owl-icon { background:none!important; box-shadow:none!important; border:none!important; border-radius:0!important; width:64px!important; height:64px!important; }
+  .owl-icon svg { width:100%; height:100%; overflow:visible; filter:drop-shadow(0 3px 5px #0003); }
+  .admin-sidebar .brand-logo { gap:8px; align-items:center; }
+  .admin-sidebar .brand-logo > div:last-child { min-width:0; }
+  .admin-sidebar .brand-logo span { overflow-wrap:normal; }
+  .admin-sidebar { padding:20px 12px; }
+  .admin-nav-btn { padding:12px 10px; gap:8px; }
+  .admin-nav-btn:hover { padding-left:13px; }
+  .admin-content { min-width:0; padding:24px; }
+  @media(min-width:961px) { #panelInternoView { grid-template-columns:258px minmax(0,1fr); } }
+  .campus-schedule-filters { display:flex; flex-wrap:wrap; gap:16px; align-items:end; padding:20px; margin:0 0 12px; border:1px solid #a7bee8; border-left:5px solid #ffc20e; background:linear-gradient(110deg,#d2e3ff,#edf3ff); border-radius:16px; }
+  .schedule-filter { flex:1 1 220px; }
+  .schedule-filter label { display:block; font-size:.95rem; font-weight:800; margin-bottom:7px; color:#06214c; }
+  .schedule-filter select { width:100%; background:#f7faff; color:#06214c; }
+  .schedule-summary { flex:1 1 100%; color:#0a2f6b; font-size:.92rem; font-weight:700; }
+  .schedule-note { padding:0 8px; margin:0 0 18px; color:#435776; font-size:.86rem; }
+  .class-modality { font-size:.7rem; color:#fff0a8; margin-top:5px; }
+  .creator-contact { display:grid; gap:8px; margin-top:20px; font-size:.92rem; }
+  .creator-contact strong { color:#ffda57; }
+  .creator-email-pending { color:#c6d8ef; }
+  .chatbot-fab { display:flex; align-items:center; gap:6px; padding:0; border:none; background:none; box-shadow:none; max-width:calc(100vw - 24px); animation:none; }
+  .chatbot-fab:hover { background:none; box-shadow:none; transform:none; }
+  .assistant-mascot { display:block; width:86px; height:100px; flex-shrink:0; animation:owlBob 4s ease-in-out infinite; }
+  .assistant-owl-art { display:block; width:86px!important; height:100px!important; filter:drop-shadow(0 5px 6px #06214c44); }
+  .assistant-owl-art circle { transform-box:fill-box; transform-origin:center; animation:owlBlink 6s infinite; }
+  .owl-point-wing { transform-box:fill-box; transform-origin:left bottom; animation:owlPoint 3s ease-in-out infinite; }
+  .assistant-callout { display:grid; gap:2px; text-align:left; padding:10px 15px; background:linear-gradient(110deg,#ffdc5c,#ffc20e); color:#06214c; border:2px solid #06214c; border-radius:18px 18px 18px 3px; box-shadow:0 6px 18px #06214c25; font-size:.78rem; }
+  .assistant-callout strong { font-size:.98rem; }
+  @keyframes owlBob { 50% { transform:translateY(-5px) rotate(-3deg); } }
+  @keyframes owlPoint { 50% { transform:rotate(-12deg); } }
+  @keyframes owlBlink { 0%,44%,48%,100% { transform:scaleY(1); } 46% { transform:scaleY(.12); } }
+  @media(max-width:600px) { .assistant-mascot,.assistant-owl-art { width:62px!important; height:74px!important; } .assistant-callout { padding:8px 12px; } .admin-content { padding:16px; } .campus-schedule-filters { padding:16px; } .campus-schedule-filters .schedule-filter { flex-basis:100%; } }
+</style>
+
+<style id="campus-motion-design">
+  :root { --ui-ease:cubic-bezier(.22,1,.36,1); }
+  .admin-topbar { background:linear-gradient(120deg,#f3f7ff,#e2edff 78%,#fff0b8); border-color:#b7ccec; box-shadow:0 12px 28px #06214c12; }
+  .admin-content { background:radial-gradient(ellipse at 100% 0%,#ffda5730,transparent 40%),linear-gradient(145deg,#dce9fc,#edf3ff); }
+  .campus-schedule-filters { box-shadow:0 8px 24px #06214c0a; }
+  .schedule-filter:focus-within label { color:#1552a3; }
+  .schedule-filter select { transition:box-shadow .25s,background .25s,border-color .25s; }
+  .schedule-filter select:focus { box-shadow:0 0 0 5px #ffc20e30; }
+  .campus-schedule-filters[data-turno="tarde"] { background:linear-gradient(110deg,#fff0b8,#e4edff 65%); border-left-color:#1d6fe0; }
+  .campus-schedule-filters[data-turno="tarde"] .schedule-summary { color:#133e77; }
+  .admin-nav-btn.active { background:linear-gradient(110deg,#ffdc62,#ffc20e); box-shadow:0 7px 20px #ffc20e30; }
+  .area-tab-btn { transition:background .25s,color .25s,border-color .25s,box-shadow .25s,transform .25s; }
+  .lab-card img,.news-card img { transition:transform .8s var(--ui-ease),filter .6s; }
+  .lab-card:hover img,.news-card:hover img { transform:scale(1.045); filter:saturate(1.08); }
+  .lab-card,.news-card,.area-card { will-change:auto; }
+  .lab-card:hover,.news-card:hover { box-shadow:0 16px 36px #06214c20; }
+  .almanaque-table .slot-box { transition:background .2s,box-shadow .2s,transform .2s; }
+  .almanaque-table .slot-disponible:hover { transform:translateY(-2px); box-shadow:0 5px 12px #1456b825; }
+  .almanaque-table .col-hora { white-space:normal; min-width:135px; line-height:1.45; }
+  .btn,.area-tab-btn,.admin-nav-btn { position:relative; isolation:isolate; overflow:hidden; }
+  .ui-ripple { position:absolute; z-index:3; pointer-events:none; border-radius:50%; background:#ffffff66; transform:translate(-50%,-50%); }
+  .topbar.ui-scrolled { background:rgba(4,24,58,.97); box-shadow:0 7px 24px #03142f44; }
+  .menu a[aria-current="location"] { color:#ffdb57; }
+  .menu a[aria-current="location"]::after { width:100%; }
+  .ui-back-top { position:fixed; right:25px; bottom:142px; z-index:1090; width:44px; height:44px; display:grid; place-items:center; background:#0a2f6b; color:#ffda57; border:1px solid #ffc20e; border-radius:14px; box-shadow:0 5px 18px #06214c28; opacity:0; visibility:hidden; transform:translateY(8px); transition:opacity .2s,transform .2s,visibility .2s; }
+  .ui-back-top.is-visible { opacity:1; visibility:visible; transform:none; }
+  .ui-back-top:hover { background:#1552a3; }
+  .assistant-awake .assistant-mascot { animation:owlHello .6s var(--ui-ease) both; }
+  .assistant-awake .assistant-callout { background:linear-gradient(120deg,#fff0a8,#ffd442); box-shadow:0 0 0 4px #ffc20e20,0 8px 25px #06214c25; }
+  .assistant-awake .owl-point-wing { animation:owlPoint .6s ease-in-out 2; }
+  .Chatbot-footer { display:flex; align-items:center; gap:8px; padding:12px; background:#f4f8ff; border-top:1px solid #c6d8ef; }
+  .Chatbot-footer .form-control { flex:1; min-width:0; }
+  .Chatbot-footer button { flex-shrink:0; }
+  .chatbot-window { box-shadow:0 20px 60px #06214c38; border:1px solid #b9ceec; }
+  .chatbot-header .owl-icon { width:42px!important; height:42px!important; }
+  body.campus-locked #modalLogin { background:radial-gradient(ellipse at 75% 70%,#ffd04466,transparent 45%),radial-gradient(ellipse at 5% 95%,#2873c0,transparent 65%),linear-gradient(145deg,#03122c,#0b3979 65%,#d4b05a); }
+  body.campus-locked #modalLogin .modal-box { border-color:#f4d46b66; border-top-color:#ffc20e; box-shadow:0 25px 80px #0005,0 0 55px #2d7ee61a; }
+  @keyframes owlHello { 0% { transform:rotate(0); } 35% { transform:translateY(-10px) rotate(-9deg); } 70% { transform:rotate(5deg); } 100% { transform:rotate(0); } }
+  @media(max-width:600px) { .ui-back-top { right:16px; bottom:120px; } }
+  @media(prefers-reduced-motion:reduce) { .ui-back-top,.slot-box,.lab-card img,.news-card img,.schedule-filter select { transition:none!important; } }
+</style>
+<style id="campus-news-carousel-design">
+.news-grid.news-carousel-host { display:block; }
+.news-carousel { overflow:hidden; border-radius:26px; border:1px solid #b2c8e9; box-shadow:0 18px 46px #06214c20; background:#082756; }
+.news-carousel-head { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:20px 26px; border-bottom:1px solid #ffffff20; }
+.news-carousel-head strong { color:#ffda57; font-family:var(--font-display); font-size:1.16rem; }
+.news-carousel-head span { color:#c9defa; font-size:.84rem; }
+.news-carousel-slide { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(270px,.8fr); min-height:430px; }
+.news-carousel-figure { position:relative; display:grid; place-items:center; padding:20px; min-width:0; background:radial-gradient(ellipse at 50% 50%,#1c4a84,#03152e); border:0; color:#fff; cursor:zoom-in; touch-action:pan-y pinch-zoom; }
+.news-carousel-figure img { display:block; width:100%; height:390px; object-fit:contain; border-radius:10px; }
+.news-zoom-label { position:absolute; bottom:26px; right:26px; padding:7px 12px; border-radius:9px; background:#06214ce8; color:#ffda57; font-size:.78rem; border:1px solid #ffd44b88; }
+.news-carousel-copy { padding:36px 30px; display:flex; flex-direction:column; align-items:flex-start; justify-content:center; background:linear-gradient(140deg,#0a2f6b,#06214c); border-left:1px solid #ffffff15; }
+.news-carousel-category { color:#06214c; background:#ffcf32; border-radius:99px; padding:5px 12px; font-size:.73rem; font-weight:800; letter-spacing:.05em; text-transform:uppercase; }
+.news-carousel-copy time { color:#c6daf8; font-size:.82rem; margin:15px 0 10px; }
+.news-carousel-copy h3 { color:#fff; font-size:clamp(1.5rem,2.4vw,2.15rem); margin-bottom:16px; }
+.news-carousel-copy p { color:#d5e4fa; font-size:1rem; line-height:1.7; white-space:pre-line; overflow-wrap:anywhere; }
+.news-carousel-admin { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.news-carousel-controls { display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding:18px 24px; background:#e1ebfb; border-top:4px solid #ffc20e; }
+.news-arrow,.news-autoplay { flex-shrink:0; min-width:42px; height:42px; padding:0 12px; border-radius:12px; background:#0a2f6b; color:#ffda57; font-size:1rem; font-weight:800; }
+.news-arrow:hover,.news-autoplay:hover { background:#1552a3; }
+.news-dots { display:flex; flex:1 1 150px; gap:3px; align-items:center; justify-content:center; overflow-x:auto; padding:3px; }
+.news-dot { display:grid; place-items:center; flex:0 0 28px; height:32px; border-radius:8px; background:transparent; }
+.news-dot::before { content:''; display:block; width:8px; height:8px; border-radius:99px; background:#93acd1; transition:width .2s,background .2s; }
+.news-dot[aria-current="true"]::before { background:#0a2f6b; width:22px; height:8px; box-shadow:0 0 0 3px #ffc20e66; }
+.news-carousel-counter { color:#0a2f6b; font-size:.85rem; font-weight:800; min-width:48px; text-align:center; }
+.news-autoplay { background:#ffcf32; color:#06214c; font-size:.8rem; }
+.news-autoplay:hover { background:#ffe17c; }
+.news-empty { padding:35px; background:#dce9fb; border:1px solid #b2c8e9; border-radius:18px; color:#06214c; text-align:center; }
+.news-upload-preview { display:flex; flex-wrap:wrap; gap:10px; margin:12px 0; }
+.news-upload-thumb { position:relative; width:84px; }
+.news-upload-thumb img { width:84px; height:84px; object-fit:contain; background:#dce9fb; border:1px solid #b2c8e9; border-radius:10px; }
+.news-upload-thumb button { position:absolute; top:-7px; right:-5px; width:25px; height:25px; border-radius:50%; background:#06214c; color:#fff; border:1px solid #ffda57; }
+.news-upload-status { font-size:.82rem; color:#435776; }
+.news-lightbox { width:min(1100px,94vw); max-width:94vw; max-height:94dvh; padding:0; border:1px solid #f5d365; border-radius:20px; background:#071e43; color:#fff; box-shadow:0 25px 80px #0008; overflow:auto; }
+.news-lightbox::backdrop { background:#020c20d9; backdrop-filter:blur(7px); }
+.news-lightbox-head { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:16px 20px; }
+.news-lightbox-head h3 { color:#fff; font-size:1.1rem; }
+.news-lightbox-close { flex-shrink:0; width:40px; height:40px; border-radius:50%; background:#ffcf32; color:#06214c; font-size:1.5rem; }
+.news-lightbox-image { display:block; width:100%; height:min(69dvh,760px); object-fit:contain; background:#04142e; }
+.news-lightbox-footer { display:flex; gap:14px; align-items:center; justify-content:center; padding:12px 18px; border-top:1px solid #ffffff22; }
+.news-lightbox-footer span { font-size:.85rem; color:#e4edff; }
+@media(max-width:760px) { .news-carousel-slide { grid-template-columns:1fr; min-height:0; } .news-carousel-figure { padding:12px; } .news-carousel-figure img { height:320px; } .news-carousel-copy { padding:24px; } .news-carousel-copy h3 { font-size:1.6rem; } .news-carousel-head { padding:15px 18px; } .news-carousel-head span { display:none; } .news-carousel-controls { padding:12px; gap:6px; } .news-dots { order:3; flex-basis:100%; } .news-carousel-counter { margin-left:auto; } .news-lightbox-image { height:65dvh; } }
+@media(prefers-reduced-motion:reduce) { .news-dot::before { transition:none; } }
+
+</style>
+<style id="campus-news-panoramic">
+/* Panoramic news banner, matching the supplied visual reference. */
+.news-carousel { position:relative; isolation:isolate; border:0; background:#163f77; }
+.news-carousel-head { display:none; }
+.news-carousel-stage { position:relative; }
+.news-carousel-slide { position:relative; display:block; min-height:0; height:clamp(540px,68vh,760px); }
+.news-carousel-figure { position:absolute; inset:0; display:block; width:100%; height:100%; padding:0; border:0; border-radius:0; overflow:hidden; background:#153d70; }
+.news-carousel-figure img { width:100%; height:100%; object-fit:cover; object-position:center; border-radius:0; }
+.news-carousel-figure::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,rgba(10,52,108,.82) 0%,rgba(27,77,140,.65) 43%,rgba(27,77,140,.28) 100%),linear-gradient(0deg,rgba(3,24,60,.55),transparent 32%); }
+.news-zoom-label { top:22px; bottom:auto; left:24px; right:auto; z-index:1; padding:6px 11px; border-color:#ffffff55; background:#163d7080; color:#fff; }
+.news-carousel-copy { position:absolute; z-index:2; left:clamp(68px,9vw,170px); top:50%; transform:translateY(-50%); width:min(670px,65%); max-height:calc(100% - 140px); overflow-y:auto; padding:8px 20px 10px 0; background:none; border:0; justify-content:flex-start; pointer-events:auto; scrollbar-width:thin; }
+.news-carousel-category { align-self:flex-start; background:#ffc20e; color:#06214c; }
+.news-carousel-copy time { color:#e2edff; margin:12px 0; font-weight:600; }
+.news-carousel-copy h3 { color:#fff; font-size:clamp(2rem,3.6vw,3.6rem); line-height:1.12; font-weight:800; margin-bottom:22px; text-shadow:0 2px 5px #06214c55; }
+.news-carousel-copy p { color:#fff; font-size:clamp(1rem,1.2vw,1.18rem); line-height:1.5; max-width:590px; text-shadow:0 1px 3px #06214c66; }
+.news-carousel-cta { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:11px 25px; margin-top:26px; border:2px solid #fff; border-radius:999px; background:#ffffff12; color:#fff; font-weight:800; font-size:.91rem; pointer-events:auto; transition:background .2s,color .2s,transform .2s; }
+.news-carousel-cta:hover { background:#ffc20e; border-color:#ffc20e; color:#06214c; transform:translateY(-2px); }
+.news-carousel-admin { pointer-events:auto; margin-top:15px; }
+.news-carousel-controls { position:absolute; z-index:3; inset:0; display:block; padding:0; border:0; background:transparent; pointer-events:none; }
+.news-carousel-controls > * { pointer-events:auto; }
+.news-carousel-controls > .news-arrow { position:absolute; top:50%; transform:translateY(-50%); width:48px; height:48px; min-width:0; padding:0; border-radius:50%; background:#ffffff25; border:1px solid #ffffff4d; color:#fff; font-size:1.35rem; backdrop-filter:blur(4px); }
+.news-carousel-controls > .news-arrow:hover { background:#ffffff4d; }
+.news-carousel-controls > [data-news-action="prev"] { left:15px; }
+.news-carousel-controls > [data-news-action="next"] { right:15px; }
+.news-carousel-controls .news-dots { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:flex; flex-wrap:nowrap; width:max-content; max-width:55%; margin:0; padding:4px 6px; border-radius:99px; background:#06214c22; }
+.news-carousel-controls .news-dot { flex:0 0 25px; height:30px; }
+.news-carousel-controls .news-dot::before { width:11px; height:11px; background:#c7d8f1bb; border:1px solid #ffffff88; box-shadow:none; }
+.news-carousel-controls .news-dot[aria-current="true"]::before { width:12px; height:12px; background:#ffc20e; border-color:#ffda57; }
+.news-carousel-counter { position:absolute; top:20px; right:22px; padding:5px 12px; border:1px solid #ffffff44; border-radius:99px; color:#fff; background:#06214c44; }
+.news-carousel-controls .news-autoplay { position:absolute; right:20px; bottom:18px; height:36px; padding:0 12px; background:#06214c66; color:#fff; border:1px solid #ffffff66; border-radius:99px; backdrop-filter:blur(4px); }
+.news-carousel-controls .news-autoplay:hover { background:#ffc20e; border-color:#ffc20e; color:#06214c; }
+#noticias > .wrap { width:100%; }
+#noticias .sec-title-wrap { padding-inline:22px; }
+#noticias .news-carousel { border-radius:0; }
+#noticias .news-carousel-copy { left:max(80px,calc((100vw - 1240px)/2)); }
+@media(max-width:760px) {
+ .news-carousel-slide { height:660px; }
+ .news-carousel-copy,#noticias .news-carousel-copy { left:56px; width:calc(100% - 112px); max-height:calc(100% - 150px); padding-right:4px; pointer-events:auto; }
+ .news-carousel-copy h3 { font-size:clamp(1.8rem,6.5vw,2.5rem); margin-bottom:16px; }
+ .news-carousel-copy p { font-size:1rem; }
+ .news-carousel-figure::after { background:linear-gradient(90deg,#0a346cdc,#1b4d8c8c),linear-gradient(0deg,#03183c88,transparent 40%); }
+ .news-carousel-controls > .news-arrow { width:38px; height:38px; font-size:1.1rem; }
+ .news-carousel-controls > [data-news-action="prev"] { left:8px; }
+ .news-carousel-controls > [data-news-action="next"] { right:8px; }
+ .news-carousel-controls .news-dots { bottom:55px; max-width:85%; }
+ .news-carousel-controls .news-autoplay { bottom:12px; right:50%; transform:translateX(50%); }
+ .news-carousel-counter { right:14px; top:17px; font-size:.75rem; }
+ .news-zoom-label { left:14px; top:17px; font-size:.71rem; }
+ .news-carousel-cta { margin-top:20px; padding:10px 19px; }
+ .news-carousel-admin { gap:6px; }
+ .news-carousel-admin .btn { padding:8px 10px; font-size:.78rem; }
+}
+@media(prefers-reduced-motion:reduce) { .news-carousel-cta { transition:none; } }
+
+</style>
+<style id="campus-next-design">
+.auth-profile-selector { border-top:1px solid #c9dcff44; padding-top:18px; text-align:left; }
+.auth-profile-selector > p { font-size:.9rem; margin-bottom:12px; }
+.auth-profile-grid { display:grid; gap:8px; }
+.auth-profile-button { display:flex; align-items:center; justify-content:space-between; gap:10px; text-align:left; width:100%; min-height:49px; padding:11px 14px; border-radius:13px; border:1px solid #b9d5ff66; background:#ffffff10; color:#fff; font-size:.9rem; font-weight:700; transition:background .2s,border-color .2s,transform .2s; }
+.auth-profile-button:hover { background:#ffffff22; transform:translateX(3px); }
+.auth-profile-button[aria-pressed="true"] { background:linear-gradient(100deg,#ffda57,#ffc20e); color:#06214c; border-color:#ffda57; box-shadow:0 5px 18px #ffc20e20; }
+.auth-profile-button span:last-child { font-size:1.2rem; }
+.auth-profile-registration { margin-top:14px; font-size:.85rem; color:#dce9ff; }
+.auth-profile-registration button { background:none; color:#ffda57; font-weight:800; text-decoration:underline; text-underline-offset:4px; padding:4px 0; }
+.auth-profile-hint { font-size:.8rem!important; margin:11px 0 0; line-height:1.5; }
+#campusLoginCanvas { position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+body.campus-locked #modalLogin .modal-box { max-width:510px!important; padding:27px 30px!important; }
+body.campus-locked #modalLogin .owl-icon { width:55px!important; height:55px!important; }
+body.campus-locked #modalLogin h3 { font-size:1.65rem!important; }
+body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
+.campus-menu-group { list-style:none; }
+.campus-group-toggle { display:flex; align-items:center; justify-content:space-between; width:100%; padding:13px 10px; border-radius:12px; background:#ffffff0d; color:#ffda57; font-size:.92rem; font-weight:800; text-align:left; border:1px solid #ffffff15; transition:background .2s; }
+.campus-group-toggle:hover,.campus-group-toggle[aria-expanded="true"] { background:#ffffff18; border-color:#ffc20e55; }
+.campus-group-chevron { transition:transform .25s; font-size:1.05rem; }
+.campus-group-toggle[aria-expanded="true"] .campus-group-chevron { transform:rotate(180deg); }
+.campus-group-items { list-style:none; padding:7px 0 10px 7px; margin:0 0 8px 4px; border-left:2px solid #ffc20e55; }
+.campus-group-items[hidden] { display:none!important; }
+.campus-group-items .admin-nav-btn { font-size:.97rem; padding:10px 8px; border-radius:10px; }
+.campus-doc-action { margin-top:7px; display:block; }
+.campus-document-view h3 { margin-bottom:15px; }
+.campus-document-view dl { margin:20px 0; }
+.campus-document-view dt { font-size:.83rem; font-weight:800; color:#4a5d78; margin-top:12px; }
+.campus-document-view dd { margin:3px 0 0; color:#06214c; white-space:pre-wrap; overflow-wrap:anywhere; }
+.campus-document-view .document-status { font-size:.9rem; padding:10px 0; border-top:1px solid #bfd1ec; border-bottom:1px solid #bfd1ec; }
+.campus-document-buttons { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+.campus-student-gallery { position:relative; margin:50px auto 0; border-radius:25px; overflow:hidden; border:1px solid #ffc20e77; box-shadow:0 20px 55px #020c2044; background:#0a2f6b; }
+.campus-student-stage { position:relative; min-height:340px; height:clamp(340px,36vw,490px); }
+.campus-student-stage img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.campus-student-stage::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,#041b40bd,#0a2f6b44),linear-gradient(0deg,#041b40c4,transparent 60%); }
+.campus-student-caption { position:absolute; z-index:1; left:clamp(55px,6vw,100px); bottom:85px; max-width:650px; padding-right:40px; }
+.campus-student-caption span { color:#ffda57; font-size:.8rem; text-transform:uppercase; letter-spacing:.12em; font-weight:800; }
+.campus-student-caption h2 { color:#fff; margin-top:10px; font-size:clamp(1.7rem,3vw,2.8rem); line-height:1.12; }
+.campus-student-controls { position:absolute; inset:0; pointer-events:none; z-index:2; }
+.campus-student-controls button { pointer-events:auto; }
+.campus-student-arrow { position:absolute; top:50%; transform:translateY(-50%); width:40px; height:40px; border-radius:50%; background:#ffffff28; border:1px solid #ffffff77; color:#fff; font-size:1.4rem; }
+.campus-student-arrow:first-child { left:12px; }.campus-student-arrow:nth-child(2) { right:12px; }
+.campus-student-dots { position:absolute; left:50%; transform:translateX(-50%); bottom:23px; display:flex; gap:8px; }
+.campus-student-dots button { width:28px; height:28px; border-radius:50%; background:transparent; display:grid; place-items:center; }
+.campus-student-dots button::before { content:''; width:9px; height:9px; background:#fff9; border-radius:50%; }
+.campus-student-dots button[aria-current="true"]::before { background:#ffc20e; box-shadow:0 0 0 3px #ffc20e33; }
+.campus-student-play { position:absolute; bottom:20px; right:20px; border:1px solid #ffffff77; border-radius:99px; padding:7px 12px; background:#041b4077; color:#fff; font-size:.8rem; }
+.campus-student-credit { position:absolute; left:20px; bottom:17px; color:#dfebff; font-size:.7rem; z-index:2; }
+@media(max-width:600px) { body.campus-locked #modalLogin .modal-box { padding:22px!important; } .campus-student-stage { height:390px; } .campus-student-credit { bottom:8px; left:12px; font-size:.62rem; } .campus-student-play { bottom:18px; right:12px; } .campus-student-caption { left:52px; bottom:85px; } }
+@media(prefers-reduced-motion:reduce) { .auth-profile-button,.campus-group-chevron,.campus-group-toggle { transition:none; } }
+
+</style>
+<style id="campus-requested-refinements">
+/* Full-cover campus carousel; the original title, video and actions stay in place. */
+#inicio.hero { padding:110px 0 230px; min-height:760px; }
+#inicio .hero-grid { z-index:2; pointer-events:none; padding-inline:44px; }
+#inicio .hero-grid > * { pointer-events:auto; }
+#inicio #campusStudentGallery { position:absolute; inset:0; width:100%; max-width:none; margin:0; padding:0; border:0; border-radius:0; box-shadow:none; z-index:0; }
+#inicio .campus-student-stage { position:absolute; inset:0; height:100%; min-height:100%; }
+#inicio .campus-student-stage img { transition:opacity .3s ease; }
+#inicio .campus-student-stage::after { background:linear-gradient(90deg,rgba(3,20,50,.88),rgba(5,36,83,.55)),linear-gradient(0deg,rgba(3,20,50,.9),transparent 50%); }
+#inicio .campus-student-caption { left:max(70px,calc((100% - 1280px)/2 + 44px)); bottom:85px; max-width:740px; }
+#inicio .campus-student-caption h2 { font-size:clamp(1.4rem,2.5vw,2.2rem); }
+#inicio .campus-student-controls { z-index:4; }
+#inicio .campus-student-credit { z-index:4; }
+.campus-username-field { display:flex; align-items:center; gap:0; background:#fff; border:1px solid #bdcce2; border-radius:12px; overflow:hidden; }
+.campus-username-field:focus-within { outline:3px solid #ffc20e88; }
+.campus-username-field input { min-width:0; width:100%; border:0; border-radius:0; box-shadow:none; }
+.campus-username-field span { color:#183c70; background:#e8f1ff; padding:14px 10px; font-size:.82rem; white-space:nowrap; }
+.campus-user-help { display:block; margin-top:8px; line-height:1.55; color:#dae8ff; font-size:.8rem; }
+.campus-group-items { background:#fff; border:1px solid #d6e2f3; border-radius:14px; margin:6px 0 12px; padding:9px; box-shadow:0 14px 30px #020e2833; }
+.campus-group-items .admin-nav-btn { color:#173967; background:transparent; }
+.campus-group-items .admin-nav-btn:hover,.campus-group-items .admin-nav-btn.active { background:#eaf2ff; color:#004caa; box-shadow:inset 3px 0 #ffc20e; }
+@media(max-width:600px){
+ #inicio.hero { padding:90px 0 225px; }
+ #inicio .hero-grid { padding-inline:44px; gap:24px; }
+ #inicio .campus-student-caption { left:44px; right:30px; bottom:85px; padding:0; }
+ .campus-username-field { flex-wrap:wrap; }
+ .campus-username-field span { width:100%; padding:8px 12px; }
+}
+</style>
+<style id="campus-visual-editors-style">.campus-top-dropdown { position:relative; }
+.campus-top-label { display:flex; align-items:center; gap:1px; }
+.campus-top-toggle { background:transparent; color:#ffda57; padding:8px 4px; border-radius:6px; font-size:.8rem; }
+.campus-top-toggle:focus-visible { outline:2px solid #ffc20e; }
+.menu .campus-top-submenu { position:absolute; top:calc(100% + 8px); left:0; width:260px; max-width:90vw; padding:10px; margin:0; background:#fff; border-radius:14px; list-style:none; box-shadow:0 18px 40px #02142c44; border-top:3px solid #ffc20e; z-index:10; }
+.campus-top-submenu[hidden] { display:none!important; }
+.menu .campus-top-submenu a { display:block; padding:12px!important; border-radius:9px; color:#173967!important; font-size:.9rem!important; line-height:1.4; }
+.menu .campus-top-submenu a::after { display:none; }
+.menu .campus-top-submenu a:hover,.menu .campus-top-submenu a:focus-visible { background:#eaf2ff; color:#0057b8!important; }
+.campus-gallery-frame { position:absolute; inset:0; opacity:1; background:linear-gradient(125deg,#0b2c60,#225aa1); transition:opacity .85s ease,transform 1.2s ease; }
+.campus-gallery-frame.is-entering { opacity:0; transform:scale(1.025); }
+.campus-gallery-frame.is-leaving { opacity:0; transform:scale(1.025); }
+.campus-gallery-placeholder { position:absolute; inset:0; display:grid; place-items:center; background:radial-gradient(ellipse at 75% 30%,#356faa,#082653 75%); }
+.campus-gallery-placeholder span { position:absolute; right:8%; top:42%; padding:20px; color:#ffffff66; border:1px dashed #ffffff44; border-radius:18px; font-size:clamp(1rem,3vw,2rem); }
+.campus-gallery-editor { display:grid; gap:16px; }
+.campus-gallery-editor-row { border:1px solid #cbd9eb; border-radius:14px; padding:16px; background:#f4f8ff; }
+.campus-gallery-editor-row h4 { margin-bottom:12px; color:#0a2f6b; }
+.campus-gallery-editor-row img { width:100%; max-height:150px; object-fit:cover; border-radius:10px; margin:10px 0; }
+.campus-gallery-editor-row .form-group { margin-bottom:12px; }
+.campus-gallery-editor-row small { display:block; line-height:1.5; color:#465d79; margin-top:8px; }
+.campus-gallery-editor-empty { height:90px; display:grid; place-items:center; border:2px dashed #bccde2; border-radius:10px; color:#526a89; margin:10px 0; }
+.campus-gallery-editor-actions { position:sticky; bottom:0; padding:15px 0; background:#fff; display:flex; gap:10px; flex-wrap:wrap; z-index:2; border-top:1px solid #d8e4f4; }
+/* Full text and editing controls stay visible, without a narrow inner scrollbar. */
+.news-carousel-slide { height:auto; min-height:650px; padding:100px 0 110px; }
+.news-carousel-copy,#noticias .news-carousel-copy { position:relative; left:auto; top:auto; transform:none; margin-left:max(75px,calc((100% - 1240px)/2)); width:min(670px,calc(100% - 150px)); max-height:none; overflow:visible; padding:0; }
+.news-carousel-admin { position:absolute; top:20px; right:110px; z-index:4; display:flex; flex-wrap:wrap; gap:8px; }
+.news-transition-out { position:absolute!important; inset:0; width:100%; height:100%; min-height:0; z-index:5; pointer-events:none!important; }
+.news-transition-out * { pointer-events:none!important; }
+@media(max-width:1100px){ .menu { gap:.65rem; } .menu a:not(.btn) { font-size:.86rem; } }
+@media(max-width:900px){
+ .menu .campus-top-submenu { position:static; margin:8px 0; width:100%; max-width:none; }
+ .campus-top-label { justify-content:space-between; width:100%; }
+ .campus-top-dropdown { width:100%; }
+}
+@media(max-width:760px){
+ .news-carousel-slide { min-height:620px; padding:110px 0 115px; }
+ .news-carousel-copy,#noticias .news-carousel-copy { margin-left:55px; width:calc(100% - 110px); }
+ .news-carousel-admin { top:58px; right:16px; left:16px; justify-content:flex-end; }
+}
+@media(prefers-reduced-motion:reduce){ .campus-gallery-frame { transition:none; transform:none!important; } }
+</style>
+<style id="campus-topbar-fit">
+.topbar .wrap.nav { width:calc(100% - 40px); max-width:1520px; }
+.topbar .brand-logo { flex-shrink:0; font-size:1.12rem; }
+.topbar .brand-logo > div:last-child > span:first-child { white-space:nowrap; }
+.topbar .menu { gap:.7rem; }
+.campus-top-label > a { white-space:nowrap; }
+@media(min-width:1181px) and (max-width:1450px){ .topbar .menu a:not(.btn) { font-size:.83rem; } .topbar .menu { gap:.45rem; } .topbar #btnTopLogin { font-size:.85rem; padding:10px 15px; } .topbar .brand-logo { font-size:1.05rem; } .topbar .owl-icon { width:48px; height:48px; } }
+@media(max-width:1180px){ .menu .campus-top-submenu { position:static; margin:8px 0; width:100%; max-width:none; } .campus-top-label { justify-content:space-between; width:100%; } .campus-top-dropdown { width:100%; } .menu.open { max-height:calc(100dvh - 80px); overflow-y:auto; } }
+</style>
+<style id="campus-clean-navigation">
+/* No visible chevrons; hover, keyboard and touch dropdowns remain available. */
+.campus-top-label { gap:0; }
+.campus-top-toggle { position:absolute; width:1px; height:1px; padding:0; border:0; overflow:hidden; clip-path:inset(50%); }
+.campus-top-toggle:focus-visible { position:static; width:16px; height:22px; clip-path:none; outline:2px solid #ffc20e; }
+.campus-group-chevron { display:none; }
+#campusEstado { position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip-path:inset(50%); white-space:nowrap; border:0!important; }
+.news-carousel-stage { overflow:hidden; }
+</style>
+
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="apple-touch-icon" href="./icons/campus-180.png">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -424,9 +789,8 @@
   <link rel="stylesheet" href="./pwa.css">
   <script src="./pwa.js" defer></script>
 </head>
-<body>
+<body class="campus-locked">
   <div id="campusEstado" role="status" style="background:#eef4ff;color:#06214c;padding:10px 16px;font:600 14px sans-serif;text-align:center;">Conectando con el campus…</div>
-  <div style="text-align:center;padding:6px;"><button class="btn btn-white btn-sm" type="button" onclick="campusActualizar()">Actualizar datos</button></div>
 
   <!-- =====================================================================
        VISTA PÚBLICA PRINCIPAL
@@ -460,13 +824,13 @@
         </button>
 
         <ul class="menu" id="mainMenu">
-          <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#areas">Áreas</a></li>
-          <li><a href="#laboratorios">Laboratorios</a></li>
-          <li><a href="#almanaque">Uso de Labs</a></li>
-          <li><a href="#horario-clases">Horario de Clases</a></li>
-          <li><a href="#noticias">Noticias</a></li>
-          <li><a href="#registro">Registro</a></li>
+          <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#inicio">Inicio</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Inicio" aria-controls="campusTopMenu0" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu0" hidden><li><a href="#inicio">Portada y carrusel</a></li><li><a href="#video-laboratorios">Video institucional</a></li></ul></li>
+          <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#areas">Áreas</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Áreas" aria-controls="campusTopMenu1" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu1" hidden><li><a href="#campusArea0">Enfermería</a></li><li><a href="#campusArea1">Farmacia</a></li><li><a href="#campusArea2">Gastronomía</a></li><li><a href="#campusArea3">Gestión Empresarial</a></li></ul></li>
+          <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#laboratorios">Laboratorios</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Laboratorios" aria-controls="campusTopMenu2" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu2" hidden><li><a href="#gridEnfermeria">Laboratorios de Enfermería</a></li><li><a href="#gridFarmacia">Laboratorios de Farmacia</a></li><li><a href="#laboratorios">Todos los laboratorios</a></li></ul></li>
+          <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#almanaque">Uso de Labs</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Uso de Labs" aria-controls="campusTopMenu3" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu3" hidden><li><a href="#almanaque">Consultar disponibilidad</a></li><li><a href="#selectLabAlmanaquePublico">Elegir laboratorio y turno</a></li></ul></li>
+          <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#horario-clases">Horario de Clases</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Horario de Clases" aria-controls="campusTopMenu4" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu4" hidden><li><a href="#horario-clases">Consultar clases</a></li><li><a href="#selectAreaHorarioPublico">Elegir área de estudio</a></li></ul></li>
+          <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#noticias">Noticias</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Noticias" aria-controls="campusTopMenu5" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu5" hidden><li><a href="#noticias">Noticias y comunicados</a></li><li><a href="#gridNoticiasPublico">Ver carrusel de noticias</a></li></ul></li>
+          <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#registro">Registro</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Registro" aria-controls="campusTopMenu6" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu6" hidden><li><a href="#registro" data-campus-register="docente">Registro docente</a></li><li><a href="#registro" data-campus-register="estudiante">Registro estudiante</a></li></ul></li>
           <li><button class="btn btn-accent btn-sm" onclick="abrirModalLogin()" id="btnTopLogin"><i data-lucide="log-in"></i> Acceso Portal</button></li>
         </ul>
       </div>
@@ -477,7 +841,7 @@
       <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
         <span><i data-lucide="shield-check" style="vertical-align:middle;"></i> <b>MODO EDICIÓN ADMINISTRADOR ACTIVO:</b> Puedes editar textos, laboratorios y noticias directamente en la página.</span>
         <div style="display:flex; gap:8px;">
-          <button class="btn btn-primary btn-xs" onclick="abrirModalEditarHero()"><i data-lucide="edit-3"></i> Editar Portada</button>
+          <button type="button" class="btn btn-primary btn-xs" onclick="campusEditarGaleria()">Editar imágenes del carrusel</button><button class="btn btn-primary btn-xs" onclick="abrirModalEditarHero()"><i data-lucide="edit-3"></i> Editar Portada</button>
           <button class="btn btn-primary btn-xs" onclick="irAlPanelInterno()"><i data-lucide="layout-dashboard"></i> Volver al Panel Admin</button>
         </div>
       </div>
@@ -491,7 +855,7 @@
           <h1 id="heroTitleText">FDS SMART CAMPUS <br><span>CIENCIA E INNOVACIÓN</span></h1>
           <p id="heroDescText">Ecosistema académico inteligente para la supervisión, reserva en almanaque y aprendizaje práctico en nuestros laboratorios de Enfermería, Farmacia, Gastronomía y Cómputo.</p>
           <div class="hero-cta">
-            <a href="#almanaque" class="btn btn-accent"><i data-lucide="calendar-days"></i> Ver Almanaque de Horarios</a>
+            <a href="#almanaque" class="btn btn-accent"><i data-lucide="calendar-days"></i> Ver horarios de laboratorios</a>
             <a href="#registro" class="btn btn-outline"><i data-lucide="user-plus"></i> Crear Cuenta Institucional</a>
           </div>
           <div style="display:flex; gap:2.4rem; border-top:1px solid rgba(255,255,255,0.2); padding-top:1.4rem; flex-wrap:wrap;">
@@ -530,6 +894,10 @@
           </div>
         </div>
       </div>
+      <section class="wrap campus-student-gallery" id="campusStudentGallery" role="region" aria-roledescription="carrusel" aria-label="Comunidad académica">
+        <div class="campus-student-stage"><img id="campusStudentImage" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=85" alt="Grupo de estudiantes aprendiendo juntos" loading="eager"><div class="campus-student-caption"><span>Comunidad académica</span><h2 id="campusStudentCaption">Aprender y compartir conocimiento</h2></div></div>
+        <div class="campus-student-controls"><button type="button" class="campus-student-arrow" data-student-step="-1" aria-label="Fotografía anterior">‹</button><button type="button" class="campus-student-arrow" data-student-step="1" aria-label="Fotografía siguiente">›</button><div class="campus-student-dots"><button type="button" data-student-index="0" aria-label="Ver fotografía 1" aria-current="true"></button><button type="button" data-student-index="1" aria-label="Ver fotografía 2" aria-current="false"></button><button type="button" data-student-index="2" aria-label="Ver fotografía 3" aria-current="false"></button></div><button type="button" class="campus-student-play" id="campusStudentPlay">Ⅱ Pausar</button></div><small class="campus-student-credit">Fotografías ilustrativas · Unsplash</small>
+      </section>
     </section>
 
     <!-- ÁREAS ACADÉMICAS SEPARADAS -->
@@ -542,32 +910,32 @@
         </div>
 
         <div class="areas-grid">
-          <div class="area-card">
+          <div class="area-card" id="campusArea0">
             <div class="area-icon"><i data-lucide="heart-pulse"></i></div>
             <h3>Área de Enfermería</h3>
             <p>Simulación clínica integral, atención primaria, urgencias hospitalarias y cuidado materno-infantil.</p>
             <span class="area-badge">3 Laboratorios de Enfermería</span>
           </div>
 
-          <div class="area-card">
+          <div class="area-card" id="campusArea1">
             <div class="area-icon"><i data-lucide="flask-conical"></i></div>
             <h3>Área de Farmacia</h3>
             <p>Farmacotecnia, preparación de fórmulas magistrales, bioquímica y control de calidad microbiológico.</p>
             <span class="area-badge">2 Laboratorios de Farmacia</span>
           </div>
 
-          <div class="area-card">
+          <div class="area-card" id="campusArea2">
             <div class="area-icon"><i data-lucide="utensils"></i></div>
             <h3>Área de Gastronomía</h3>
             <p>Cocina académica industrial para alta culinaria, panadería, pastelería e inocuidad alimentaria.</p>
             <span class="area-badge">1 Laboratorio Gastronómico</span>
           </div>
 
-          <div class="area-card">
+          <div class="area-card" id="campusArea3">
             <div class="area-icon"><i data-lucide="monitor"></i></div>
-            <h3>Área de Cómputo</h3>
+            <h3>Área de Gestión Empresarial</h3>
             <p>Centro de cómputo de última generación para programación, sistemas informáticos y software aplicado.</p>
-            <span class="area-badge">1 Laboratorio de Cómputo</span>
+            <span class="area-badge">1 Laboratorio de Gestión Empresarial</span>
           </div>
         </div>
       </div>
@@ -608,7 +976,7 @@
 
         <div class="labs-group">
           <div class="labs-group-header">
-            <h3><i data-lucide="monitor"></i> ÁREA DE CÓMPUTO</h3>
+            <h3><i data-lucide="monitor"></i> ÁREA DE GESTIÓN EMPRESARIAL</h3>
             <span class="badge-counter">1 Laboratorio</span>
           </div>
           <div class="labs-grid" id="gridComputo"></div>
@@ -620,9 +988,9 @@
     <section class="sec sec-alt" id="almanaque">
       <div class="wrap">
         <div class="sec-title-wrap">
-          <span class="sec-kicker">Disponibilidad de 9:00 a 1:00 p. m.</span>
-          <h2 class="sec-title">Almanaque de Uso de Laboratorios</h2>
-          <p class="sec-subtitle">Horario oficial de <b>09:00 a 13:00 (1:00 p. m.)</b> con receso institucional de 20 minutos de <b>11:00 a 11:20</b>.</p>
+          <span class="sec-kicker">Turnos mañana y tarde</span>
+          <h2 class="sec-title">Horarios de uso de laboratorios</h2>
+          <p class="sec-subtitle">Consulta los turnos de <b>mañana (09:00–13:00)</b> y <b>tarde (14:30–17:30)</b>. Cada turno incluye un receso de 20 minutos.</p>
         </div>
 
         <div class="almanaque-toolbar">
@@ -637,7 +1005,12 @@
           </div>
         </div>
 
-        <div class="almanaque-wrap" id="contenedorAlmanaquePublico"></div>
+        <div class="campus-schedule-filters">
+ <div class="schedule-filter"><label for="turnoLabsPublico">Filtrar por turno</label><select id="turnoLabsPublico" class="form-control" onchange="renderizarAlmanaque('publico')"><option value="manana">Mañana · 09:00–13:00</option><option value="tarde">Tarde · 14:30–17:30</option></select></div>
+ <div class="schedule-filter"><label for="modalidadLabsPublico">Modalidad de consulta</label><select id="modalidadLabsPublico" class="form-control" onchange="renderizarAlmanaque('publico')"><option value="">Todas las modalidades</option><option value="presencial">Presencial</option><option value="distancia">A distancia</option></select></div>
+ <p id="resumenLabsPublico" class="schedule-summary" role="status">Turno mañana · 09:00 a 13:00 · Receso: 11:00 a 11:20 (20 minutos)</p>
+ </div><p id="notaLabsPublico" class="schedule-note">La ocupación del laboratorio es compartida por ambas modalidades.</p>
+<div class="almanaque-wrap" id="contenedorAlmanaquePublico"></div>
       </div>
     </section>
 
@@ -647,7 +1020,7 @@
         <div class="sec-title-wrap">
           <span class="sec-kicker">Calendario Académico Estudiantil</span>
           <h2 class="sec-title">Horario de Clases de los Estudiantes</h2>
-          <p class="sec-subtitle">Consulta el horario de clases teóricas y prácticas por cada área académica (de 09:00 a 13:00 con receso de 11:00 a 11:20).</p>
+          <p class="sec-subtitle">Consulta tus clases por área académica, turno y modalidad de estudio: presencial o a distancia.</p>
         </div>
 
         <div class="almanaque-toolbar">
@@ -657,13 +1030,18 @@
               <option value="Enfermería">Área de Enfermería</option>
               <option value="Farmacia">Área de Farmacia</option>
               <option value="Gastronomía">Área de Gastronomía</option>
-              <option value="Cómputo">Área de Cómputo</option>
+              <option value="Cómputo">Área de Gestión Empresarial</option>
             </select>
           </div>
-          <span style="font-size:0.88rem; color:var(--accent); font-weight:700;"><i data-lucide="clock" style="width:15px; vertical-align:middle;"></i> Receso Oficial: 11:00 - 11:20 (20 min)</span>
+          <span style="font-size:0.88rem; color:var(--accent); font-weight:700;"><i data-lucide="clock" style="width:15px; vertical-align:middle;"></i> Selecciona el turno para consultar su receso</span>
         </div>
 
-        <div class="almanaque-wrap" id="contenedorHorarioClasesPublico"></div>
+        <div class="campus-schedule-filters">
+ <div class="schedule-filter"><label for="turnoClasesPublico">Filtrar por turno</label><select id="turnoClasesPublico" class="form-control" onchange="renderizarHorarioClases('publico')"><option value="manana">Mañana · 09:00–13:00</option><option value="tarde">Tarde · 14:30–17:30</option></select></div>
+ <div class="schedule-filter"><label for="modalidadClasesPublico">Filtrar por modalidad</label><select id="modalidadClasesPublico" class="form-control" onchange="renderizarHorarioClases('publico')"><option value="">Todas las modalidades</option><option value="presencial">Presencial</option><option value="distancia">A distancia</option><option value="sin-asignar">Sin modalidad asignada</option></select></div>
+ <p id="resumenClasesPublico" class="schedule-summary" role="status">Turno mañana · 09:00 a 13:00 · Receso: 11:00 a 11:20 (20 minutos)</p>
+ </div><p class="schedule-note">Los horarios anteriores sin modalidad indicada se conservan en «Todas las modalidades» y «Sin modalidad asignada».</p>
+<div class="almanaque-wrap" id="contenedorHorarioClasesPublico"></div>
       </div>
     </section>
 
@@ -689,7 +1067,7 @@
         <div class="sec-title-wrap">
           <span class="sec-kicker" style="background:var(--accent); color:var(--primary);">Credenciales Institucionales</span>
           <h2 class="sec-title" style="color:#fff;">Creación de Cuenta en FDS SMART CAMPUS</h2>
-          <p class="sec-subtitle" style="color:#e2ecff;">Regístrate con un correo real al que tengas acceso. Confirma tu correo y espera la aprobación del Administrador para ingresar.</p>
+          <p class="sec-subtitle" style="color:#e2ecff;">Elige tu usuario del campus y crea una contraseña. Tu cuenta quedará pendiente hasta que el administrador la apruebe.</p>
         </div>
 
         <div class="register-boxes">
@@ -709,7 +1087,7 @@
                 <input type="text" name="nombre" class="form-control" placeholder="Ej. Mg. Ricardo Palma" required>
               </div>
               <div class="form-group">
-                <label>Correo electrónico</label><input type="email" name="email" class="form-control" placeholder="nombre@correo.com" required autocomplete="email">
+                <label>Usuario del campus</label><div class="campus-username-field"><input type="text" name="email" class="form-control" placeholder="Ej. juan.perez" required autocomplete="username" maxlength="64" pattern="[A-Za-z0-9]+([._-][A-Za-z0-9]+)*"><span>@fdssmartcampus.edu.pe</span></div><small class="campus-user-help">Escribe solo tu usuario, sin espacios. Se completará con @fdssmartcampus.edu.pe. Es un identificador de acceso; no crea un buzón de correo.</small>
               </div>
               <div class="form-group">
                 <label>Crear Contraseña de Acceso</label>
@@ -721,7 +1099,7 @@
                   <option value="Área de Enfermería">Área de Enfermería</option>
                   <option value="Área de Farmacia">Área de Farmacia</option>
                   <option value="Área de Gastronomía">Área de Gastronomía</option>
-                  <option value="Área de Cómputo">Área de Cómputo</option>
+                  <option value="Área de Cómputo">Área de Gestión Empresarial</option>
                 </select>
               </div>
               <div class="form-group">
@@ -750,7 +1128,7 @@
                 <input type="text" name="nombre" class="form-control" placeholder="Ej. Lucía Fernández" required>
               </div>
               <div class="form-group">
-                <label>Correo electrónico</label><input type="email" name="email" class="form-control" placeholder="nombre@correo.com" required autocomplete="email">
+                <label>Usuario del campus</label><div class="campus-username-field"><input type="text" name="email" class="form-control" placeholder="Ej. juan.perez" required autocomplete="username" maxlength="64" pattern="[A-Za-z0-9]+([._-][A-Za-z0-9]+)*"><span>@fdssmartcampus.edu.pe</span></div><small class="campus-user-help">Escribe solo tu usuario, sin espacios. Se completará con @fdssmartcampus.edu.pe. Es un identificador de acceso; no crea un buzón de correo.</small>
               </div>
               <div class="form-group">
                 <label>Crear Contraseña de Acceso</label>
@@ -762,7 +1140,7 @@
                   <option value="Área de Enfermería">Área de Enfermería</option>
                   <option value="Área de Farmacia">Área de Farmacia</option>
                   <option value="Área de Gastronomía">Área de Gastronomía</option>
-                  <option value="Área de Cómputo">Área de Cómputo</option>
+                  <option value="Área de Cómputo">Área de Gestión Empresarial</option>
                 </select>
               </div>
               <div class="form-group">
@@ -799,6 +1177,7 @@
           </div>
           <p style="margin-bottom:1.2rem;">Plataforma integral de supervisión, planificación en almanaque y control de laboratorios académicos.</p>
           <span class="eyr-badge"><i data-lucide="code-2"></i> Creado por EYR Digital</span>
+          <div class="creator-contact"><strong>Datos del creador · EYR Digital</strong><a href="tel:+51906041978">Celular: +51 906 041 978</a><!-- Añadir aquí el correo público exacto del creador cuando lo indique. --></div>
         </div>
         <div class="footer-col">
           <h4>Secciones del Campus</h4>
@@ -806,7 +1185,7 @@
             <li><a href="#inicio">Inicio y Video</a></li>
             <li><a href="#areas">Áreas Académicas</a></li>
             <li><a href="#laboratorios">7 Laboratorios</a></li>
-            <li><a href="#almanaque">Almanaque de Horarios</a></li>
+            <li><a href="#almanaque">Horarios de laboratorios</a></li>
             <li><a href="#noticias">Noticias Institucionales</a></li>
           </ul>
         </div>
@@ -969,7 +1348,12 @@
             <i data-lucide="plus"></i> Separar Horario de Laboratorio
           </button>
         </div>
-        <div class="almanaque-wrap" id="contenedorAlmanaquePanel"></div>
+        <div class="campus-schedule-filters">
+ <div class="schedule-filter"><label for="turnoLabsPanel">Filtrar por turno</label><select id="turnoLabsPanel" class="form-control" onchange="renderizarAlmanaque('panel')"><option value="manana">Mañana · 09:00–13:00</option><option value="tarde">Tarde · 14:30–17:30</option></select></div>
+ <div class="schedule-filter"><label for="modalidadLabsPanel">Modalidad de consulta</label><select id="modalidadLabsPanel" class="form-control" onchange="renderizarAlmanaque('panel')"><option value="">Todas las modalidades</option><option value="presencial">Presencial</option><option value="distancia">A distancia</option></select></div>
+ <p id="resumenLabsPanel" class="schedule-summary" role="status">Turno mañana · 09:00 a 13:00 · Receso: 11:00 a 11:20 (20 minutos)</p>
+ </div><p id="notaLabsPanel" class="schedule-note">La ocupación del laboratorio es compartida por ambas modalidades.</p>
+<div class="almanaque-wrap" id="contenedorAlmanaquePanel"></div>
       </div>
 
       <!-- PESTAÑA NUEVA: HORARIO DE CLASES DE LOS ESTUDIANTES -->
@@ -981,17 +1365,22 @@
               <option value="Enfermería">Área de Enfermería</option>
               <option value="Farmacia">Área de Farmacia</option>
               <option value="Gastronomía">Área de Gastronomía</option>
-              <option value="Cómputo">Área de Cómputo</option>
+              <option value="Cómputo">Área de Gestión Empresarial</option>
             </select>
           </div>
           <div style="display:flex; gap:10px; align-items:center;">
-            <span style="font-size:0.86rem; color:#fff;">Jornada: 09:00 - 13:00 (Receso 11:00 - 11:20)</span>
+            <span style="font-size:0.86rem; color:#fff;">Turnos de mañana y tarde</span>
             <button class="btn btn-accent btn-sm admin-only-btn" onclick="abrirModalEditarClaseEstudiante()">
               <i data-lucide="edit-3"></i> Asignar / Editar Clase (Admin)
             </button>
           </div>
         </div>
-        <div class="almanaque-wrap" id="contenedorHorarioClasesPanel"></div>
+        <div class="campus-schedule-filters">
+ <div class="schedule-filter"><label for="turnoClasesPanel">Filtrar por turno</label><select id="turnoClasesPanel" class="form-control" onchange="renderizarHorarioClases('panel')"><option value="manana">Mañana · 09:00–13:00</option><option value="tarde">Tarde · 14:30–17:30</option></select></div>
+ <div class="schedule-filter"><label for="modalidadClasesPanel">Filtrar por modalidad</label><select id="modalidadClasesPanel" class="form-control" onchange="renderizarHorarioClases('panel')"><option value="">Todas las modalidades</option><option value="presencial">Presencial</option><option value="distancia">A distancia</option><option value="sin-asignar">Sin modalidad asignada</option></select></div>
+ <p id="resumenClasesPanel" class="schedule-summary" role="status">Turno mañana · 09:00 a 13:00 · Receso: 11:00 a 11:20 (20 minutos)</p>
+ </div><p class="schedule-note">Los horarios anteriores sin modalidad indicada se conservan en «Todas las modalidades» y «Sin modalidad asignada».</p>
+<div class="almanaque-wrap" id="contenedorHorarioClasesPanel"></div>
       </div>
 
       <!-- PESTAÑA 4: INVENTARIO Y REQUERIMIENTOS SEPARADOS POR ÁREAS -->
@@ -1000,9 +1389,14 @@
           <button class="area-tab-btn active" onclick="seleccionarAreaInventario('Enfermería', this)">Área de Enfermería (3 Labs)</button>
           <button class="area-tab-btn" onclick="seleccionarAreaInventario('Farmacia', this)">Área de Farmacia (2 Labs)</button>
           <button class="area-tab-btn" onclick="seleccionarAreaInventario('Gastronomía', this)">Área de Gastronomía (1 Lab)</button>
-          <button class="area-tab-btn" onclick="seleccionarAreaInventario('Cómputo', this)">Área de Cómputo (1 Lab)</button>
+          <button class="area-tab-btn" onclick="seleccionarAreaInventario('Cómputo', this)">Área de Gestión Empresarial (1 Lab)</button>
         </div>
 
+        <div class="lab-filter-bar">
+          <div><label for="filtroLabInventario">Consultar por laboratorio</label><p>Selecciona un laboratorio para ver su inventario y sus requerimientos.</p></div>
+          <select id="filtroLabInventario" class="form-control" onchange="LAB_INVENTARIO_ACTUAL=this.value;renderizarInventarioYReqPorArea()"><option value="">Todos los laboratorios</option></select>
+          <span id="resumenInventario" role="status"></span>
+        </div>
         <!-- Sub-bloque Inventario del Área -->
         <div id="bloqueTablaInventario">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem; flex-wrap:wrap; gap:10px;">
@@ -1099,21 +1493,31 @@
 
       <form onsubmit="iniciarSesionFormulario(event)">
         <div class="form-group">
-          <label style="color:var(--primary);">Correo registrado en el campus</label>
-          <input type="text" id="loginEmail" class="form-control" placeholder="usuario@fdssmartcampus.edu.pe" value="" required>
+          <label style="color:var(--primary);">Usuario del campus o correo registrado</label>
+          <input type="text" id="loginEmail" autocomplete="username" class="form-control" placeholder="usuario@fdssmartcampus.edu.pe" value="" required>
         </div>
         <div class="form-group">
           <label style="color:var(--primary);">Contraseña</label>
-          <input type="password" id="loginPass" class="form-control" value="" required>
+          <input type="password" id="loginPass" autocomplete="current-password" class="form-control" value="" required>
         </div>
         <div id="loginErrorBox" style="display:none; background:var(--accent-soft); color:var(--primary); border:1.5px solid var(--accent); padding:10px; border-radius:8px; font-size:0.88rem; font-weight:700; margin-bottom:1rem;"></div>
         <button type="submit" class="btn btn-primary" style="width:100%; margin-bottom:1.2rem;"><i data-lucide="log-in"></i> Iniciar Sesión</button>
       </form>
+      <div class="auth-profile-selector"><p>Selecciona cómo quieres iniciar sesión</p><div class="auth-profile-grid">
+<button type="button" class="auth-profile-button" data-login-role="administrador" aria-pressed="false"><span>Iniciar sesión como administrador</span><span aria-hidden="true">›</span></button>
+<button type="button" class="auth-profile-button" data-login-role="docente" aria-pressed="false"><span>Iniciar sesión como docente</span><span aria-hidden="true">›</span></button>
+<button type="button" class="auth-profile-button" data-login-role="estudiante" aria-pressed="false"><span>Iniciar sesión como estudiante</span><span aria-hidden="true">›</span></button>
+</div><div class="auth-profile-registration" id="campusRegistroPerfil" hidden></div><p class="auth-profile-hint" id="campusPerfilHint">Necesitas una cuenta registrada y aprobada para ingresar.</p></div>
+      <p id="gateStatus" role="status">Ingresa con tu correo y contraseña del campus.</p>
 
 
     </div>
   </div>
 
+  <section id="authRegistration" aria-label="Crear una cuenta en el campus">
+    <div class="auth-back"><button type="button" class="btn btn-accent" onclick="campusVerRegistro(false)">← Volver a iniciar sesión</button></div>
+    <div id="authRegistrationForms"></div>
+  </section>
   <!-- MODAL GENÉRICO DINÁMICO PARA EDICIÓN / CREACIÓN / CONFIRMACIÓN -->
   <div class="modal-backdrop" id="modalDinamico" style="display:none;">
     <div class="modal-box" id="modalDinamicoContent"></div>
@@ -1126,9 +1530,19 @@
   </div>
 
   <!-- CHATBOT INTELIGENTE CONECTADO A WHATSAPP 906041978 -->
-  <button class="chatbot-fab" onclick="toggleChatbot()">
-    <i data-lucide="message-circle"></i>
-    <span>Asistente FDS · 906041978</span>
+  <button class="chatbot-fab" onclick="toggleChatbot()" aria-label="Abrir asistente FDS" aria-controls="chatbotWindow" aria-expanded="false">
+    <span class="assistant-mascot"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="assistant-owl-art"><path d="M13 23 L9 8 L25 15z M51 23 L55 8 L39 15z" fill="#0a2f6b"/>
+<path d="M32 9C21 9 13 16 12 27c-1 13 5 25 20 31 15-6 21-18 20-31C51 16 43 9 32 9z" fill="#0a2f6b"/>
+<path d="M32 42c-6 0-10 5-10 11 3 3 6 4 10 5 4-1 7-2 10-5 0-6-4-11-10-11z" fill="#1d6fe0" opacity=".55"/>
+<circle cx="23" cy="28" r="10.5" fill="#fff"/><circle cx="41" cy="28" r="10.5" fill="#fff"/>
+<circle cx="23" cy="28" r="7" fill="#ffc20e"/><circle cx="41" cy="28" r="7" fill="#ffc20e"/>
+<circle cx="23" cy="28" r="3.6" fill="#06214c"/><circle cx="41" cy="28" r="3.6" fill="#06214c"/>
+<circle cx="24.6" cy="26.4" r="1.3" fill="#fff"/><circle cx="42.6" cy="26.4" r="1.3" fill="#fff"/>
+<path d="M28 34h8l-4 8z" fill="#ffc20e"/>
+<path d="M24 48q4 3.5 8 0q4 3.5 8 0M27 53q5 3.5 10 0" stroke="#9cc4ff" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<path d="M32 2 L55 10.5 L32 19 L9 10.5z" fill="#ffc20e" stroke="#06214c" stroke-width="1.6" stroke-linejoin="round"/>
+<path d="M20 14.5v5.5q12 5 24 0v-5.5" fill="#e6a800" stroke="#06214c" stroke-width="1.4" stroke-linejoin="round"/>
+<path d="M52 11.5v10" stroke="#06214c" stroke-width="1.6" stroke-linecap="round"/><circle cx="52" cy="23" r="2" fill="#06214c"/><path class="owl-point-wing" d="M45 39Q58 25 62 29Q64 34 50 47" fill="#ffc20e" stroke="#06214c" stroke-width="2"/></svg></span><span class="assistant-callout">¿Te ayudo?<strong>Asistente FDS</strong></span>
   </button>
 
   <div class="chatbot-window" id="chatbotWindow">
@@ -1138,7 +1552,7 @@
           <i data-lucide="bot" style="width:18px; height:18px;"></i>
         </div>
         <div>
-          <b style="font-size:0.95rem; display:block;">Chatbot FDS SMART CAMPUS</b>
+          <b style="font-size:0.95rem; display:block;">Asistente FDS SMART CAMPUS</b>
           <small style="color:var(--accent); font-size:0.74rem;">En línea · Directo al 906 041 978</small>
         </div>
       </div>
@@ -1155,7 +1569,7 @@
     </div>
 
     <div class="chat-quick-btns">
-      <button class="btn btn-white btn-xs" onclick="respuestaRapidaChat('Horarios de Laboratorios')">Horarios 9:00 - 1:00</button>
+      <button class="btn btn-white btn-xs" onclick="respuestaRapidaChat('Horarios de Laboratorios')">Horarios: mañana y tarde</button>
       <button class="btn btn-white btn-xs" onclick="respuestaRapidaChat('Aprobar mi cuenta')">Aprobar cuenta</button>
       <button class="btn btn-accent btn-xs" onclick="enviarDirectoWhatsApp('Hola, me comunico desde FDS SMART CAMPUS para realizar una consulta.')">
         <i data-lucide="phone-forwarded" style="width:13px;"></i> Ir a WhatsApp 906041978
@@ -1175,6 +1589,7 @@
     /* 1. ESTADO DE SESIÓN Y ROLES */
     let USUARIO_ACTUAL = null; // { id, nombre, email, rol: 'administrador'|'docente'|'estudiante', area }
     let AREA_INVENTARIO_ACTUAL = "Enfermería";
+    let LAB_INVENTARIO_ACTUAL = "";
     const TELEFONO_ADMIN_WHATSAPP = "51906041978";
 
     const DIAS_SEMANA = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
@@ -1187,6 +1602,33 @@
       "11:20 - 12:10",
       "12:10 - 13:00"
     ];
+
+    const CAMPUS_TARDE = ['14:30 - 15:15','15:15 - 16:00','16:00 - 16:20 (RECESO)','16:20 - 16:55','16:55 - 17:30'];
+    function campusTurno(tipo,modo) {
+      return document.getElementById('turno'+tipo+(modo==='publico'?'Publico':'Panel'))?.value || 'manana';
+    }
+    function campusBloques(turno) { return turno==='tarde' ? CAMPUS_TARDE : BLOQUES_HORARIOS; }
+    function campusTurnoBloque(bloque) { return Number(String(bloque).slice(0,2))>=14 ? 'tarde' : 'manana'; }
+    function campusModalidad(modo) { return document.getElementById('modalidadClases'+(modo==='publico'?'Publico':'Panel'))?.value || ''; }
+    function campusCoincideModalidad(clase,modalidad) { return !modalidad || (modalidad==='sin-asignar' ? !clase.modalidad : clase.modalidad===modalidad); }
+    function campusEtiquetaModalidad(m) { return m==='presencial' ? 'Presencial' : m==='distancia' ? 'A distancia' : 'Sin modalidad asignada'; }
+    function campusCambiarBloquesEditor(select,id) {
+      const target=document.getElementById(id);
+      target.innerHTML=campusBloques(select.value).filter(b=>!b.includes('RECESO')).map(b=>`<option value="${b}">${b}</option>`).join('');
+    }
+    function campusActualizarLeyenda(tipo,modo) {
+      const suf=modo==='publico'?'Publico':'Panel';
+      const tarde=campusTurno(tipo,modo)==='tarde';
+      const horario=tarde?'14:30 a 17:30':'09:00 a 13:00';
+      const receso=tarde?'16:00 a 16:20':'11:00 a 11:20';
+      const el=document.getElementById('resumen'+tipo+suf);
+      if(el) el.textContent=`Turno ${tarde?'tarde':'mañana'} · ${horario} · Receso: ${receso} (20 minutos)`;
+      if(tipo==='Labs') {
+        const modal=document.getElementById('modalidadLabs'+suf)?.value || '';
+        const note=document.getElementById('notaLabs'+suf);
+        if(note) note.textContent=(modal ? 'Consulta para modalidad '+campusEtiquetaModalidad(modal)+'. ' : '')+'La ocupación del laboratorio es compartida por ambas modalidades: una reserva ocupa el mismo espacio para todos.';
+      }
+    }
 
     /* 2. BASE DE DATOS DE LOS 7 LABORATORIOS (SOLO LABORATORIO 1, 2 O 3) */
     let LABORATORIOS = [
@@ -1349,7 +1791,7 @@
     }
 
     function cargarSelectoresLaboratorios() {
-      const htmlOpts = LABORATORIOS.map(l => `<option value="${l.id}">${textoSeguro(l.nombre)} — Área de ${textoSeguro(l.area)}</option>`).join("");
+      const htmlOpts = LABORATORIOS.map(l => `<option value="${l.id}">${textoSeguro(l.nombre)} — Área de ${textoSeguro(l.area === "Cómputo" ? "Gestión Empresarial" : l.area)}</option>`).join("");
       const sPub = document.getElementById("selectLabAlmanaquePublico");
       const sPan = document.getElementById("selectLabAlmanaquePanel");
       if (sPub) sPub.innerHTML = htmlOpts;
@@ -1373,6 +1815,8 @@
       const contEl = document.getElementById(modo === "publico" ? "contenedorAlmanaquePublico" : "contenedorAlmanaquePanel");
       if (!selectEl || !contEl) return;
 
+      const turno=campusTurno('Labs',modo);
+      campusActualizarLeyenda('Labs',modo);
       const labId = selectEl.value || LABORATORIOS[0].id;
       const reservasLab = SEPARACIONES.filter(s => s.labId === labId && s.estado !== "Rechazado");
 
@@ -1387,7 +1831,7 @@
           <tbody>
       `;
 
-      BLOQUES_HORARIOS.forEach(bloque => {
+      campusBloques(turno).forEach(bloque => {
         const esReceso = bloque.includes("RECESO");
         html += `<tr><th class="col-hora" style="font-size:0.82rem;">${bloque}</th>`;
 
@@ -1396,7 +1840,7 @@
             <td colspan="${DIAS_SEMANA.length}" style="height:54px;">
               <div class="slot-receso">
                 <i data-lucide="coffee" style="width:16px; height:16px;"></i>
-                <span>RECESO INSTITUCIONAL DE 20 MINUTOS (11:00 A 11:20 A. M.)</span>
+                <span>RECESO INSTITUCIONAL · ${turno==='tarde'?'16:00–16:20':'11:00–11:20'} · 20 MINUTOS</span>
               </div>
             </td>
           `;
@@ -1456,8 +1900,11 @@
       const contEl = document.getElementById(modo === "publico" ? "contenedorHorarioClasesPublico" : "contenedorHorarioClasesPanel");
       if (!selEl || !contEl) return;
 
+      const turno=campusTurno('Clases',modo);
+      const modalidad=campusModalidad(modo);
+      campusActualizarLeyenda('Clases',modo);
       const area = selEl.value || "Enfermería";
-      const clasesArea = HORARIO_CLASES.filter(c => c.area === area);
+      const clasesArea = HORARIO_CLASES.filter(c => c.area === area && campusCoincideModalidad(c,modalidad));
 
       let html = `
         <table class="almanaque-table">
@@ -1470,7 +1917,7 @@
           <tbody>
       `;
 
-      BLOQUES_HORARIOS.forEach(bloque => {
+      campusBloques(turno).forEach(bloque => {
         const esReceso = bloque.includes("RECESO");
         html += `<tr><th class="col-hora" style="font-size:0.82rem;">${bloque}</th>`;
 
@@ -1479,26 +1926,27 @@
             <td colspan="${DIAS_SEMANA.length}" style="height:54px;">
               <div class="slot-receso">
                 <i data-lucide="coffee" style="width:16px; height:16px;"></i>
-                <span>RECESO ESTUDIANTIL (11:00 - 11:20 A. M. · 20 MINUTOS)</span>
+                <span>RECESO ESTUDIANTIL · ${turno==='tarde'?'16:00–16:20':'11:00–11:20'} · 20 MINUTOS</span>
               </div>
             </td>
           `;
         } else {
           DIAS_SEMANA.forEach(dia => {
-            const cl = clasesArea.find(x => x.dia === dia && x.bloque === bloque);
-            if (cl) {
+            const clases = clasesArea.filter(x => x.dia === dia && x.bloque === bloque);
+            if (clases.length) {
               html += `
                 <td>
-                  <div class="slot-box slot-ocupado" ${esAdmin() ? `style="cursor:pointer;" onclick="abrirModalEditarClaseEstudiante('${area}','${dia}','${bloque}')"` : ""}>
+                  ${clases.map(cl => `<div class="slot-box slot-ocupado" ${esAdmin() ? `style="cursor:pointer;" onclick="abrirModalEditarClaseEstudiante('${area}','${dia}','${bloque}','${cl.modalidad || ''}')"` : ''}>
                     <span style="font-weight:800; line-height:1.15; color:var(--accent);">${textoSeguro(cl.curso)}</span>
                     <small style="font-size:0.75rem; margin-top:3px;">${textoSeguro(cl.aula)}</small>
-                  </div>
+                    <small class="class-modality">${campusEtiquetaModalidad(cl.modalidad)}</small>
+                  </div>`).join('')}
                 </td>
               `;
             } else {
               html += `
                 <td>
-                  <div class="slot-box" style="background:var(--primary-soft); color:var(--text-muted);" ${esAdmin() ? `onclick="abrirModalEditarClaseEstudiante('${area}','${dia}','${bloque}')"` : ""}>
+                  <div class="slot-box" style="background:var(--primary-soft); color:var(--text-muted);" ${esAdmin() ? `onclick="abrirModalEditarClaseEstudiante('${area}','${dia}','${bloque}','${modalidad==='sin-asignar'?'':modalidad}')"` : ""}>
                     <small>Hora Libre / Estudio</small>
                   </div>
                 </td>
@@ -1514,21 +1962,33 @@
       lucide.createIcons();
     }
 
-    function abrirModalEditarClaseEstudiante(areaPre = "Enfermería", diaPre = "Lunes", bloquePre = "09:00 - 10:00") {
+    function abrirModalEditarClaseEstudiante(areaPre = "Enfermería", diaPre = "Lunes", bloquePre = "", modalidadPre = null) {
       if (!esAdmin()) return;
-      const bloquesValidos = BLOQUES_HORARIOS.filter(b => !b.includes("RECESO"));
-      const actual = HORARIO_CLASES.find(c => c.area === areaPre && c.dia === diaPre && c.bloque === bloquePre) || { curso: "", aula: "Laboratorio 1" };
+      if (!bloquePre) bloquePre=campusBloques(campusTurno('Clases','panel'))[0];
+      const turno=campusTurnoBloque(bloquePre);
+      if(modalidadPre===null) modalidadPre=campusModalidad('panel');
+      if(modalidadPre==='sin-asignar') modalidadPre='';
+      const bloquesValidos = campusBloques(turno).filter(b => !b.includes("RECESO"));
+      const actual = HORARIO_CLASES.find(c => c.area === areaPre && c.dia === diaPre && c.bloque === bloquePre && (c.modalidad || '') === modalidadPre) || { curso: "", aula: "Laboratorio 1" };
 
       abrirModalGenerico(`
         <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
         <h3 style="margin-bottom:1rem;">Asignar / Editar Horario de Clases (Admin)</h3>
-        <form onsubmit="guardarClaseEstudiante(event)">
+        <form onsubmit="guardarClaseEstudiante(event)"><input type="hidden" name="origenArea" value="${textoSeguro(areaPre)}"><input type="hidden" name="origenDia" value="${textoSeguro(diaPre)}"><input type="hidden" name="origenBloque" value="${textoSeguro(bloquePre)}">
           <div class="form-group">
             <label style="color:var(--primary);">Área de Estudio</label>
             <select name="area" class="form-control" required>
-              ${["Enfermería", "Farmacia", "Gastronomía", "Cómputo"].map(a => `<option value="${a}" ${a === areaPre ? 'selected' : ''}>Área de ${a}</option>`).join("")}
+              ${["Enfermería", "Farmacia", "Gastronomía", "Cómputo"].map(a => `<option value="${a}" ${a === areaPre ? 'selected' : ''}>Área de ${a === 'Cómputo' ? 'Gestión Empresarial' : a}</option>`).join("")}
             </select>
           </div>
+          <div class="form-group"><label style="color:var(--primary);">Modalidad</label><select name="modalidad" class="form-control">
+            <option value="" ${!modalidadPre?'selected':''}>Sin modalidad asignada</option>
+            <option value="presencial" ${modalidadPre==='presencial'?'selected':''}>Presencial</option>
+            <option value="distancia" ${modalidadPre==='distancia'?'selected':''}>A distancia</option>
+          </select><input type="hidden" name="modalidadAnterior" value="${textoSeguro(modalidadPre)}"></div>
+          <div class="form-group"><label style="color:var(--primary);">Turno</label><select class="form-control" onchange="campusCambiarBloquesEditor(this,'bloqueClaseEditor')">
+            <option value="manana" ${turno==='manana'?'selected':''}>Mañana · 09:00–13:00</option><option value="tarde" ${turno==='tarde'?'selected':''}>Tarde · 14:30–17:30</option>
+          </select></div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
             <div class="form-group">
               <label style="color:var(--primary);">Día</label>
@@ -1537,8 +1997,8 @@
               </select>
             </div>
             <div class="form-group">
-              <label style="color:var(--primary);">Bloque (9:00 a 1:00)</label>
-              <select name="bloque" class="form-control" required>
+              <label style="color:var(--primary);">Bloque horario</label>
+              <select id="bloqueClaseEditor" name="bloque" class="form-control" required>
                 ${bloquesValidos.map(b => `<option value="${b}" ${b === bloquePre ? 'selected' : ''}>${b}</option>`).join("")}
               </select>
             </div>
@@ -1562,12 +2022,17 @@
       const area = fd.get("area");
       const dia = fd.get("dia");
       const bloque = fd.get("bloque");
+      const modalidad=fd.get("modalidad") || "";
+      const modalidadAnterior=fd.get("modalidadAnterior") || "";
       const curso = fd.get("curso").trim();
       const aula = fd.get("aula").trim();
 
-      HORARIO_CLASES = HORARIO_CLASES.filter(c => !(c.area === area && c.dia === dia && c.bloque === bloque));
+      const origenArea=fd.get('origenArea') || area, origenDia=fd.get('origenDia') || dia, origenBloque=fd.get('origenBloque') || bloque;
+      const conflicto=HORARIO_CLASES.some(c=>c.area===area && c.dia===dia && c.bloque===bloque && (c.modalidad||'')===modalidad && !(c.area===origenArea && c.dia===origenDia && c.bloque===origenBloque && (c.modalidad||'')===modalidadAnterior));
+      if(conflicto) throw new Error('Ya existe una clase con esa área, modalidad, día y bloque. Abre esa clase para editarla.');
+      HORARIO_CLASES = HORARIO_CLASES.filter(c => !(c.area === origenArea && c.dia === origenDia && c.bloque === origenBloque && (c.modalidad || '') === modalidadAnterior));
       if (curso) {
-        HORARIO_CLASES.push({ area, dia, bloque, curso, aula });
+        HORARIO_CLASES.push({ area, dia, bloque, curso, aula, ...(modalidad ? {modalidad} : {}) });
       }
       cerrarModal("modalDinamico");
       renderizarHorarioClases("publico");
@@ -1579,33 +2044,10 @@
        NOTICIAS (SOLO EL ADMINISTRADOR CREA, EDITA O ELIMINA)
        ========================================================================= */
     function renderizarNoticias() {
-      const html = NOTICIAS.map(n => `
-        <article class="news-card">
-          <img src="${textoSeguro(n.img)}" alt="${textoSeguro(n.titulo)}" class="news-img">
-          <div class="news-body">
-            <div class="news-meta">
-              <span>${textoSeguro(n.categoria.toUpperCase())}</span>
-              <span>${textoSeguro(n.fecha)}</span>
-            </div>
-            <h4>${textoSeguro(n.titulo)}</h4>
-            <p>${textoSeguro(n.resumen)}</p>
-            ${esAdmin() ? `
-              <div style="display:flex; gap:8px; border-top:1px solid var(--border); padding-top:10px;">
-                <button class="btn btn-white btn-xs" onclick="abrirModalNoticia('${n.id}')"><i data-lucide="edit-2"></i> Editar</button>
-                <button class="btn btn-primary btn-xs" onclick="confirmarEliminarNoticia('${n.id}')"><i data-lucide="trash-2"></i> Eliminar</button>
-              </div>
-            ` : ""}
-          </div>
-        </article>
-      `).join("");
-
-      const gPub = document.getElementById("gridNoticiasPublico");
-      const gPan = document.getElementById("gridNoticiasPanel");
-      if (gPub) gPub.innerHTML = html;
-      if (gPan) gPan.innerHTML = html;
-
-      const btnPub = document.getElementById("btnAdminNuevaNoticiaPublico");
-      if (btnPub) btnPub.style.display = esAdmin() ? "block" : "none";
+      campusRenderNoticiasCarrusel('gridNoticiasPublico');
+      campusRenderNoticiasCarrusel('gridNoticiasPanel');
+      const btnPub=document.getElementById('btnAdminNuevaNoticiaPublico');
+      if(btnPub) btnPub.style.display=esAdmin()?'block':'none';
       lucide.createIcons();
     }
 
@@ -1632,8 +2074,20 @@
             <textarea name="resumen" class="form-control" rows="3" required>${textoSeguro(n.resumen)}</textarea>
           </div>
           <div class="form-group">
-            <label style="color:var(--primary);">URL de Imagen</label>
-            <input type="url" name="img" class="form-control" value="${textoSeguro(n.img)}" required>
+            <label style="color:var(--primary);">Enlace de la imagen principal (opcional si cargas imágenes)</label>
+            <input type="url" name="img" class="form-control" value="${textoSeguro(/^https?:/i.test(n.img || '') ? n.img : '')}" placeholder="https://...">
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">Más imágenes para el carrusel (enlaces de internet o Google)</label>
+            <textarea name="imagenesUrls" class="form-control" rows="4" placeholder="Un enlace https:// por línea">${textoSeguro((n.imagenes || []).filter(u=>/^https?:/i.test(u)).join('\n'))}</textarea>
+            <small>Hasta 12 imágenes por noticia. Desde Google Imágenes, abre la imagen y copia la dirección directa del archivo; no el enlace de la búsqueda. También puedes descargarla y cargarla abajo.</small>
+          </div>
+          <div class="form-group">
+            <label style="color:var(--primary);">O cargar imágenes desde tu dispositivo</label>
+            <input type="file" class="form-control" accept="image/png,image/jpeg,image/webp,image/gif" multiple onchange="campusCargarFotosNoticia(this)">
+            <input type="hidden" name="imagenesCargadas" value="${textoSeguro(JSON.stringify(campusFotosNoticia(n).filter(u=>u.startsWith('data:'))))}">
+            <div class="news-upload-preview" data-news-upload-preview>${campusPreviewFotos(campusFotosNoticia(n).filter(u=>u.startsWith('data:')))}</div>
+            <p class="news-upload-status" data-news-upload-status role="status">PNG, JPG, WebP o GIF. Máximo 2 MB por imagen y 6 MB en total.</p>
           </div>
           <button type="submit" class="btn btn-primary" style="width:100%;">${id ? "Guardar Cambios" : "Publicar Ahora"}</button>
         </form>
@@ -1643,13 +2097,16 @@
     function guardarNoticia(e, id) {
       e.preventDefault();
       const fd = new FormData(e.target);
+      if(e.target.dataset.imagesLoading==='true') throw new Error('Espera a que terminen de cargar las imágenes.');
+      const fotos=campusFotosFormulario(fd);
       if (id) {
         const n = NOTICIAS.find(x => x.id === id);
         if (n) {
           n.titulo = fd.get("titulo");
           n.categoria = fd.get("categoria");
           n.resumen = fd.get("resumen");
-          n.img = fd.get("img");
+          n.img = fotos[0];
+          n.imagenes = fotos.slice(1);
         }
       } else {
         NOTICIAS.unshift({
@@ -1658,7 +2115,8 @@
           titulo: fd.get("titulo"),
           categoria: fd.get("categoria"),
           resumen: fd.get("resumen"),
-          img: fd.get("img")
+          img: fotos[0],
+          imagenes: fotos.slice(1)
         });
       }
       renderizarNoticias();
@@ -1873,7 +2331,7 @@
               <option value="Área de Enfermería">Área de Enfermería</option>
               <option value="Área de Farmacia">Área de Farmacia</option>
               <option value="Área de Gastronomía">Área de Gastronomía</option>
-              <option value="Área de Cómputo">Área de Cómputo</option>
+              <option value="Área de Cómputo">Área de Gestión Empresarial</option>
             </select>
           </div>
           <div class="form-group">
@@ -1936,7 +2394,7 @@
             <td>${textoSeguro(s.curso)}</td>
             <td><span class="tag-status ${stClass}">${textoSeguro(s.estado)}</span></td>
             <td style="text-align:right;">
-              <div style="display:inline-flex; gap:6px; flex-wrap:wrap;">${controlesAdmin}</div>
+              <div style="display:inline-flex; gap:6px; flex-wrap:wrap;">${controlesAdmin}${campusBotonDocumento('reserva',s.id)}</div>
             </td>
           </tr>
         `;
@@ -1963,20 +2421,23 @@
       mostrarToast("Registro de separación eliminado y horario liberado.");
     }
 
-    function abrirModalSolicitarSeparacion(labPre = "", diaPre = "Lunes", bloquePre = BLOQUES_HORARIOS[0]) {
+    function abrirModalSolicitarSeparacion(labPre = "", diaPre = "Lunes", bloquePre = "") {
+      if(!bloquePre) bloquePre=campusBloques(campusTurno('Labs','panel'))[0];
+      const turno=campusTurnoBloque(bloquePre);
       const docNombre = USUARIO_ACTUAL ? USUARIO_ACTUAL.nombre : "";
-      const bloquesSinReceso = BLOQUES_HORARIOS.filter(b => !b.includes("RECESO"));
+      const bloquesSinReceso = campusBloques(turno).filter(b => !b.includes("RECESO"));
       abrirModalGenerico(`
         <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
         <h3 style="margin-bottom:0.5rem;">Solicitar Separación de Laboratorio</h3>
-        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.2rem;">Horario disponible de 09:00 a 13:00 (con receso de 11:00 a 11:20).</p>
+        <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1.2rem;">Mañana: 09:00–13:00 (receso 11:00–11:20). Tarde: 14:30–17:30 (receso 16:00–16:20).</p>
         <form onsubmit="guardarSolicitudSeparacion(event)">
           <div class="form-group">
             <label style="color:var(--primary);">Laboratorio Solicitado</label>
             <select name="labId" class="form-control" required>
-              ${LABORATORIOS.map(l => `<option value="${l.id}" ${l.id === labPre ? 'selected' : ''}>${textoSeguro(l.nombre)} — Área de ${textoSeguro(l.area)}</option>`).join("")}
+              ${LABORATORIOS.map(l => `<option value="${l.id}" ${l.id === labPre ? 'selected' : ''}>${textoSeguro(l.nombre)} — Área de ${textoSeguro(l.area === "Cómputo" ? "Gestión Empresarial" : l.area)}</option>`).join("")}
             </select>
           </div>
+          <div class="form-group"><label style="color:var(--primary);">Turno</label><select class="form-control" onchange="campusCambiarBloquesEditor(this,'bloqueReservaEditor')"><option value="manana" ${turno==='manana'?'selected':''}>Mañana · 09:00–13:00</option><option value="tarde" ${turno==='tarde'?'selected':''}>Tarde · 14:30–17:30</option></select></div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
             <div class="form-group">
               <label style="color:var(--primary);">Día de la Semana</label>
@@ -1985,8 +2446,8 @@
               </select>
             </div>
             <div class="form-group">
-              <label style="color:var(--primary);">Bloque Horario (09:00 - 13:00)</label>
-              <select name="bloque" class="form-control" required>
+              <label style="color:var(--primary);">Bloque horario</label>
+              <select id="bloqueReservaEditor" name="bloque" class="form-control" required>
                 ${bloquesSinReceso.map(b => `<option value="${b}" ${b === bloquePre ? 'selected' : ''}>${b}</option>`).join("")}
               </select>
             </div>
@@ -2038,6 +2499,7 @@
        ========================================================================= */
     function seleccionarAreaInventario(area, btnEl) {
       AREA_INVENTARIO_ACTUAL = area;
+      LAB_INVENTARIO_ACTUAL = "";
       document.querySelectorAll(".area-tab-btn").forEach(b => b.classList.remove("active"));
       if (btnEl) btnEl.classList.add("active");
       renderizarInventarioYReqPorArea();
@@ -2045,11 +2507,26 @@
 
     function renderizarInventarioYReqPorArea() {
       const area = AREA_INVENTARIO_ACTUAL;
-      document.getElementById("tituloInvArea").textContent = `Inventario — Área de ${area}`;
-      document.getElementById("tituloReqArea").textContent = `Requerimientos — Área de ${area}`;
+      document.getElementById("tituloInvArea").textContent = `Inventario — Área de ${area === 'Cómputo' ? 'Gestión Empresarial' : area}`;
+      document.getElementById("tituloReqArea").textContent = `Requerimientos — Área de ${area === 'Cómputo' ? 'Gestión Empresarial' : area}`;
 
-      const items = INVENTARIO.filter(i => i.area === area);
-      const reqs = REQUERIMIENTOS.filter(r => r.area === area);
+      const selector = document.getElementById('filtroLabInventario');
+      const nombres = [...new Set([
+        ...LABORATORIOS.filter(l => l.area === area).map(l => l.nombre),
+        ...INVENTARIO.filter(i => i.area === area).map(i => i.lab),
+        ...REQUERIMIENTOS.filter(r => r.area === area).map(r => r.lab)
+      ].filter(Boolean))].sort((a,b) => a.localeCompare(b,'es',{numeric:true}));
+      if (!nombres.includes(LAB_INVENTARIO_ACTUAL)) LAB_INVENTARIO_ACTUAL = '';
+      selector.innerHTML = '<option value="">Todos los laboratorios</option>' + nombres.map(n => `<option value="${textoSeguro(n)}">${textoSeguro(n)}</option>`).join('');
+      selector.value = LAB_INVENTARIO_ACTUAL;
+      const ordenar = (a,b) => String(a.lab||'').localeCompare(String(b.lab||''),'es',{numeric:true}) || String(a.nombre||a.detalle||'').localeCompare(String(b.nombre||b.detalle||''),'es');
+      const items = INVENTARIO.filter(i => i.area === area && (!LAB_INVENTARIO_ACTUAL || i.lab === LAB_INVENTARIO_ACTUAL)).sort(ordenar);
+      const reqs = REQUERIMIENTOS.filter(r => r.area === area && (!LAB_INVENTARIO_ACTUAL || r.lab === LAB_INVENTARIO_ACTUAL)).sort(ordenar);
+      document.getElementById('resumenInventario').textContent = `${items.length} ${items.length === 1 ? 'artículo' : 'artículos'} · ${reqs.length} ${reqs.length === 1 ? 'requerimiento' : 'requerimientos'}`;
+      if (LAB_INVENTARIO_ACTUAL) {
+        document.getElementById('tituloInvArea').textContent += ' · ' + LAB_INVENTARIO_ACTUAL;
+        document.getElementById('tituloReqArea').textContent += ' · ' + LAB_INVENTARIO_ACTUAL;
+      }
 
       const tbodyInv = document.getElementById("tbodyInventarioArea");
       tbodyInv.innerHTML = items.length ? items.map(i => {
@@ -2070,7 +2547,7 @@
             </td>
           </tr>
         `;
-      }).join("") : `<tr><td colspan="7" style="text-align:center;">Sin artículos en esta área.</td></tr>`;
+      }).join("") : `<tr><td colspan="7" style="text-align:center;">No hay artículos en esta selección.</td></tr>`;
 
       const tbodyReq = document.getElementById("tbodyRequerimientosArea");
       tbodyReq.innerHTML = reqs.length ? reqs.map(r => `
@@ -2087,21 +2564,22 @@
               <button class="btn btn-white btn-xs" onclick="abrirModalRequerimiento('${r.id}')"><i data-lucide="edit-2"></i> Editar</button>
               <button class="btn btn-primary btn-xs" onclick="eliminarRequerimiento('${r.id}')"><i data-lucide="trash-2"></i></button>
             ` : `<small style="color:var(--text-muted);">Enviado</small>`}
+            ${campusBotonDocumento('requerimiento',r.id)}
           </td>
         </tr>
-      `).join("") : `<tr><td colspan="7" style="text-align:center;">No hay requerimientos en esta área.</td></tr>`;
+      `).join("") : `<tr><td colspan="7" style="text-align:center;">No hay requerimientos en esta selección.</td></tr>`;
 
       lucide.createIcons();
     }
 
     function abrirModalItemInventario(id = null) {
       if (!esAdmin()) return;
-      const item = id ? INVENTARIO.find(x => x.id === id) : { area: AREA_INVENTARIO_ACTUAL, lab: "", nombre: "", categoria: "Equipo", cantidad: 10, minimo: 5, unidad: "Unidades" };
+      const item = id ? INVENTARIO.find(x => x.id === id) : { area: AREA_INVENTARIO_ACTUAL, lab: LAB_INVENTARIO_ACTUAL, nombre: "", categoria: "Equipo", cantidad: 10, minimo: 5, unidad: "Unidades" };
       const labsArea = LABORATORIOS.filter(l => l.area === AREA_INVENTARIO_ACTUAL);
 
       abrirModalGenerico(`
         <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
-        <h3 style="margin-bottom:1rem;">${id ? "Modificar Artículo" : "Añadir Artículo"} — Área de ${AREA_INVENTARIO_ACTUAL}</h3>
+        <h3 style="margin-bottom:1rem;">${id ? "Modificar Artículo" : "Añadir Artículo"} — Área de ${AREA_INVENTARIO_ACTUAL === 'Cómputo' ? 'Gestión Empresarial' : AREA_INVENTARIO_ACTUAL}</h3>
         <form onsubmit="guardarItemInventario(event, '${id || ""}')">
           <div class="form-group">
             <label style="color:var(--primary);">Laboratorio del Área</label>
@@ -2169,12 +2647,12 @@
     }
 
     function abrirModalRequerimiento(id = null) {
-      const req = id ? REQUERIMIENTOS.find(x => x.id === id) : { area: AREA_INVENTARIO_ACTUAL, lab: "", solicitante: USUARIO_ACTUAL ? USUARIO_ACTUAL.nombre : "", detalle: "", prioridad: "Media" };
+      const req = id ? REQUERIMIENTOS.find(x => x.id === id) : { area: AREA_INVENTARIO_ACTUAL, lab: LAB_INVENTARIO_ACTUAL, solicitante: USUARIO_ACTUAL ? USUARIO_ACTUAL.nombre : "", detalle: "", prioridad: "Media" };
       const labsArea = LABORATORIOS.filter(l => l.area === AREA_INVENTARIO_ACTUAL);
 
       abrirModalGenerico(`
         <button class="modal-close" onclick="cerrarModal('modalDinamico')"><i data-lucide="x"></i></button>
-        <h3 style="margin-bottom:1rem;">${id ? "Modificar Requerimiento" : "Nuevo Requerimiento"} — Área de ${AREA_INVENTARIO_ACTUAL}</h3>
+        <h3 style="margin-bottom:1rem;">${id ? "Modificar Requerimiento" : "Nuevo Requerimiento"} — Área de ${AREA_INVENTARIO_ACTUAL === 'Cómputo' ? 'Gestión Empresarial' : AREA_INVENTARIO_ACTUAL}</h3>
         <form onsubmit="guardarRequerimiento(event, '${id || ""}')">
           <div class="form-group">
             <label style="color:var(--primary);">Laboratorio</label>
@@ -2323,7 +2801,7 @@
         nav.innerHTML = `
           <li><button class="admin-nav-btn active" onclick="mostrarTabPanel('tabCuentas', 'Panel de Aprobación de Cuentas', this)"><i data-lucide="user-check"></i> Aprobación de Cuentas <span class="badge-count">${pendCuentas}</span></button></li>
           <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabSeparaciones', 'Separación de Laboratorios (Aprobar/Rechazar)', this)"><i data-lucide="calendar-check"></i> Separación de Labs <span class="badge-count">${pendSep}</span></button></li>
-          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabAlmanaque', 'Almanaque de Uso de Laboratorios (9:00 - 1:00)', this)"><i data-lucide="calendar-days"></i> Almanaque de Labs</button></li>
+          <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabAlmanaque', 'Horarios de uso de laboratorios (mañana y tarde)', this)"><i data-lucide="calendar-days"></i> Horarios de laboratorios</button></li>
           <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabHorarioClases', 'Horario de Clases de los Estudiantes', this)"><i data-lucide="clock"></i> Horario de Clases</button></li>
           <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabInventario', 'Inventario y Requerimientos por Áreas', this)"><i data-lucide="boxes"></i> Inventario y Requerimientos</button></li>
           <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabNoticiasWeb', 'Noticias y Edición de Plataforma', this)"><i data-lucide="newspaper"></i> Noticias y Editar Web</button></li>
@@ -2334,25 +2812,25 @@
         document.getElementById("btnNuevaSepAlmanaque").style.display = "inline-flex";
         document.getElementById("btnNuevoReqArea").style.display = "inline-flex";
         nav.innerHTML = `
-          <li><button class="admin-nav-btn active" onclick="mostrarTabPanel('tabAlmanaque', 'Almanaque y Separación de Laboratorios (9:00 - 1:00)', this)"><i data-lucide="calendar-days"></i> Almanaque y Separar Lab</button></li>
+          <li><button class="admin-nav-btn active" onclick="mostrarTabPanel('tabAlmanaque', 'Horarios y reservas de laboratorios (mañana y tarde)', this)"><i data-lucide="calendar-days"></i> Horarios y reservas</button></li>
           <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabSeparaciones', 'Estado de Mis Separaciones', this)"><i data-lucide="calendar-check"></i> Solicitudes de Laboratorio</button></li>
           <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabHorarioClases', 'Horario de Clases de los Estudiantes', this)"><i data-lucide="clock"></i> Horario de Clases</button></li>
           <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabInventario', 'Requerimientos y Stock por Área', this)"><i data-lucide="clipboard-list"></i> Requerimientos por Área</button></li>
           <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabNoticiasWeb', 'Noticias Institucionales', this)"><i data-lucide="newspaper"></i> Noticias del Campus</button></li>
         `;
-        mostrarTabPanel("tabAlmanaque", "Almanaque y Separación de Laboratorios (9:00 - 1:00)");
+        mostrarTabPanel("tabAlmanaque", "Horarios y reservas de laboratorios (mañana y tarde)");
       } else {
         // ESTUDIANTE: Incluye Horario de Clases, Requerimientos, Almanaque de Uso de Labs y Noticias
         if (bloqueInv) bloqueInv.style.display = "none"; // Muestra directamente la sección de Requerimientos para el estudiante
         document.getElementById("btnNuevaSepAlmanaque").style.display = "none";
         document.getElementById("btnNuevoReqArea").style.display = "inline-flex";
         nav.innerHTML = `
-          <li><button class="admin-nav-btn active" onclick="mostrarTabPanel('tabHorarioClases', 'Mi Horario de Clases (9:00 a 1:00 p. m.)', this)"><i data-lucide="clock"></i> Horario de Clases</button></li>
+          <li><button class="admin-nav-btn active" onclick="mostrarTabPanel('tabHorarioClases', 'Mi horario de clases · Mañana y tarde', this)"><i data-lucide="clock"></i> Horario de Clases</button></li>
           <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabInventario', 'Mis Requerimientos de Práctica por Área', this)"><i data-lucide="clipboard-list"></i> Requerimientos</button></li>
           <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabAlmanaque', 'Uso y Disponibilidad de Laboratorios', this)"><i data-lucide="calendar-days"></i> Horario de Laboratorios</button></li>
           <li><button class="admin-nav-btn" onclick="mostrarTabPanel('tabNoticiasWeb', 'Noticias y Comunicados para Estudiantes', this)"><i data-lucide="newspaper"></i> Noticias del Campus</button></li>
         `;
-        mostrarTabPanel("tabHorarioClases", "Mi Horario de Clases (9:00 a 1:00 p. m.)");
+        mostrarTabPanel("tabHorarioClases", "Mi horario de clases · Mañana y tarde");
       }
 
       actualizarVistasPanel();
@@ -2401,7 +2879,7 @@
     function respuestaRapidaChat(tema) {
       agregarBurbujaChat(tema, "user");
       if (tema.includes("Horarios")) {
-        agregarBurbujaChat("El uso de laboratorios y las clases son de <b>9:00 a. m. a 1:00 p. m.</b>, con un receso de 20 minutos de <b>11:00 a 11:20 a. m.</b>", "bot");
+        agregarBurbujaChat("Turno mañana: 09:00–13:00, con receso 11:00–11:20. Turno tarde: 14:30–17:30, con receso 16:00–16:20. Selecciona el turno en el calendario.", "bot");
       } else {
         agregarBurbujaChat("Si ya te registraste con <b>@fdssmartcampus.edu.pe</b>, puedes avisar al Administrador directamente al WhatsApp <b>906 041 978</b> para su aprobación inmediata.", "bot");
       }
@@ -2663,7 +3141,7 @@ function campusError(err) {
   if(err?.code==='42501') return 'Tu cuenta no tiene permiso para esta operación.';
   if(err?.code==='PGRST202'||err?.code==='42P01') return 'Falta ejecutar preparar_base.sql en Supabase.';
   if(/invalid login/i.test(err?.message||'')) return 'Correo o contraseña incorrectos.';
-  if(/email not confirmed/i.test(err?.message||'')) return 'Confirma tu correo antes de ingresar.';
+  if(/email not confirmed/i.test(err?.message||'')) return 'La cuenta sigue pendiente de confirmación en el servicio de acceso. Contacta al administrador para habilitarla sin correo.';
   return err?.message || 'No se pudo completar la operación. Revisa la conexión e inténtalo de nuevo.';
 }
 async function campusResultado(promise) {
@@ -2758,7 +3236,7 @@ campusOriginal.renderizarAlmanaque=renderizarAlmanaque;
 renderizarAlmanaque=function(modo){
   if(!campusDisponible){
     const el=document.getElementById(modo==='publico'?'contenedorAlmanaquePublico':'contenedorAlmanaquePanel');
-    if(el) el.innerHTML='<p role="status" style="padding:24px;text-align:center;">No se ha podido confirmar la disponibilidad. Pulsa «Actualizar datos» antes de reservar.</p>';
+    if(el) el.innerHTML='<p role="status" style="padding:24px;text-align:center;">No se ha podido confirmar la disponibilidad. Recarga la página antes de reservar.</p>';
     return;
   }
   campusOriginal.renderizarAlmanaque(modo);
@@ -2766,7 +3244,7 @@ renderizarAlmanaque=function(modo){
 iniciarSesionFormulario=async function(e){
   await campusAccion(e,async()=>{
     if(!campusDB) throw new Error('No se pudo cargar Supabase. Recarga con conexión a Internet.');
-    const email=document.getElementById('loginEmail').value.trim();
+    const email=campusIdentificador(document.getElementById('loginEmail').value);
     const password=document.getElementById('loginPass').value;
     const r=await campusDB.auth.signInWithPassword({email,password});
     if(r.error) throw r.error;
@@ -2790,10 +3268,12 @@ procesarRegistroCuenta=async function(e,rol){
   await campusAccion(e,async()=>{
     if(!campusDB) throw new Error('No se pudo cargar Supabase.');
     const f=new FormData(e.target);
+    const identificador=campusIdentificador(f.get('email'));
+    if(identificador.endsWith('@fdssmartcampus.edu.pe')) await campusVerificarRegistroSinCorreo();
     // Un cliente separado evita reemplazar la sesión de otro usuario al registrar.
     const signupClient=window.supabase.createClient(CAMPUS_URL,CAMPUS_PUBLIC_KEY,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false,storageKey:'campus-registro-'+Date.now()}});
-    await campusResultado(signupClient.auth.signUp({email:String(f.get('email')).trim(),password:f.get('pass'),options:{emailRedirectTo:'https://fdssmartcampus.github.io/fdssmarthcampusbeta/',data:{nombre:f.get('nombre'),rol:rol==='docente'?'docente':'estudiante',area:f.get('area'),documento:f.get('documento')}}}));
-    e.target.reset(); mostrarToast('Si el registro es válido, revisa tu correo para confirmarlo. También se requiere aprobación del administrador.');
+    await campusResultado(signupClient.auth.signUp({email:campusIdentificador(f.get('email')),password:f.get('pass'),options:{emailRedirectTo:'https://fdssmartcampus.github.io/fdssmarthcampusbeta/',data:{nombre:f.get('nombre'),rol:rol==='docente'?'docente':'estudiante',area:f.get('area'),documento:f.get('documento')}}}));
+    e.target.reset(); mostrarToast('Solicitud enviada. Espera la aprobación del administrador e ingresa con tu usuario y contraseña.');
   });
 };
 guardarSolicitudSeparacion=async function(e){
@@ -2826,7 +3306,7 @@ confirmarEliminarCuenta=function(id){
 ejecutarEliminarCuenta=async function(id){await cambiarEstadoCuenta(id,'Desactivado');cerrarModal('modalDinamico');};
 abrirModalCrearCuentaManual=function(){
  if(!esAdmin())return;
- abrirModalGenerico(`<button class="modal-close" onclick="cerrarModal('modalDinamico')">×</button><h3>Registrar usuario</h3><p>Se enviará confirmación al correo real. La cuenta quedará pendiente para su revisión.</p><form onsubmit="guardarCuentaManual(event)"><div class="form-group"><label>Nombre</label><input class="form-control" name="nombre" required maxlength="150"></div><div class="form-group"><label>Correo real</label><input class="form-control" type="email" name="email" required></div><div class="form-group"><label>Contraseña inicial exclusiva del campus</label><input class="form-control" type="password" name="pass" minlength="10" required></div><div class="form-group"><label>Rol solicitado</label><select class="form-control" name="rol"><option value="docente">Docente</option><option value="estudiante">Estudiante</option></select></div><div class="form-group"><label>Área</label><input class="form-control" name="area" required></div><div class="form-group"><label>Documento o código</label><input class="form-control" name="documento" required></div><button class="btn btn-primary" type="submit">Registrar</button></form>`);
+ abrirModalGenerico(`<button class="modal-close" onclick="cerrarModal('modalDinamico')">×</button><h3>Registrar usuario</h3><p>Escribe un usuario sin dominio para usar @fdssmartcampus.edu.pe, o el correo de una cuenta existente. La cuenta quedará pendiente para su revisión.</p><form onsubmit="guardarCuentaManual(event)"><div class="form-group"><label>Nombre</label><input class="form-control" name="nombre" required maxlength="150"></div><div class="form-group"><label>Usuario del campus o correo</label><input class="form-control" type="text" name="email" placeholder="juan.perez" required></div><div class="form-group"><label>Contraseña inicial exclusiva del campus</label><input class="form-control" type="password" name="pass" minlength="10" required></div><div class="form-group"><label>Rol solicitado</label><select class="form-control" name="rol"><option value="docente">Docente</option><option value="estudiante">Estudiante</option></select></div><div class="form-group"><label>Área</label><input class="form-control" name="area" required></div><div class="form-group"><label>Documento o código</label><input class="form-control" name="documento" required></div><button class="btn btn-primary" type="submit">Registrar</button></form>`);
 };
 guardarCuentaManual=async function(e){if(!esAdmin()){e.preventDefault();return;}const rol=new FormData(e.target).get('rol');await procesarRegistroCuenta(e,rol);await campusRecargar();};
 guardarNuevaPasswordAdmin=async function(e){await campusAccion(e,async()=>{
@@ -2856,14 +3336,12 @@ campusPersistirFuncion('guardarNoticia','noticias',()=>NOTICIAS,x=>NOTICIAS=x);
 campusPersistirFuncion('confirmarEliminarNoticia','noticias',()=>NOTICIAS,x=>NOTICIAS=x);
 campusPersistirFuncion('guardarItemInventario','inventario',()=>INVENTARIO,x=>INVENTARIO=x);
 campusPersistirFuncion('eliminarItemInventario','inventario',()=>INVENTARIO,x=>INVENTARIO=x);
-guardarHero=async function(e){await campusAccion(e,async()=>{campusExigir(true);const f=new FormData(e.target);const d={l1:f.get('l1').trim(),l2:f.get('l2').trim(),desc:f.get('desc').trim()};await campusGuardarContenido('portada',d);aplicarHero(d);cerrarModal('modalDinamico');mostrarToast('Portada guardada en Supabase.');});};
+guardarHero=async function(e){await campusAccion(e,async()=>{campusExigir(true);const f=new FormData(e.target);const d={...campusPortadaActual,l1:f.get('l1').trim(),l2:f.get('l2').trim(),desc:f.get('desc').trim()};await campusGuardarContenido('portada',d);aplicarHero(d);cerrarModal('modalDinamico');mostrarToast('Portada guardada en Supabase.');});};
 // Para el botón público de actualización y el regreso desde otra pestaña.
 window.campusActualizar=()=>campusRecargar();
 window.addEventListener('focus',()=>{if(Date.now()-campusUltimaCarga>30000)campusRecargar({silencioso:true});});
 document.addEventListener('DOMContentLoaded',async()=>{
- const login=document.getElementById('loginEmail');if(login){login.type='email';login.placeholder='Tu correo registrado en el campus';}
- const btn=document.createElement('button');btn.className='btn btn-white btn-sm';btn.type='button';btn.textContent='Actualizar datos';btn.onclick=()=>campusRecargar();
- const panelTitulo=document.getElementById('panelHeaderTitle');if(panelTitulo)panelTitulo.parentElement.append(btn);
+ const login=document.getElementById('loginEmail');if(login){login.type='text';login.placeholder='juan.perez o tu correo registrado';}
  if(!campusDB){campusMensaje('No se cargó Supabase. Comprueba tu conexión a Internet y recarga.',true);return;}
  campusDB.auth.onAuthStateChange((evento,sesion)=>{
    campusSession=sesion;
@@ -2879,5 +3357,626 @@ document.addEventListener('DOMContentLoaded',async()=>{
 });
 
 </script>
+
+<script>
+// Presentación de acceso: utiliza las cuentas, aprobación y sesión existentes.
+let campusRegistroOrigen=null;
+function campusVerRegistro(ver) {
+  document.body.classList.toggle('auth-register',ver);
+  if(ver) document.querySelector('#authRegistration input')?.focus();
+  else document.getElementById('loginEmail')?.focus();
+  window.scrollTo(0,0);
+}
+function campusMostrarAcceso() {
+  document.body.classList.add('campus-locked');
+  campusVerRegistro(false);
+  const registro=document.getElementById('registro');
+  if(registro && registro.parentElement.id!=='authRegistrationForms') {
+    campusRegistroOrigen=document.createComment('Ubicación original del registro');
+    registro.before(campusRegistroOrigen);
+    document.getElementById('authRegistrationForms').append(registro);
+  }
+}
+const campusAutenticarAnterior=autenticarUsuario;
+autenticarUsuario=function(cuenta) {
+  if(!campusSession || !campusDatosListos || !cuenta || cuenta.estado!=='Aprobado') return;
+  document.body.classList.remove('campus-locked','auth-register');
+  const registro=document.getElementById('registro');
+  if(campusRegistroOrigen && registro) { campusRegistroOrigen.replaceWith(registro); campusRegistroOrigen=null; }
+  campusAutenticarAnterior(cuenta);
+};
+const campusCerrarVistaAnterior=campusOriginal.cerrarSesion;
+campusOriginal.cerrarSesion=function(){campusCerrarVistaAnterior();campusMostrarAcceso();};
+const campusCerrarModalAnterior=cerrarModal;
+cerrarModal=function(id){
+  if(id==='modalLogin' && document.body.classList.contains('campus-locked')) return;
+  campusCerrarModalAnterior(id);
+};
+document.addEventListener('DOMContentLoaded',()=>{
+  campusMostrarAcceso();
+  const estado=document.getElementById('campusEstado');
+  const sincronizar=()=>{
+    const texto=campusCargando?'Actualizando…':'Actualizar';
+    document.querySelectorAll('.campus-refresh').forEach(b=>{
+      b.disabled=campusCargando; b.setAttribute('aria-busy',String(campusCargando));
+      b.classList.toggle('is-loading',campusCargando);
+      b.querySelector('.refresh-label').textContent=texto;
+    });
+    const gate=document.getElementById('gateStatus');
+    if(gate) gate.textContent=estado.textContent;
+  };
+  new MutationObserver(sincronizar).observe(estado,{childList:true,characterData:true,subtree:true,attributes:true,attributeFilter:['style']});
+  sincronizar();
+});
+</script>
+<script>const campusToggleAsistenteAnterior=toggleChatbot;toggleChatbot=function(){campusToggleAsistenteAnterior();document.querySelector('.chatbot-fab')?.setAttribute('aria-expanded',String(document.getElementById('chatbotWindow').style.display==='flex'));};</script>
+<script id="campus-visual-interactions">
+// Progressive visual enhancements. No changes to forms, sessions or persistence.
+(() => {
+ 'use strict';
+ function boot() {
+  if(document.documentElement.dataset.campusMotion) return;
+  document.documentElement.dataset.campusMotion='ready';
+  const preference=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const animations=new Set();
+  const perElement=new WeakMap();
+  function play(element,keyframes,options={}) {
+   if(preference.matches || !element?.isConnected || !element.getClientRects().length || typeof element.animate!=='function') return;
+   perElement.get(element)?.cancel();
+   const animation=element.animate(keyframes,{duration:300,easing:'cubic-bezier(.22,1,.36,1)',...options});
+   perElement.set(element,animation); animations.add(animation);
+   const clean=()=>{animations.delete(animation);if(perElement.get(element)===animation)perElement.delete(element);};
+   animation.onfinish=clean; animation.oncancel=clean;
+   return animation;
+  }
+  preference.addEventListener?.('change',()=>{if(preference.matches) [...animations].forEach(a=>a.cancel());});
+  function enter(element) { play(element,[{opacity:.45,transform:'translateY(12px)'},{opacity:1,transform:'translateY(0)'}],{duration:380}); }
+  // Observe visibility only; never replace or wrap the existing business functions.
+  const visibility=new MutationObserver(records=>{
+   for(const r of records) {
+    const element=r.target;
+    if(element.style.display!=='none' && element.getClientRects().length) enter(element);
+   }
+  });
+  document.querySelectorAll('.panel-tab,#panelInternoView,#vistaPublica,.modal-backdrop').forEach(el=>visibility.observe(el,{attributes:true,attributeFilter:['style']}));
+  const renderTargets=new Set(); let renderFrame=0;
+  const renderObserver=new MutationObserver(records=>{
+   for(const r of records) {
+    if(r.target.nodeType===1 && r.target.closest('.btn,.area-tab-btn,.admin-nav-btn,.news-carousel-host,.campus-student-gallery')) continue;
+    const container=r.target.nodeType===1?r.target.closest('.almanaque-wrap,.table-responsive,.labs-grid'):null;
+    if(container) renderTargets.add(container);
+   }
+   if(!renderTargets.size || renderFrame) return;
+   renderFrame=requestAnimationFrame(()=>{
+    renderFrame=0;
+    for(const target of renderTargets) play(target,[{opacity:.65,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:230});
+    renderTargets.clear();
+   });
+  });
+  renderObserver.observe(document.body,{childList:true,subtree:true});
+  // Animate sections when they become visible. Their content stays visible if
+  // observers, scripting or animation support is unavailable.
+  if('IntersectionObserver' in window) {
+   const seen=new WeakSet();
+   const reveal=new IntersectionObserver(entries=>{
+    for(const e of entries) if(e.isIntersecting && !seen.has(e.target)) {
+     seen.add(e.target);enter(e.target);reveal.unobserve(e.target);
+    }
+   },{threshold:.08});
+   document.querySelectorAll('.sec-title-wrap,.areas-grid,.labs-group,.register-boxes,.footer-grid').forEach(el=>reveal.observe(el));
+   const navLinks=[...document.querySelectorAll('.menu a[href^="#"]')];
+   const current=new IntersectionObserver(entries=>{
+    for(const entry of entries) if(entry.isIntersecting) for(const link of navLinks) {
+     if(link.getAttribute('href')==='#'+entry.target.id) link.setAttribute('aria-current','location');
+     else link.removeAttribute('aria-current');
+    }
+   },{rootMargin:'-15% 0px -65% 0px',threshold:0});
+   navLinks.forEach(a=>{const el=document.getElementById(a.getAttribute('href').slice(1));if(el)current.observe(el);});
+  }
+  // Feedback stays decorative; original click actions run unchanged.
+  document.addEventListener('click',event=>{
+   const button=event.target.closest?.('.btn,.area-tab-btn,.admin-nav-btn');
+   if(!button || button.disabled || preference.matches) return;
+   const rect=button.getBoundingClientRect();
+   const ripple=document.createElement('span');ripple.className='ui-ripple';ripple.setAttribute('aria-hidden','true');
+   const size=Math.max(rect.width,rect.height)*2;
+   ripple.style.width=size+'px';ripple.style.height=size+'px';
+   ripple.style.left=(event.detail?event.clientX-rect.left:rect.width/2)+'px';
+   ripple.style.top=(event.detail?event.clientY-rect.top:rect.height/2)+'px';
+   button.append(ripple);
+   const effect=play(ripple,[{opacity:.6,transform:'translate(-50%,-50%) scale(0)'},{opacity:0,transform:'translate(-50%,-50%) scale(1)'}],{duration:480});
+   if(effect) { effect.addEventListener('finish',()=>ripple.remove(),{once:true});effect.addEventListener('cancel',()=>ripple.remove(),{once:true}); }
+   else ripple.remove();
+  });
+  function themeFilters() {
+   document.querySelectorAll('.campus-schedule-filters').forEach(box=>{box.dataset.turno=box.querySelector('select[id^="turno"]')?.value || 'manana';});
+  }
+  document.addEventListener('change',event=>{
+   if(event.target.matches('select')) {
+    themeFilters();
+    play(event.target,[{boxShadow:'0 0 0 0 rgba(255,194,14,.45)'},{boxShadow:'0 0 0 7px rgba(255,194,14,0)'}],{duration:450});
+   }
+  });
+  themeFilters();
+  const assistant=document.getElementById('chatbotWindow');
+  const mascot=document.querySelector('.chatbot-fab');
+  if(assistant && mascot) {
+   const syncAssistant=()=>{
+    const open=assistant.style.display==='flex';
+    mascot.classList.toggle('assistant-awake',open);
+    mascot.setAttribute('aria-expanded',String(open));
+    if(open) play(assistant,[{opacity:.25,transform:'translateY(16px) scale(.97)'},{opacity:1,transform:'translateY(0) scale(1)'}],{duration:320});
+   };
+   new MutationObserver(syncAssistant).observe(assistant,{attributes:true,attributeFilter:['style']});
+   syncAssistant();
+  }
+  const top=document.createElement('button');top.type='button';top.className='ui-back-top';top.title='Volver arriba';top.setAttribute('aria-label','Volver arriba');
+  top.innerHTML='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 14 6-6 6 6M12 8v12"/></svg>';
+  top.onclick=()=>window.scrollTo({top:0,behavior:preference.matches?'instant':'smooth'});
+  document.body.append(top);
+  let scrollFrame=0;
+  const syncScroll=()=>{
+   scrollFrame=0;top.classList.toggle('is-visible',window.scrollY>500);
+   const bar=document.querySelector('.topbar');if(bar)bar.classList.toggle('ui-scrolled',window.scrollY>30);
+  };
+  window.addEventListener('scroll',()=>{if(!scrollFrame)scrollFrame=requestAnimationFrame(syncScroll);},{passive:true});
+  syncScroll();
+ }
+ if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+})();
+</script>
+<script id="campus-news-carousel">
+const campusNewsControllers=new Map();
+function campusFotoSegura(url) {
+ const value=String(url||'').trim();
+ if(/^data:image\/(png|jpeg|webp|gif);base64,[a-z\d+/=]+$/i.test(value)) return value;
+ try {const parsed=new URL(value);return ['https:','http:'].includes(parsed.protocol)?parsed.href:'';} catch {return '';}
+}
+function campusFotosNoticia(n) {
+ return [...new Set([n.img,...(Array.isArray(n.imagenes)?n.imagenes:[])].map(campusFotoSegura).filter(Boolean))];
+}
+function campusFotosFormulario(fd) {
+ let cargadas=[];try {cargadas=JSON.parse(fd.get('imagenesCargadas')||'[]');} catch {throw new Error('Vuelve a cargar las imágenes.');}
+ if(!Array.isArray(cargadas)) throw new Error('La lista de imágenes no es válida.');
+ const entradas=[fd.get('img'),...String(fd.get('imagenesUrls')||'').split(/\r?\n/),...cargadas].map(x=>String(x||'').trim()).filter(Boolean);
+ const fotos=[...new Set(entradas.map(campusFotoSegura))];
+ if(fotos.includes('')) throw new Error('Usa enlaces http o https válidos o imágenes PNG, JPG, WebP o GIF.');
+ if(!fotos.length) throw new Error('Añade al menos una imagen a la noticia.');
+ if(fotos.length>12) throw new Error('Puedes añadir hasta 12 imágenes por noticia.');
+ return fotos;
+}
+function campusPreviewFotos(fotos) {
+ return fotos.map((url,i)=>`<div class="news-upload-thumb"><img src="${textoSeguro(url)}" alt="Imagen cargada ${i+1}"><button type="button" aria-label="Quitar imagen cargada ${i+1}" onclick="campusQuitarFotoNoticia(this,${i})">×</button></div>`).join('');
+}
+function campusQuitarFotoNoticia(button,index) {
+ const form=button.closest('form');if(form.dataset.imagesLoading==='true') return;
+ const field=form.elements.imagenesCargadas;const fotos=JSON.parse(field.value||'[]');fotos.splice(index,1);field.value=JSON.stringify(fotos);
+ form.querySelector('[data-news-upload-preview]').innerHTML=campusPreviewFotos(fotos);
+ form.querySelector('[data-news-upload-status]').textContent=`${fotos.length} imágenes cargadas. Los cambios se guardan al publicar.`;
+}
+async function campusCargarFotosNoticia(input) {
+ const form=input.closest('form');const field=form.elements.imagenesCargadas;const status=form.querySelector('[data-news-upload-status]');
+ const submit=form.querySelector('[type="submit"]');const files=[...input.files];if(!files.length)return;
+ const previous=JSON.parse(field.value||'[]');
+ form.dataset.imagesLoading='true';submit.disabled=true;input.disabled=true;status.textContent='Cargando imágenes…';
+ try {
+  if(files.length+previous.length>12) throw new Error('Puedes cargar hasta 12 imágenes por noticia.');
+  if(files.some(f=>!['image/png','image/jpeg','image/webp','image/gif'].includes(f.type))) throw new Error('Selecciona únicamente imágenes PNG, JPG, WebP o GIF.');
+  if(files.some(f=>f.size>2*1024*1024)) throw new Error('Cada imagen debe pesar como máximo 2 MB. Para imágenes mayores utiliza un enlace.');
+  const previousBytes=previous.reduce((sum,u)=>sum+u.length*.75,0);
+  if(previousBytes+files.reduce((sum,f)=>sum+f.size,0)>6*1024*1024) throw new Error('Las imágenes cargadas deben sumar como máximo 6 MB. Puedes utilizar enlaces para las restantes.');
+  const nuevas=await Promise.all(files.map(file=>new Promise((resolve,reject)=>{
+   const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(new Error('No se pudo leer una de las imágenes.'));reader.readAsDataURL(file);
+  })));
+  const fotos=[...new Set([...previous,...nuevas])];field.value=JSON.stringify(fotos);
+  form.querySelector('[data-news-upload-preview]').innerHTML=campusPreviewFotos(fotos);
+  status.textContent=`${fotos.length} imágenes cargadas. Pulsa «Publicar» o «Guardar cambios» para conservarlas.`;
+ }catch(error){status.textContent=error.message;mostrarToast(error.message);}
+ finally {form.dataset.imagesLoading='false';submit.disabled=false;input.disabled=false;input.value='';}
+}
+function campusRenderNoticiasCarrusel(hostId) {
+ const host=document.getElementById(hostId);if(!host)return;
+ const anterior=campusNewsControllers.get(hostId);
+ const previousKey=anterior?.key;const previousPlaying=anterior?.playing;
+ anterior?.dispose();campusNewsControllers.delete(hostId);
+ const slides=NOTICIAS.flatMap(n=>campusFotosNoticia(n).map((src,i)=>({news:n,src,key:String(n.id)+':'+i,image:i+1,total:campusFotosNoticia(n).length})));
+ host.classList.add('news-carousel-host');
+ if(!slides.length){host.innerHTML='<p class="news-empty">Todavía no hay noticias con imágenes. El administrador puede publicar el primer comunicado.</p>';return;}
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+ let index=Math.max(0,slides.findIndex(s=>s.key===previousKey));
+ let playing=previousPlaying??!reduced.matches;
+ let timer=null,hover=false,focused=false,visible=false,modalOpen=false,dialog=null,disposed=false;
+ const count=slides.length;const initial=hostId+'-slide';
+ const overlayActive=()=>[...document.querySelectorAll('.modal-backdrop')].some(el=>el.getClientRects().length>0);
+ host.innerHTML=`<section class="news-carousel" role="region" aria-roledescription="carrusel" aria-label="Noticias y comunicados">
+  <div class="news-carousel-head"><strong>Noticias y comunicados</strong><span>Cada imagen, una novedad del campus</span></div>
+  <div id="${initial}" class="news-carousel-stage" role="group" aria-roledescription="diapositiva"></div>
+  <div class="news-carousel-controls">
+   <button type="button" class="news-arrow" data-news-action="prev" aria-label="Imagen anterior" aria-controls="${initial}">❮</button>
+   <button type="button" class="news-arrow" data-news-action="next" aria-label="Imagen siguiente" aria-controls="${initial}">❯</button>
+   <div class="news-dots" aria-label="Elegir imagen">${slides.map((_,i)=>`<button type="button" class="news-dot" data-news-index="${i}" aria-label="Ver imagen ${i+1} de ${count}" aria-controls="${initial}"></button>`).join('')}</div>
+   <span class="news-carousel-counter" aria-live="off"></span>
+   <button type="button" class="news-autoplay" data-news-action="play"></button>
+  </div></section>`;
+ const root=host.querySelector('.news-carousel');const stage=host.querySelector('.news-carousel-stage');
+ const dots=[...host.querySelectorAll('.news-dot')];const counter=host.querySelector('.news-carousel-counter');const playButton=host.querySelector('[data-news-action="play"]');
+ function schedule() {
+  clearTimeout(timer);timer=null;
+  if(!disposed&&count>1&&playing&&visible&&!hover&&!focused&&!modalOpen&&!document.hidden&&!overlayActive()) timer=setTimeout(()=>go(1),5000);
+ }
+ function render() {
+  const slide=slides[index];const n=slide.news;
+  const previousSlide=stage.querySelector('.news-carousel-slide:not(.news-transition-out)')?.cloneNode(true);
+  stage.setAttribute('aria-label',`${index+1} de ${count}: ${n.titulo}`);
+  stage.innerHTML=`<article class="news-carousel-slide">
+   <button type="button" class="news-carousel-figure" data-news-action="expand" aria-label="Ampliar imagen: ${textoSeguro(n.titulo)}">
+    <img src="${textoSeguro(slide.src)}" alt="${textoSeguro(n.titulo)} · imagen ${slide.image} de ${slide.total}" decoding="async"><span class="news-zoom-label">↗ Ampliar imagen</span>
+   </button>
+   <div class="news-carousel-copy"><span class="news-carousel-category">${textoSeguro(n.categoria||'Comunicado')}</span><time>${textoSeguro(n.fecha||'')}</time><h3>${textoSeguro(n.titulo)}</h3><p>${textoSeguro(n.resumen||'')}</p><button type="button" class="news-carousel-cta" data-news-action="expand">Ver comunicado</button>
+    ${esAdmin()?`<div class="news-carousel-admin"><button type="button" class="btn btn-accent btn-sm" data-news-action="edit">Editar texto e imágenes</button><button type="button" class="btn btn-white btn-sm" data-news-action="delete">Eliminar noticia</button></div>`:''}
+   </div></article>`;
+  const adminTools=stage.querySelector('.news-carousel-admin');if(adminTools)stage.querySelector('article').append(adminTools);
+  campusTransicionNoticia(stage,previousSlide);
+  dots.forEach((dot,i)=>dot.setAttribute('aria-current',String(i===index)));
+  counter.textContent=`${index+1} / ${count}`;
+  playButton.textContent=playing?'Ⅱ Pausar':'▶ Reproducir';playButton.setAttribute('aria-label',playing?'Pausar carrusel automático':'Reproducir carrusel automático');
+  playButton.disabled=count<2;
+  if(dialog) renderDialog();schedule();
+ }
+ function go(delta) {index=(index+delta+count)%count;render();}
+ function renderDialog() {
+  const slide=slides[index];dialog.querySelector('h3').textContent=slide.news.titulo;
+  const img=dialog.querySelector('img');img.src=slide.src;img.alt=slide.news.titulo+` · imagen ${slide.image} de ${slide.total}`;
+  dialog.querySelector('[data-news-dialog-counter]').textContent=`Imagen ${index+1} de ${count}`;
+ }
+ function expand() {
+  if(modalOpen)return;
+  modalOpen=true;schedule();dialog=document.createElement('dialog');dialog.className='news-lightbox';dialog.setAttribute('aria-label','Imagen de noticia ampliada');
+  dialog.innerHTML='<div class="news-lightbox-head"><h3></h3><button type="button" class="news-lightbox-close" aria-label="Cerrar imagen ampliada" autofocus>×</button></div><img class="news-lightbox-image" alt=""><div class="news-lightbox-footer"><button type="button" class="news-arrow" data-news-dialog-prev aria-label="Imagen anterior">❮</button><span data-news-dialog-counter aria-live="polite"></span><button type="button" class="news-arrow" data-news-dialog-next aria-label="Imagen siguiente">❯</button></div>';
+  document.body.append(dialog);renderDialog();
+  const close=()=>{if(dialog?.open)dialog.close();};
+  dialog.querySelector('.news-lightbox-close').onclick=close;
+  dialog.querySelector('[data-news-dialog-prev]').onclick=()=>go(-1);
+  dialog.querySelector('[data-news-dialog-next]').onclick=()=>go(1);
+  dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)close();}});
+  dialog.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'){e.preventDefault();go(-1);}if(e.key==='ArrowRight'){e.preventDefault();go(1);}});
+  dialog.addEventListener('close',()=>{const node=dialog;dialog=null;modalOpen=false;node?.remove();stage.querySelector('[data-news-action="expand"]')?.focus();schedule();},{once:true});
+  if(typeof dialog.showModal==='function')dialog.showModal();
+  else {dialog.setAttribute('open','');dialog.style.display='block';dialog.style.position='fixed';dialog.style.inset='3vh 3vw';dialog.querySelector('.news-lightbox-close').onclick=()=>{const node=dialog;dialog=null;modalOpen=false;node.remove();schedule();};}
+ }
+ root.addEventListener('click',e=>{
+  const dot=e.target.closest('[data-news-index]');if(dot){index=Number(dot.dataset.newsIndex);render();return;}
+  const action=e.target.closest('[data-news-action]')?.dataset.newsAction;
+  if(action==='prev')go(-1);if(action==='next')go(1);if(action==='expand')expand();
+  if(action==='play'){playing=!playing;focused=false;render();}
+  if(action==='edit')abrirModalNoticia(slides[index].news.id);
+  if(action==='delete')confirmarEliminarNoticia(slides[index].news.id);
+ });
+ root.addEventListener('keydown',e=>{
+  if(!['ArrowLeft','ArrowRight'].includes(e.key))return;
+  e.preventDefault();go(e.key==='ArrowLeft'?-1:1);
+ });
+ root.addEventListener('mouseenter',()=>{hover=true;schedule();});root.addEventListener('mouseleave',()=>{hover=false;schedule();});
+ root.addEventListener('focusin',()=>{focused=true;schedule();});root.addEventListener('focusout',()=>{queueMicrotask(()=>{focused=root.contains(document.activeElement);schedule();});});
+ let touchStart=null;
+ stage.addEventListener('pointerdown',e=>{if(e.pointerType==='touch')touchStart={x:e.clientX,y:e.clientY};});
+ stage.addEventListener('pointerup',e=>{if(!touchStart)return;const dx=e.clientX-touchStart.x,dy=e.clientY-touchStart.y;touchStart=null;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.5)go(dx<0?1:-1);});
+ stage.addEventListener('pointercancel',()=>{touchStart=null;});
+ const overlayObserver=new MutationObserver(()=>schedule());
+ document.querySelectorAll('.modal-backdrop').forEach(el=>overlayObserver.observe(el,{attributes:true,attributeFilter:['style']}));
+ const onVisibility=()=>schedule();document.addEventListener('visibilitychange',onVisibility);
+ const onReduced=()=>{if(reduced.matches){playing=false;render();}};reduced.addEventListener?.('change',onReduced);
+ const observer='IntersectionObserver' in window?new IntersectionObserver(entries=>{visible=entries.some(e=>e.isIntersecting);schedule();},{threshold:.12}):null;
+ if(observer)observer.observe(root);else visible=true;
+ const controller={get key(){return slides[index].key;},get playing(){return playing;},dispose(){disposed=true;clearTimeout(timer);observer?.disconnect();overlayObserver.disconnect();document.removeEventListener('visibilitychange',onVisibility);reduced.removeEventListener?.('change',onReduced);if(dialog){const node=dialog;dialog=null;node.remove();}}};
+ campusNewsControllers.set(hostId,controller);render();
+}
+
+</script>
+<script id="campus-next-features">
+
+// Account approval remains enforced by the stored profile and existing database policies.
+function campusIdentificador(value){
+ const text=String(value??'').trim().toLowerCase();
+ if(text.includes('@'))return text;
+ if(!/^[a-z0-9]+([._-][a-z0-9]+)*$/.test(text)||text.length>64)throw new Error('Escribe un usuario válido: letras, números, puntos, guiones o guion bajo, sin espacios.');
+ return text+'@fdssmartcampus.edu.pe';
+}
+async function campusVerificarRegistroSinCorreo(){
+ const response=await fetch(CAMPUS_URL+'/auth/v1/settings',{headers:{apikey:CAMPUS_PUBLIC_KEY}});
+ if(!response.ok)throw new Error('No se pudo verificar el servicio de registro. Inténtalo nuevamente.');
+ const config=await response.json();
+ if(config.mailer_autoconfirm!==true)throw new Error('El registro sin correo aún no está habilitado. El administrador debe desactivar Confirm email en Supabase → Authentication → Sign In / Providers → Email. Después podrás solicitar tu cuenta.');
+}
+
+// UI profile choice never changes a stored role or bypasses account approval.
+window.campusRolAcceso='';
+let campusLoginSubmitting=false;
+function campusSeleccionarAcceso(rol) {
+ if(!['administrador','docente','estudiante'].includes(rol))return;
+ window.campusRolAcceso=rol;
+ const names={administrador:'administrador',docente:'docente',estudiante:'estudiante'};
+ const title=document.querySelector('#modalLogin h3');if(title)title.textContent='Ingresar como '+names[rol];
+ document.querySelectorAll('[data-login-role]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.loginRole===rol)));
+ const box=document.getElementById('campusRegistroPerfil');box.hidden=rol==='administrador';
+ box.innerHTML=rol==='administrador'?'':`¿Todavía no tienes cuenta de ${names[rol]}?<br><button type="button" data-register-role="${rol}">Crear cuenta de ${names[rol]}</button>`;
+ document.getElementById('campusPerfilHint').textContent=rol==='administrador'?'Acceso reservado a administradores ya autorizados. No existe registro público de administrador.':'Crea tu usuario del campus y espera la aprobación del administrador. Si ya tienes una cuenta aprobada, inicia sesión.';
+ const error=document.getElementById('loginErrorBox');if(error)error.style.display='none';
+ document.getElementById('loginEmail')?.focus();
+}
+const campusLoginPrevio=iniciarSesionFormulario;
+iniciarSesionFormulario=async function(e){
+ if(!window.campusRolAcceso){e?.preventDefault();const error=document.getElementById('loginErrorBox');error.textContent='Selecciona administrador, docente o estudiante antes de ingresar.';error.style.display='block';document.querySelector('[data-login-role]')?.focus();return;}
+ campusLoginSubmitting=true;try{return await campusLoginPrevio(e);}finally{campusLoginSubmitting=false;}
+};
+const campusPerfilPrevio=campusPerfilSesion;
+campusPerfilSesion=async function(){
+ await campusPerfilPrevio();
+ if(campusLoginSubmitting && USUARIO_ACTUAL && USUARIO_ACTUAL.rol!==window.campusRolAcceso)throw new Error('Tu cuenta corresponde al perfil '+USUARIO_ACTUAL.rol+'. Selecciona ese acceso para continuar.');
+};
+const campusRegistroPrevio=campusVerRegistro;
+campusVerRegistro=function(ver,rol){
+ if(ver && rol==='administrador'){mostrarToast('Las cuentas de administrador se habilitan de forma administrativa.');return;}
+ campusRegistroPrevio(ver);
+ if(ver){
+  const perfil=rol || (['docente','estudiante'].includes(window.campusRolAcceso)?window.campusRolAcceso:'');
+  document.querySelectorAll('#registro .reg-card').forEach(card=>{card.hidden=!!perfil&&!card.querySelector('form')?.getAttribute('onsubmit')?.includes("'"+perfil+"'");card.style.display=card.hidden?'none':'';});
+  const grid=document.querySelector('#registro .register-boxes');if(grid)grid.style.gridTemplateColumns=perfil?'minmax(0,640px)':'';if(grid)grid.style.justifyContent=perfil?'center':'';
+  const first=[...document.querySelectorAll('#registro .reg-card')].find(card=>!card.hidden);first?.querySelector('input')?.focus();
+ }
+};
+function campusBotonDocumento(tipo,id){return `<span class="campus-doc-action"><button type="button" class="btn btn-white btn-xs" data-campus-document="${tipo}" data-campus-record="${textoSeguro(String(id))}">Documento e impresión</button></span>`;}
+function campusDatosDocumento(tipo,id){
+ if(!USUARIO_ACTUAL)throw new Error('Inicia sesión para ver el documento.');
+ const source=tipo==='reserva'?SEPARACIONES:tipo==='requerimiento'?REQUERIMIENTOS:[];
+ const row=source.find(r=>String(r.id)===String(id)&&!r.soloDisponibilidad);
+ if(!row)throw new Error('No se encontró esa solicitud en tus datos cargados. Actualiza y vuelve a intentarlo.');
+ if(!esAdmin() && row.usuario_id && row.usuario_id!==USUARIO_ACTUAL.id)throw new Error('Este documento no pertenece a tu cuenta.');
+ const lab=tipo==='reserva'?LABORATORIOS.find(l=>l.id===(row.labId||row.laboratorio)):null;
+ const area=lab?.area || row.area || '';
+ const fecha=row.created_at || row.fecha;
+ let fechaRegistro='No registrada';if(fecha){const value=new Date(fecha);fechaRegistro=Number.isNaN(value.getTime())?String(fecha):value.toLocaleString('es-PE',{timeZone:'America/Lima'});}
+ const fields=[['Código de solicitud',String(row.id)],['Estado actual',row.estado||'No indicado'],['Área',area==='Cómputo'?'Gestión Empresarial':area||'No indicada'],['Laboratorio',lab?.nombre||row.lab||row.labId||row.laboratorio||'No indicado']];
+ if(tipo==='reserva')fields.push(['Docente o solicitante',row.docente||'No indicado'],['Día de la semana',row.dia||'No indicado'],['Bloque horario',row.bloque||'No indicado'],['Turno',campusTurnoBloque(row.bloque)==='tarde'?'Tarde':'Mañana'],['Asignatura o práctica',row.curso||'No indicada']);
+ else fields.push(['Solicitante',row.solicitante||'No indicado'],['Materiales o equipos solicitados',row.detalle||'No indicados'],['Prioridad',row.prioridad||'No indicada']);
+ if(row.modalidad)fields.push(['Modalidad',campusEtiquetaModalidad(row.modalidad)]);
+ fields.push(['Fecha de registro',fechaRegistro],['Documento generado el',new Date().toLocaleString('es-PE',{timeZone:'America/Lima'})],['Generado por',USUARIO_ACTUAL.nombre||'Usuario del campus']);
+ const note=(row.estado==='Aprobado'?'Estado registrado como aprobado al generar este documento.':'Esta es una constancia de solicitud. No acredita aprobación mientras el estado no sea Aprobado.')+(tipo==='reserva'?' La programación se registra por día de la semana y bloque; no se ha asignado aquí una fecha concreta.':' El requerimiento no constituye una reserva de horario ni una entrega de materiales.')+' Consulta el estado actualizado en el campus. Este archivo no incorpora una firma del administrador.';
+ return {tipo,id:String(row.id),title:tipo==='reserva'?'Solicitud de uso de laboratorio':'Solicitud de materiales y equipos',fields,note};
+}
+function campusAbrirDocumento(tipo,id){
+ try {
+  const data=campusDatosDocumento(tipo,id);
+  abrirModalGenerico(`<div class="campus-document-view"><button class="modal-close" type="button" onclick="cerrarModal('modalDinamico')" aria-label="Cerrar documento">×</button><h3>${textoSeguro(data.title)}</h3><p>FDS SMART CAMPUS · EYR Digital</p><div class="campus-document-buttons"><button type="button" class="btn btn-primary" data-campus-download="${tipo}" data-campus-record="${textoSeguro(data.id)}">Descargar Word</button><button type="button" class="btn btn-accent" data-campus-print="${tipo}" data-campus-record="${textoSeguro(data.id)}">Imprimir o guardar PDF</button></div><dl>${data.fields.map(([k,v])=>`<dt>${textoSeguro(k)}</dt><dd>${textoSeguro(v)}</dd>`).join('')}</dl><p class="document-status">${textoSeguro(data.note)}</p></div>`);
+ }catch(error){mostrarToast(error.message);}
+}
+const campusXml=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[c])).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g,'');
+function campusDocxBytes(data){
+ const para=(text,bold=false,size=22)=>`<w:p><w:pPr><w:spacing w:after="140"/></w:pPr><w:r><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:sz w:val="${size}"/>${bold?'<w:b/>':''}</w:rPr><w:t xml:space="preserve">${campusXml(text)}</w:t></w:r></w:p>`;
+ const cell=(text,bold,width)=>`<w:tc><w:tcPr><w:tcW w:w="${width}" w:type="dxa"/><w:tcMar><w:top w:w="100" w:type="dxa"/><w:bottom w:w="100" w:type="dxa"/><w:left w:w="100" w:type="dxa"/><w:right w:w="100" w:type="dxa"/></w:tcMar></w:tcPr>${para(text,bold)}</w:tc>`;
+ const border=['top','left','bottom','right','insideH','insideV'].map(k=>`<w:${k} w:val="single" w:sz="4" w:color="D9D9D9"/>`).join('');
+ const table=`<w:tbl><w:tblPr><w:tblW w:w="9360" w:type="dxa"/><w:tblBorders>${border}</w:tblBorders></w:tblPr><w:tblGrid><w:gridCol w:w="3000"/><w:gridCol w:w="6360"/></w:tblGrid>${data.fields.map(([k,v])=>`<w:tr>${cell(k,true,3000)}${cell(v,false,6360)}</w:tr>`).join('')}</w:tbl>`;
+ const document=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${para(data.title,true,34)}${para('FDS SMART CAMPUS · EYR Digital')}${table}${para('')}${para(data.note)}<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1080" w:right="1440" w:bottom="1080" w:left="1440"/></w:sectPr></w:body></w:document>`;
+ return campusZipStored({'[Content_Types].xml':'<?xml version="1.0" encoding="UTF-8"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>','_rels/.rels':'<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>','word/document.xml':document});
+}
+function campusZipStored(files){
+ const encoder=new TextEncoder(),chunks=[],central=[];let offset=0;
+ const crc32=bytes=>{let c=0xffffffff;for(const b of bytes){c^=b;for(let k=0;k<8;k++)c=(c>>>1)^((c&1)?0xedb88320:0);}return (c^0xffffffff)>>>0;};
+ for(const [filename,content] of Object.entries(files)){
+  const name=encoder.encode(filename),bytes=encoder.encode(content),crc=crc32(bytes);
+  const local=new Uint8Array(30),v=new DataView(local.buffer);v.setUint32(0,0x04034b50,true);v.setUint16(4,20,true);v.setUint16(6,0x0800,true);v.setUint32(14,crc,true);v.setUint32(18,bytes.length,true);v.setUint32(22,bytes.length,true);v.setUint16(26,name.length,true);chunks.push(local,name,bytes);
+  const dir=new Uint8Array(46),d=new DataView(dir.buffer);d.setUint32(0,0x02014b50,true);d.setUint16(4,20,true);d.setUint16(6,20,true);d.setUint16(8,0x0800,true);d.setUint32(16,crc,true);d.setUint32(20,bytes.length,true);d.setUint32(24,bytes.length,true);d.setUint16(28,name.length,true);d.setUint32(42,offset,true);central.push(dir,name);offset+=30+name.length+bytes.length;
+ }
+ const centralSize=central.reduce((n,a)=>n+a.length,0),end=new Uint8Array(22),e=new DataView(end.buffer);e.setUint32(0,0x06054b50,true);e.setUint16(8,Object.keys(files).length,true);e.setUint16(10,Object.keys(files).length,true);e.setUint32(12,centralSize,true);e.setUint32(16,offset,true);
+ const all=[...chunks,...central,end],out=new Uint8Array(offset+centralSize+22);let p=0;for(const c of all){out.set(c,p);p+=c.length;}return out;
+}
+function campusDescargarDocumento(tipo,id){
+ try{const data=campusDatosDocumento(tipo,id),blob=new Blob([campusDocxBytes(data)],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}),url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download=(tipo+'_'+data.id).replace(/[^a-zA-Z0-9_\-]/g,'_')+'.docx';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);}catch(error){mostrarToast(error.message);}
+}
+function campusImprimirDocumento(tipo,id){
+ try{
+  const data=campusDatosDocumento(tipo,id),popup=window.open('','_blank','width=900,height=800');if(!popup){mostrarToast('Permite abrir ventanas para ver la impresión o descarga el Word.');return;}
+  popup.opener=null;
+  popup.document.write(`<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><title>${textoSeguro(data.title)}</title><style>body{font:12pt Arial,sans-serif;max-width:760px;margin:35px auto;color:#111;padding:0 20px}h1{font-size:22pt}table{width:100%;border-collapse:collapse;margin:25px 0}th,td{border:1px solid #ccc;padding:10px;vertical-align:top;text-align:left;white-space:pre-wrap;overflow-wrap:anywhere}th{width:32%;background:#edf3fb}p{line-height:1.5}@page{size:letter;margin:20mm}@media print{body{margin:0;padding:0}button{display:none}}</style><style id="campus-requested-refinements">
+/* Full-cover campus carousel; the original title, video and actions stay in place. */
+#inicio.hero { padding:110px 0 230px; min-height:760px; }
+#inicio .hero-grid { z-index:2; pointer-events:none; padding-inline:44px; }
+#inicio .hero-grid > * { pointer-events:auto; }
+#inicio #campusStudentGallery { position:absolute; inset:0; width:100%; max-width:none; margin:0; padding:0; border:0; border-radius:0; box-shadow:none; z-index:0; }
+#inicio .campus-student-stage { position:absolute; inset:0; height:100%; min-height:100%; }
+#inicio .campus-student-stage img { transition:opacity .3s ease; }
+#inicio .campus-student-stage::after { background:linear-gradient(90deg,rgba(3,20,50,.88),rgba(5,36,83,.55)),linear-gradient(0deg,rgba(3,20,50,.9),transparent 50%); }
+#inicio .campus-student-caption { left:max(70px,calc((100% - 1280px)/2 + 44px)); bottom:85px; max-width:740px; }
+#inicio .campus-student-caption h2 { font-size:clamp(1.4rem,2.5vw,2.2rem); }
+#inicio .campus-student-controls { z-index:4; }
+#inicio .campus-student-credit { z-index:4; }
+.campus-username-field { display:flex; align-items:center; gap:0; background:#fff; border:1px solid #bdcce2; border-radius:12px; overflow:hidden; }
+.campus-username-field:focus-within { outline:3px solid #ffc20e88; }
+.campus-username-field input { min-width:0; width:100%; border:0; border-radius:0; box-shadow:none; }
+.campus-username-field span { color:#183c70; background:#e8f1ff; padding:14px 10px; font-size:.82rem; white-space:nowrap; }
+.campus-user-help { display:block; margin-top:8px; line-height:1.55; color:#dae8ff; font-size:.8rem; }
+.campus-group-items { background:#fff; border:1px solid #d6e2f3; border-radius:14px; margin:6px 0 12px; padding:9px; box-shadow:0 14px 30px #020e2833; }
+.campus-group-items .admin-nav-btn { color:#173967; background:transparent; }
+.campus-group-items .admin-nav-btn:hover,.campus-group-items .admin-nav-btn.active { background:#eaf2ff; color:#004caa; box-shadow:inset 3px 0 #ffc20e; }
+@media(max-width:600px){
+ #inicio.hero { padding:90px 0 225px; }
+ #inicio .hero-grid { padding-inline:44px; gap:24px; }
+ #inicio .campus-student-caption { left:44px; right:30px; bottom:85px; padding:0; }
+ .campus-username-field { flex-wrap:wrap; }
+ .campus-username-field span { width:100%; padding:8px 12px; }
+}
+</style>
+</head><body><h1>${textoSeguro(data.title)}</h1><p>FDS SMART CAMPUS · EYR Digital</p><table>${data.fields.map(([k,v])=>`<tr><th>${textoSeguro(k)}</th><td>${textoSeguro(v)}</td></tr>`).join('')}</table><p>${textoSeguro(data.note)}</p><button type="button" onclick="window.print()">Imprimir o guardar PDF</button><\/body><\/html>`);popup.document.close();popup.focus();popup.print();
+ }catch(error){mostrarToast(error.message);}
+}
+function campusPrepararMenu(){
+ const menu=document.getElementById('sidebarMenuLinks');if(!menu||menu.querySelector(':scope > .campus-menu-group'))return;
+ const items=[...menu.children];if(!items.length)return;
+ const groups=new Map();
+ for(const item of items){const action=item.querySelector('button')?.getAttribute('onclick')||'';let group='Campus';if(action.includes('tabCuentas'))group='Administración';else if(/tabAlmanaque|tabSeparaciones|tabHorarioClases/.test(action))group='Laboratorios y horarios';else if(action.includes('tabInventario'))group='Materiales y requerimientos';else if(action.includes('tabNoticiasWeb'))group='Noticias y comunidad';if(!groups.has(group))groups.set(group,[]);groups.get(group).push(item);}
+ let n=0;
+ for(const [name,children] of groups){
+  const li=document.createElement('li');li.className='campus-menu-group';const id='campusMenuGroup'+n++;
+  li.innerHTML=`<button type="button" class="campus-group-toggle" aria-controls="${id}" aria-expanded="false"><span>${name}</span></button><ul class="campus-group-items" id="${id}" hidden></ul>`;
+  const list=li.querySelector('ul'),button=li.querySelector('button');children.forEach(el=>list.append(el));let closing,openedByHover=false;
+  const expand=open=>{clearTimeout(closing);const changed=list.hidden===open;button.setAttribute('aria-expanded',String(open));list.hidden=!open;if(open&&changed&&!matchMedia('(prefers-reduced-motion: reduce)').matches)list.animate?.([{opacity:0,transform:'translateY(-6px)'},{opacity:1,transform:'translateY(0)'}],{duration:180,easing:'ease-out'});};
+  const open=()=>{menu.querySelectorAll(':scope > .campus-menu-group').forEach(other=>{if(other!==li){other.querySelector('button').setAttribute('aria-expanded','false');other.querySelector('ul').hidden=true;}});expand(true);};
+  button.onclick=()=>{if(openedByHover&&!list.hidden){openedByHover=false;return;}list.hidden?open():expand(false);};
+  li.addEventListener('mouseenter',()=>{if(matchMedia('(hover: hover) and (pointer: fine)').matches){openedByHover=list.hidden;open();}});
+  li.addEventListener('mouseleave',()=>{closing=setTimeout(()=>{if(!li.contains(document.activeElement)){openedByHover=false;expand(false);}},200);});
+  li.addEventListener('focusin',event=>{if(event.target!==button)open();});
+  li.addEventListener('focusout',()=>{queueMicrotask(()=>{if(!li.contains(document.activeElement)&&!li.matches(':hover'))expand(false);});});
+  li.addEventListener('keydown',event=>{if(event.key==='Escape'){expand(false);button.focus();}if(event.key==='ArrowDown'&&event.target===button){event.preventDefault();open();list.querySelector('button,a')?.focus();}});
+  menu.append(li);
+ }
+}
+function campusAnimarIngreso(){
+ const root=document.getElementById('modalLogin');if(!root)return;const canvas=document.createElement('canvas');canvas.id='campusLoginCanvas';canvas.setAttribute('aria-hidden','true');root.prepend(canvas);const context=canvas.getContext('2d');if(!context)return;
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');let frame=0,w=0,h=0,last=0;const particles=Array.from({length:42},()=>({x:Math.random(),y:Math.random(),r:Math.random()*1.7+.6,speed:Math.random()*.000018+.000006}));
+ function size(){w=innerWidth;h=innerHeight;const dpr=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);context.setTransform(dpr,0,0,dpr,0,0);}
+ function allowed(){return document.body.classList.contains('campus-locked')&&!document.body.classList.contains('auth-register')&&!document.hidden&&!reduced.matches;}
+ function paint(time){frame=0;if(!allowed()){context.clearRect(0,0,w,h);return;}const dt=Math.min(time-last||16,40);last=time;context.clearRect(0,0,w,h);particles.forEach((p,i)=>{p.y-=p.speed*dt;if(p.y<0)p.y=1;context.beginPath();context.arc(p.x*w,p.y*h,p.r,0,Math.PI*2);context.fillStyle=i%3===0?'rgba(255,218,87,.75)':'rgba(190,218,255,.7)';context.fill();});for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){const a=particles[i],b=particles[j],dx=(a.x-b.x)*w,dy=(a.y-b.y)*h,d2=dx*dx+dy*dy;if(d2<10000){context.strokeStyle=`rgba(155,199,255,${.14*(1-d2/10000)})`;context.lineWidth=.7;context.beginPath();context.moveTo(a.x*w,a.y*h);context.lineTo(b.x*w,b.y*h);context.stroke();}}frame=requestAnimationFrame(paint);}
+ function sync(){if(frame)cancelAnimationFrame(frame);frame=0;last=0;if(allowed())frame=requestAnimationFrame(paint);else context.clearRect(0,0,w,h);}
+ size();addEventListener('resize',()=>{size();sync();},{passive:true});document.addEventListener('visibilitychange',sync);reduced.addEventListener?.('change',sync);new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['class']});sync();
+}
+function campusIniciarGaleria(){
+ const root=document.getElementById('campusStudentGallery');if(!root)return;
+ const slides=[{src:'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=85',alt:'Estudiantes aprendiendo juntos',title:'Aprender y compartir conocimiento'},{src:'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=85',alt:'Celebración de graduación universitaria',title:'Formación que abre nuevas oportunidades'},{src:'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1600&q=85',alt:'Comunidad de estudiantes en un entorno académico',title:'Una comunidad conectada con su aprendizaje'}];
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');let i=0,timer,visible=false,playing=!reduced.matches;
+ function schedule(){clearTimeout(timer);if(playing&&visible&&!document.hidden)timer=setTimeout(()=>show((i+1)%slides.length),5000);}
+ function show(next){i=(next+slides.length)%slides.length;const photo=document.getElementById('campusStudentImage');photo.src=slides[i].src;photo.alt=slides[i].alt;document.getElementById('campusStudentCaption').textContent=slides[i].title;root.querySelectorAll('[data-student-index]').forEach((b,n)=>b.setAttribute('aria-current',String(n===i)));document.getElementById('campusStudentPlay').textContent=playing?'Ⅱ Pausar':'▶ Reproducir';schedule();}
+ root.addEventListener('click',e=>{const step=e.target.closest('[data-student-step]');const dot=e.target.closest('[data-student-index]');if(step)show(i+Number(step.dataset.studentStep));if(dot)show(Number(dot.dataset.studentIndex));if(e.target.closest('#campusStudentPlay')){playing=!playing;show(i);}});
+ document.addEventListener('visibilitychange',schedule);reduced.addEventListener?.('change',()=>{if(reduced.matches){playing=false;show(i);}});
+ if('IntersectionObserver' in window)new IntersectionObserver(entries=>{visible=entries.some(e=>e.isIntersecting);schedule();},{threshold:.1}).observe(root);else visible=true;show(0);
+}
+document.addEventListener('DOMContentLoaded',()=>{
+ document.addEventListener('click',event=>{
+  const login=event.target.closest('[data-login-role]');if(login)campusSeleccionarAcceso(login.dataset.loginRole);
+  const register=event.target.closest('[data-register-role]');if(register)campusVerRegistro(true,register.dataset.registerRole);
+  const view=event.target.closest('[data-campus-document]');if(view)campusAbrirDocumento(view.dataset.campusDocument,view.dataset.campusRecord);
+  const download=event.target.closest('[data-campus-download]');if(download)campusDescargarDocumento(download.dataset.campusDownload,download.dataset.campusRecord);
+  const print=event.target.closest('[data-campus-print]');if(print)campusImprimirDocumento(print.dataset.campusPrint,print.dataset.campusRecord);
+ });
+ const menu=document.getElementById('sidebarMenuLinks');if(menu)new MutationObserver(campusPrepararMenu).observe(menu,{childList:true});campusPrepararMenu();campusAnimarIngreso();campusIniciarGaleria();
+});
+
+</script>
+<script id="campus-visual-editors">// Image settings share the existing portada record and its administrator permissions.
+let campusPortadaActual={};
+const campusGaleriaPredeterminada=[
+ {src:'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=85',title:'Aprender y compartir conocimiento'},
+ {src:'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1600&q=85',title:'Formación que abre nuevas oportunidades'},
+ {src:'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1600&q=85',title:'Una comunidad conectada con su aprendizaje'},
+ {src:'',title:'Un espacio para tu próxima imagen'}
+];
+let campusGaleriaController=null,campusGaleriaBorrador=[],campusGaleriaCargando=false;
+function campusNormalizarGaleria(value){
+ if(!Array.isArray(value)||!value.length)return campusGaleriaPredeterminada.map(x=>({...x}));
+ return value.slice(0,12).map(x=>({src:campusFotoSegura(x?.src||''),title:String(x?.title||'FDS SMART CAMPUS').slice(0,180)}));
+}
+const campusAplicarPortadaPrevia=aplicarHero;
+aplicarHero=function(d){campusPortadaActual={...d};campusAplicarPortadaPrevia(d);campusGaleriaController?.setSlides(campusNormalizarGaleria(d.galeria));};
+function campusIniciarGaleria(){
+ const root=document.getElementById('campusStudentGallery');if(!root)return;
+ if(campusGaleriaController){campusGaleriaController.setSlides(campusNormalizarGaleria(campusPortadaActual.galeria));return;}
+ const stage=root.querySelector('.campus-student-stage'),caption=document.getElementById('campusStudentCaption'),dots=root.querySelector('.campus-student-dots'),play=document.getElementById('campusStudentPlay');
+ stage.querySelector('img')?.remove();
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');let slides=campusNormalizarGaleria(campusPortadaActual.galeria),index=0,timer,visible=false,playing=!reduced.matches,revision=0;
+ const schedule=()=>{clearTimeout(timer);if(playing&&visible&&!document.hidden&&slides.length>1)timer=setTimeout(()=>show(index+1),5000);};
+ function controls(){const credit=root.querySelector('.campus-student-credit');if(credit)credit.textContent=slides.every(s=>!s.src||s.src.startsWith('https://images.unsplash.com/'))?'Fotografías ilustrativas · Unsplash':'Imágenes de la comunidad · FDS SMART CAMPUS';dots.innerHTML=slides.map((_,n)=>`<button type="button" data-student-index="${n}" aria-label="Ver fotografía ${n+1}" aria-current="${n===index}"></button>`).join('');play.textContent=playing?'Ⅱ Pausar':'▶ Reproducir';play.disabled=slides.length<2;}
+ function show(next,animate=true){
+  clearTimeout(timer);const serial=++revision;index=(next+slides.length)%slides.length;const slide=slides[index];
+  stage.querySelectorAll('.is-entering').forEach(el=>el.remove());
+  const frame=document.createElement('div');frame.className='campus-gallery-frame is-entering';
+  if(slide.src){const img=document.createElement('img');img.src=slide.src;img.alt=slide.title;img.decoding='async';frame.append(img);}
+  else frame.innerHTML='<div class="campus-gallery-placeholder"><span>FDS SMART CAMPUS</span></div>';
+  stage.prepend(frame);
+  const reveal=()=>{
+   if(serial!==revision){frame.remove();return;}
+   const old=[...stage.querySelectorAll('.campus-gallery-frame')].filter(el=>el!==frame);
+   caption.textContent=slide.title;controls();
+   frame.getBoundingClientRect();frame.classList.remove('is-entering');
+   old.forEach(el=>{el.classList.add('is-leaving');setTimeout(()=>el.remove(),reduced.matches||!animate?0:900);});
+   if(reduced.matches||!animate)frame.style.transition='none';
+   schedule();
+  };
+  const photo=frame.querySelector('img');
+  if(photo&&!photo.complete){photo.addEventListener('load',reveal,{once:true});photo.addEventListener('error',()=>{photo.remove();frame.innerHTML='<div class="campus-gallery-placeholder"><span>FDS SMART CAMPUS</span></div>';reveal();},{once:true});}
+  else reveal();
+ }
+ root.addEventListener('click',e=>{const step=e.target.closest('[data-student-step]'),dot=e.target.closest('[data-student-index]');if(step)show(index+Number(step.dataset.studentStep));if(dot)show(Number(dot.dataset.studentIndex));if(e.target.closest('#campusStudentPlay')){playing=!playing;controls();schedule();}});
+ document.addEventListener('visibilitychange',schedule);reduced.addEventListener?.('change',()=>{if(reduced.matches){playing=false;controls();schedule();}});
+ if('IntersectionObserver' in window)new IntersectionObserver(entries=>{visible=entries.some(e=>e.isIntersecting);schedule();},{threshold:.1}).observe(root);else visible=true;
+ campusGaleriaController={setSlides(value){slides=campusNormalizarGaleria(value);index=Math.min(index,slides.length-1);show(index,false);}};
+ show(0,false);
+}
+function campusTransicionNoticia(stage,previous){
+ if(!previous||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const incoming=stage.querySelector('.news-carousel-slide');if(!incoming)return;
+ previous.classList.add('news-transition-out');previous.setAttribute('aria-hidden','true');previous.inert=true;previous.removeAttribute('id');previous.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));stage.append(previous);
+ let started=false;
+ const fade=()=>{if(started)return;started=true;if(!previous.isConnected)return;if(previous.animate){previous.animate([{opacity:1,transform:'scale(1)'},{opacity:0,transform:'scale(1.025)'}],{duration:850,easing:'ease',fill:'forwards'}).finished.then(()=>previous.remove()).catch(()=>previous.remove());}else previous.remove();};
+ const photo=incoming.querySelector('img');if(photo&&!photo.complete){photo.addEventListener('load',fade,{once:true});photo.addEventListener('error',fade,{once:true});setTimeout(fade,2500);}else fade();
+}
+function campusEditarGaleria(){
+ if(!esAdmin()){mostrarToast('Solo el administrador puede editar las imágenes de portada.');return;}
+ campusGaleriaBorrador=campusNormalizarGaleria(campusPortadaActual.galeria);campusGaleriaCargando=false;
+ abrirModalGenerico(`<button type="button" class="modal-close" onclick="cerrarModal('modalDinamico')" aria-label="Cerrar editor">×</button><h3>Imágenes del carrusel de portada</h3><p>Reemplaza el espacio vacío, cambia las imágenes o añade hasta 12. El carrusel cambia cada 5 segundos con un fundido suave.</p><p style="margin:12px 0;font-size:.9rem">Desde Google Imágenes: abre la imagen original y copia su dirección directa (https://…). También puedes descargarla y subirla desde tus archivos. Un enlace de búsqueda de Google no es una imagen.</p><form id="campusGalleryForm" onsubmit="campusGuardarGaleria(event)"><div id="campusGalleryRows" class="campus-gallery-editor"></div><p id="campusGalleryStatus" role="status"></p><div class="campus-gallery-editor-actions"><button type="button" class="btn btn-white" onclick="campusAnadirImagen()">+ Añadir espacio</button><button type="submit" class="btn btn-accent">Guardar imágenes</button><button type="button" class="btn btn-white" onclick="cerrarModal('modalDinamico')">Cancelar</button></div></form>`);
+ campusPintarEditorGaleria();
+}
+function campusPintarEditorGaleria(){
+ const container=document.getElementById('campusGalleryRows');if(!container)return;
+ container.innerHTML=campusGaleriaBorrador.map((slide,n)=>`<div class="campus-gallery-editor-row"><h4>Imagen ${n+1}${slide.src?'':' · Espacio vacío'}</h4>${slide.src?`<img src="${textoSeguro(slide.src)}" alt="Vista previa ${n+1}">`:'<div class="campus-gallery-editor-empty">Tu imagen aquí</div>'}<div class="form-group"><label for="galleryTitle${n}">Título</label><input id="galleryTitle${n}" class="form-control" maxlength="180" data-gallery-title="${n}" value="${textoSeguro(slide.title)}" oninput="campusGaleriaBorrador[${n}].title=this.value"></div><div class="form-group"><label for="galleryUrl${n}">Enlace directo de la imagen</label><input id="galleryUrl${n}" class="form-control" type="url" placeholder="https://..." value="${textoSeguro(slide.src.startsWith('data:')?'':slide.src)}" onchange="campusCambiarEnlaceGaleria(this,${n})"><small>${slide.src.startsWith('data:')?'Imagen cargada desde archivo. Pegar un enlace la reemplaza.':'También puedes elegir un archivo abajo.'}</small></div><label for="galleryFile${n}">Subir desde mis archivos</label><input id="galleryFile${n}" class="form-control" type="file" accept="image/png,image/jpeg,image/webp,image/gif" onchange="campusSubirImagenGaleria(this,${n})"><small>PNG, JPG, WebP o GIF. Hasta 2 MB por imagen y 6 MB de archivos en total.</small><button type="button" class="btn btn-white btn-sm" onclick="campusQuitarImagenGaleria(${n})">Quitar este espacio</button></div>`).join('');
+}
+function campusCambiarEnlaceGaleria(input,n){
+ if(campusGaleriaCargando)return;
+ const text=input.value.trim();const url=campusFotoSegura(text);
+ if(text&&!url){input.setCustomValidity('Usa un enlace directo http o https a una imagen.');input.reportValidity();return;}
+ input.setCustomValidity('');campusGaleriaBorrador[n].src=url;campusPintarEditorGaleria();
+}
+function campusAnadirImagen(){if(campusGaleriaCargando)return;if(campusGaleriaBorrador.length>=12){mostrarToast('Puedes añadir hasta 12 imágenes.');return;}campusGaleriaBorrador.push({src:'',title:'Nueva imagen del campus'});campusPintarEditorGaleria();}
+function campusQuitarImagenGaleria(n){if(campusGaleriaCargando)return;if(campusGaleriaBorrador.length===1){campusGaleriaBorrador[0].src='';}else campusGaleriaBorrador.splice(n,1);campusPintarEditorGaleria();}
+async function campusSubirImagenGaleria(input,n){
+ if(!esAdmin()||campusGaleriaCargando)return;const file=input.files?.[0];if(!file)return;
+ const status=document.getElementById('campusGalleryStatus'),form=document.getElementById('campusGalleryForm');
+ try{
+  if(!['image/png','image/jpeg','image/webp','image/gif'].includes(file.type))throw new Error('Selecciona un archivo PNG, JPG, WebP o GIF.');
+  if(file.size>2*1024*1024)throw new Error('La imagen supera 2 MB. Usa una imagen más pequeña o un enlace directo.');
+  const total=campusGaleriaBorrador.reduce((sum,s,i)=>sum+(i!==n&&s.src.startsWith('data:')?s.src.length*.75:0),0)+file.size;
+  if(total>6*1024*1024)throw new Error('Las imágenes cargadas superan 6 MB en total. Utiliza enlaces para las restantes.');
+  campusGaleriaCargando=true;form.querySelectorAll('button,input').forEach(el=>el.disabled=true);status.textContent='Cargando imagen…';
+  const src=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=()=>reject(new Error('No se pudo leer la imagen.'));reader.readAsDataURL(file);});
+  if(!campusFotoSegura(src))throw new Error('No se pudo validar la imagen.');
+  campusGaleriaBorrador[n].src=src;status.textContent='Imagen preparada. Pulsa Guardar imágenes para conservar los cambios.';
+ }catch(error){status.textContent=error.message;mostrarToast(error.message);}
+ finally{campusGaleriaCargando=false;form.querySelectorAll('button,input').forEach(el=>el.disabled=false);campusPintarEditorGaleria();}
+}
+async function campusGuardarGaleria(e){
+ e.preventDefault();if(!esAdmin()||campusGaleriaCargando)return;
+ await campusAccion(e,async()=>{
+  campusExigir(true);
+  const galeria=campusNormalizarGaleria(campusGaleriaBorrador);
+  const title=document.getElementById('heroTitleText');const d={...campusPortadaActual,l1:campusPortadaActual.l1??title.childNodes[0]?.textContent.trim()??'FDS SMART CAMPUS',l2:campusPortadaActual.l2??title.querySelector('span')?.textContent??'',desc:campusPortadaActual.desc??document.getElementById('heroDescText').textContent,galeria};
+  await campusGuardarContenido('portada',d);aplicarHero(d);cerrarModal('modalDinamico');mostrarToast('Imágenes de portada guardadas para todos los usuarios.');
+ });
+}
+function campusPrepararMenuSuperior(){
+ const menu=document.getElementById('mainMenu');if(!menu)return;
+ for(const li of menu.querySelectorAll('.campus-top-dropdown')){
+  const button=li.querySelector('.campus-top-toggle'),list=li.querySelector('.campus-top-submenu');let closing,hoverOpened=false;
+  const set=open=>{clearTimeout(closing);list.hidden=!open;button.setAttribute('aria-expanded',String(open));if(open){for(const other of menu.querySelectorAll('.campus-top-dropdown'))if(other!==li){other.querySelector('ul').hidden=true;other.querySelector('button').setAttribute('aria-expanded','false');}if(!matchMedia('(prefers-reduced-motion: reduce)').matches)list.animate?.([{opacity:0,transform:'translateY(-6px)'},{opacity:1,transform:'translateY(0)'}],{duration:180,easing:'ease-out'});}};
+  li.addEventListener('mouseenter',()=>{if(matchMedia('(hover:hover) and (pointer:fine)').matches){hoverOpened=list.hidden;set(true);}});
+  li.addEventListener('mouseleave',()=>{closing=setTimeout(()=>{if(!li.contains(document.activeElement)){hoverOpened=false;set(false);}},180);});
+  button.addEventListener('click',()=>{if(hoverOpened&&!list.hidden){hoverOpened=false;return;}set(list.hidden);});
+  li.querySelector('.campus-top-label > a').addEventListener('click',event=>{if(!matchMedia('(hover:hover) and (pointer:fine)').matches&&list.hidden){event.preventDefault();set(true);}});
+  li.addEventListener('keydown',event=>{if(event.key==='Escape'){set(false);button.focus();}if(event.key==='ArrowDown'){event.preventDefault();set(true);list.querySelector('a')?.focus();}});
+  li.addEventListener('focusout',()=>queueMicrotask(()=>{if(!li.contains(document.activeElement)&&!li.matches(':hover'))set(false);}));
+  list.addEventListener('click',event=>{const link=event.target.closest('a');if(!link)return;set(false);menu.classList.remove('open');if(link.dataset.campusRegister){event.preventDefault();campusSeleccionarAcceso(link.dataset.campusRegister);campusVerRegistro(true,link.dataset.campusRegister);}});
+ }
+ document.addEventListener('click',e=>{if(!menu.contains(e.target))menu.querySelectorAll('.campus-top-dropdown').forEach(li=>{li.querySelector('ul').hidden=true;li.querySelector('button').setAttribute('aria-expanded','false');});});
+}
+document.addEventListener('DOMContentLoaded',campusPrepararMenuSuperior);
+</script>
 </body>
 </html>
+
