@@ -4,7 +4,7 @@ const vm = require('node:vm');
 const path = require('node:path');
 const root=__dirname, scope='https://fdssmartcampus.github.io/fdssmarthcampusbeta/';
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.webmanifest'),'utf8'));
-assert.equal(new URL(manifest.start_url,scope).href,scope);
+assert.equal(new URL(manifest.start_url,scope).href,scope+'app/');
 assert.equal(manifest.display,'standalone');
 manifest.icons.forEach(icon=>assert(fs.existsSync(path.join(root,icon.src))));
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8');

@@ -2,17 +2,32 @@
   "id": "./",
   "name": "FDS SMART CAMPUS",
   "short_name": "FDS Campus",
-  "description": "Acceso al campus, horarios de laboratorios, reservas y noticias de FDS SMART CAMPUS.",
+  "description": "Mi Campus: recordatorios de pensiones, cuestionarios, biblioteca y minijuegos de FDS SMART CAMPUS.",
   "lang": "es-PE",
-  "start_url": "./",
+  "start_url": "./app/",
   "scope": "./",
   "display": "standalone",
   "background_color": "#06214c",
   "theme_color": "#06214c",
   "prefer_related_applications": false,
   "icons": [
-    {"src": "icons/campus-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "icons/campus-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-    {"src": "icons/campus-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+    {
+      "src": "icons/campus-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/campus-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/campus-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

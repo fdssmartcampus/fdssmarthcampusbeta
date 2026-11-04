@@ -1,5 +1,12 @@
 (() => {
   'use strict';
+  const campusBase = new URL('./', document.currentScript.src);
+  const installed = matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  const atWebsiteHome = location.pathname === campusBase.pathname || location.pathname === campusBase.pathname + 'index.html';
+  if (installed && atWebsiteHome && new URL(location.href).searchParams.get('vista') !== 'web') {
+    location.replace(new URL('app/', campusBase).href);
+    return;
+  }
   let installEvent = null;
   let registration = null;
   let updating = false;
@@ -47,7 +54,7 @@
     navigator.serviceWorker.addEventListener('controllerchange', () => {if (updating) location.reload();});
     window.addEventListener('load', async () => {
       try {
-        registration = await navigator.serviceWorker.register('./sw.js', {scope: './', updateViaCache: 'none'});
+        registration = await navigator.serviceWorker.register(new URL('sw.js', campusBase).href, {scope: campusBase.href, updateViaCache: 'none'});
         const showUpdate = () => {update.hidden = !(registration.waiting && navigator.serviceWorker.controller);};
         showUpdate();
         registration.addEventListener('updatefound', () => {

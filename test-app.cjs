@@ -1,0 +1,14 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),path=require('node:path');
+const root=__dirname,ctx={window:{},URL,Date,Intl};
+vm.createContext(ctx);vm.runInContext(fs.readFileSync(path.join(root,'app/core.js'),'utf8'),ctx);const C=ctx.window.CampusCore;
+assert(C.dateValid('2028-02-29'));assert(!C.dateValid('2026-02-29'));assert(!C.dateValid('2026-02-31'));assert.equal(C.dayDiff('2026-11-20','2026-11-03'),17);assert.equal(C.dayDiff('2026-11-02','2026-11-03'),-1);
+const defaults=C.defaults();assert.equal(defaults.quizzes.length,2);assert.equal(defaults.resources.length,3);assert.equal(defaults.fees.length,0);
+for(const quiz of defaults.quizzes){const answers=quiz.questions.map(q=>q.correct);assert.equal(C.score(quiz,answers).percent,100);assert.equal(C.score(quiz,answers.map(()=>null)).correct,0);assert.equal(C.score(quiz,answers.map(x=>(x+1)%4)).correct,0);}
+assert.equal(C.safeUrl('javascript:alert(1)'),'');assert.equal(C.safeUrl('data:text/html,evil'),'');assert.equal(C.safeUrl('https://example.com/quiz'),'https://example.com/quiz');
+const d=C.normalize({fees:[{id:'x',title:'Pensión',due:'2026-02-31',amount:100}],quizzes:[{id:'evil',url:'javascript:alert(1)',questions:[]}],resources:[{id:'bad',kind:'link',url:'javascript:alert(1)'},{id:'good',kind:'pdf',url:'data:application/pdf;base64,JVBERi0='}]});assert.equal(d.fees.length,0);assert.equal(d.quizzes.length,0);assert.equal(d.resources.length,1);
+const ics=C.calendar({id:'id1',title:'Pensión\nBEGIN:VEVENT',due:'2026-11-20',amount:200});assert(ics.includes('DTSTART;VALUE=DATE:20261120'));assert(ics.includes('TRIGGER:-P1D'));assert.equal(ics.split('\r\n').filter(x=>x==='BEGIN:VEVENT').length,1);assert(ics.includes('Pensión\\nBEGIN:VEVENT'));
+const pwa=fs.readFileSync(path.join(root,'pwa.js'),'utf8');const prefix=pwa.split('  let installEvent = null;')[0]+'})();';
+function route(standalone,pathname,search=''){let target='';const env={document:{currentScript:{src:'https://campus.test/fdssmarthcampusbeta/pwa.js'}},matchMedia:()=>({matches:standalone}),navigator:{standalone:false},URL,location:{pathname,href:'https://campus.test'+pathname+search,replace:url=>{target=url}}};vm.runInNewContext(prefix,env);return target;}
+assert.equal(route(true,'/fdssmarthcampusbeta/'),'https://campus.test/fdssmarthcampusbeta/app/');assert.equal(route(false,'/fdssmarthcampusbeta/'),'');assert.equal(route(true,'/fdssmarthcampusbeta/','?vista=web'),'');assert.equal(route(true,'/fdssmarthcampusbeta/app/'),'');
+for(const file of ['app/app.js','app/config.js','vendor/supabase.js','pwa.js','sw.js'])new vm.Script(fs.readFileSync(path.join(root,file),'utf8'));
+console.log('PASS: quiz scoring, invalid/empty answers, calendar dates and escaping, safe library URLs/PDFs, no invented fees, separate installed-app route and unchanged browser route.');

@@ -1,7 +1,7 @@
 'use strict';
 // Only public PWA support files are cached. Campus pages, sessions, API responses,
 // documents and reservations always use the network and are never stored here.
-const VERSION = 'fds-pwa-20261104-1';
+const VERSION = 'fds-pwa-20261104-2';
 const CACHE_PREFIX = 'fds-campus-pwa-';
 const CACHE_NAME = CACHE_PREFIX + VERSION;
 const base = new URL('./', self.location.href);
