@@ -29,3 +29,11 @@ En Inicio → Ver agenda, los estudiantes pueden consultar próximos eventos y e
 En Minijuegos → Mis premios aparecen cuatro insignias virtuales que se desbloquean según las mejores marcas locales: completar memoria, lograr memoria en 10 movimientos o menos, conseguir 10 aciertos y conseguir 20 aciertos en cálculo. No son canje automático por productos. El administrador puede publicar premios del instituto con requisitos, vigencia y enlace de participación; el instituto valida a los ganadores y la entrega.
 
 Eventos y convocatorias se guardan junto al contenido de la app en la clave existente `aplicacion`; se conservan cuestionarios, biblioteca y avisos anteriores. No se cambia el esquema ni las políticas de acceso. Pruebas: `node test-events.cjs`.
+
+## Diseño de la aplicación para celular
+
+Mi Campus usa una sola columna y cinco accesos inferiores: Inicio, Pensiones, Quiz, Biblioteca y Juegos. El perfil y el cierre de sesión están en el avatar superior. El inicio presenta el próximo recordatorio, accesos rápidos y eventos. Los juegos se abren en una pantalla propia con control para volver; los cuestionarios muestran una pregunta por vez, permiten volver conservando respuestas y ofrecen una revisión al finalizar. No cambia el archivo principal de la web, las cuentas, la base de datos ni los contenidos publicados.
+
+La escala de la interfaz se ajusta también cuando un navegador de teléfono mantiene un viewport de escritorio; se conserva la posibilidad de ampliar la pantalla. En computadora se presenta un panel de ancho acotado con la misma navegación móvil. La instalación sigue siendo una PWA.
+
+Validación adicional: `node test-mobile.cjs`. Verificación visual local a 390 px: inicio, navegación inferior, pantalla de memoria, navegación entre preguntas conservando selección, resultado y perfil, con datos de prueba sin conexión a cuentas reales.
