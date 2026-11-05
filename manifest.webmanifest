@@ -2,17 +2,17 @@
   "id": "./",
   "name": "FDS SMART CAMPUS",
   "short_name": "FDS Campus",
-  "description": "Mi Campus: recordatorios de pensiones, cuestionarios, biblioteca y minijuegos de FDS SMART CAMPUS.",
+  "description": "FDS Smart Campus: clases, laboratorios, biblioteca y agenda estudiantil.",
   "lang": "es-PE",
   "start_url": "./app/",
   "scope": "./",
   "display": "standalone",
   "background_color": "#06214c",
-  "theme_color": "#06214c",
+  "theme_color": "#254f85",
   "prefer_related_applications": false,
   "icons": [
     {
-      "src": "assets/brand/logo-fds.svg?v=20261105-brand",
+      "src": "assets/brand/sello-fds.svg?v=20261105-apolo",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
