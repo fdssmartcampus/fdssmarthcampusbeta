@@ -792,7 +792,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
   <meta name="apple-mobile-web-app-title" content="FDS Campus">
   <link rel="stylesheet" href="./pwa.css">
   <script src="./pwa.js" defer></script>
-<link rel="stylesheet" href="./shared/workshops.css?v=20261105-calendarios2"><script src="./shared/campus-shared.js?v=20261105-apolo" defer></script><script src="./shared/workshops.js?v=20261105-calendarios" defer></script></head>
+<link rel="stylesheet" href="./shared/workshops.css?v=20261105-lanzamiento"><script src="./shared/campus-shared.js?v=20261105-apolo" defer></script><script src="./shared/workshops.js?v=20261105-lanzamiento" defer></script></head>
 <body class="campus-locked">
   <div id="campusEstado" role="status" style="background:#eef4ff;color:#06214c;padding:10px 16px;font:600 14px sans-serif;text-align:center;">Conectando con el campus…</div>
 
@@ -3760,7 +3760,7 @@ function campusImprimirDocumento(tipo,id){
 }
 function campusPrepararMenu(){
  const menu=document.getElementById('sidebarMenuLinks');if(!menu||menu.querySelector(':scope > .campus-menu-group'))return;
- const items=[...menu.children];if(!items.length)return;
+ const items=[...menu.children].filter(item=>!item.hasAttribute('data-campus-talleres-nav'));if(!items.length)return;
  const groups=new Map();
  for(const item of items){const action=item.querySelector('button')?.getAttribute('onclick')||'';let group='Campus';if(action.includes('tabCuentas'))group='Administración';else if(/tabAlmanaque|tabSeparaciones|tabHorarioClases/.test(action))group='Laboratorios y horarios';else if(action.includes('tabInventario'))group='Materiales y requerimientos';else if(action.includes('tabNoticiasWeb'))group='Noticias y comunidad';if(!groups.has(group))groups.set(group,[]);groups.get(group).push(item);}
  let n=0;
@@ -3930,7 +3930,7 @@ document.addEventListener('DOMContentLoaded',campusPrepararMenuSuperior);
 let CAMPUS_MATERIA_COLORES={};
 function campusColorCurso(curso,explicit=''){return window.CampusShared?.safeColor(CAMPUS_MATERIA_COLORES[String(curso||'').trim().toLocaleLowerCase('es')])||window.CampusShared?.safeColor(explicit)||window.CampusShared?.color(curso)||'#275fa0';}
 function campusTextoColor(color){const rgb=[1,3,5].map(i=>parseInt(color.slice(i,i+2),16));return rgb[0]*.299+rgb[1]*.587+rgb[2]*.114>145?'#173458':'#fff';}
-function campusNavTalleres(){const allowed=window.CampusWorkshops?.allowed(USUARIO_ACTUAL);document.querySelectorAll('[data-campus-talleres-nav]').forEach(n=>n.remove());if(!allowed){document.getElementById('campusTalleresDialog')?.remove();document.getElementById('tabTalleres')?.remove();return;}const main=document.getElementById('mainMenu');if(main){const item=document.createElement('li');item.dataset.campusTalleresNav='';item.innerHTML='<button type="button" class="campus-talleres-link" onclick="campusAbrirTalleres()">Talleres</button>';main.insertBefore(item,main.lastElementChild);}const menu=document.getElementById('sidebarMenuLinks');if(menu){const item=document.createElement('div');item.dataset.campusTalleresNav='';item.className='campus-talleres-sidebar';item.innerHTML='<button type="button" onclick="campusAbrirTalleres()">Talleres · Facilitadores</button>';menu.insertAdjacentElement('afterend',item);}}
+function campusNavTalleres(){const allowed=window.CampusWorkshops?.allowed(USUARIO_ACTUAL);document.querySelectorAll('[data-campus-talleres-nav]').forEach(n=>n.remove());if(!allowed){document.getElementById('campusTalleresDialog')?.remove();document.getElementById('tabTalleres')?.remove();return;}const main=document.getElementById('mainMenu');if(main){const item=document.createElement('li');item.dataset.campusTalleresNav='';item.innerHTML='<button type="button" class="campus-talleres-link" onclick="campusAbrirTalleres()">Talleres</button>';main.insertBefore(item,main.lastElementChild);}const menu=document.getElementById('sidebarMenuLinks');if(menu){const item=document.createElement('div');item.dataset.campusTalleresNav='';item.className='campus-talleres-menu-item';item.innerHTML='<button type="button" class="campus-group-toggle" onclick="campusAbrirTalleres()"><span>Talleres</span></button>';menu.prepend(item);}}
 async function campusAbrirTalleres(){if(!window.CampusWorkshops.allowed(USUARIO_ACTUAL)){mostrarToast('Esta sección es exclusiva de docentes aprobados.');return;}if(document.getElementById('panelInternoView').style.display==='none')irAlPanelInterno();let section=document.getElementById('tabTalleres');if(!section){section=document.createElement('section');section.id='tabTalleres';section.className='panel-tab';document.getElementById('tabNoticiasWeb').after(section);}mostrarTabPanel('tabTalleres','Talleres e indicaciones para facilitadores');await window.CampusWorkshops.mount(section,{db:campusDB,user:USUARIO_ACTUAL,readonly:!!campusVistaPrueba});}
 const campusApoloRender=campusRenderTodo;campusRenderTodo=function(){campusApoloRender();campusNavTalleres();};
 const campusApoloAuth=autenticarUsuario;autenticarUsuario=function(u){campusApoloAuth(u);campusNavTalleres();};
@@ -3945,7 +3945,7 @@ let campusVistaPrueba='',campusPerfilAdministrador=null;
 function campusControlesPrueba(){
  let box=document.getElementById('campusRolePreview');const real=campusPerfilAdministrador||USUARIO_ACTUAL;
  if(!real||real.rol!=='administrador'||!campusSession){box?.remove();return;}
- if(!box){box=document.createElement('div');box.id='campusRolePreview';box.className='campus-role-preview';document.body.append(box);}
+ if(!box){box=document.createElement('div');box.id='campusRolePreview';box.className='campus-role-preview';}const internal=document.getElementById('panelInternoView').style.display!=='none';const host=internal?document.querySelector('.admin-content'):document.getElementById('vistaPublica');if(host&&box.parentElement!==host)host.prepend(box);
  box.innerHTML=`<span>${campusVistaPrueba?'Vista de prueba: '+campusVistaPrueba+' · Solo lectura':'Comprobar vistas'}</span><button type="button" onclick="campusCambiarVista('estudiante')">Estudiante</button><button type="button" onclick="campusCambiarVista('docente')">Docente</button>${campusVistaPrueba?'<button type="button" data-campus-preview-exit>Volver a administrador</button>':''}`;
 }
 function campusCambiarVista(rol){
@@ -3964,6 +3964,8 @@ const campusVistaAuth=autenticarUsuario;autenticarUsuario=function(u){campusPerf
 const campusVistaSalir=cerrarSesion;cerrarSesion=async function(){campusVistaPrueba='';campusPerfilAdministrador=null;document.getElementById('campusRolePreview')?.remove();document.getElementById('tabTalleres')?.remove();return campusVistaSalir();};
 document.addEventListener('submit',e=>{if(campusVistaPrueba){e.preventDefault();e.stopImmediatePropagation();mostrarToast('La vista de prueba es de solo lectura. Vuelve a administrador para guardar.');}},true);
 document.addEventListener('click',e=>{if(e.target.closest('[data-campus-preview-exit]'))campusCambiarVista('');});
+const campusLaunchPublic=volverSitioPublico;volverSitioPublico=function(){campusLaunchPublic();campusControlesPrueba();};
+const campusLaunchPanel=irAlPanelInterno;irAlPanelInterno=function(){campusLaunchPanel();campusControlesPrueba();};
 document.addEventListener('DOMContentLoaded',campusControlesPrueba);
 </script>
 
