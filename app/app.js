@@ -74,7 +74,7 @@
  function shiftPicker(id,value){return `<div class="shift-picker" role="group" aria-label="Turno"><button type="button" data-action="${id}" data-id="morning" aria-pressed="${value==='morning'}">Mañana</button><button type="button" data-action="${id}" data-id="afternoon" aria-pressed="${value==='afternoon'}">Tarde</button></div>`;}
  const overlaps=(a,b,c,d)=>a<d&&b>c;
  let activeScheduleDay=Math.min(6,new Date(C.today()+'T12:00:00Z').getUTCDay()||1);
- function compactSchedule(){return matchMedia('(max-width:700px)').matches;}
+ function compactSchedule(){return false;}
  function scheduleDays(){return compactSchedule()?[activeScheduleDay]:[1,2,3,4,5,6];}
  function scheduleDayPicker(){return compactSchedule()?'<div class="schedule-days" role="group" aria-label="Día del horario">'+[1,2,3,4,5,6].map(d=>action('scheduleDay',S.days[d].slice(0,3),String(d),d===activeScheduleDay?'day-selected':'ghost')).join('')+'</div>':'';}
  function timetable(caption,shift,items,cell){
