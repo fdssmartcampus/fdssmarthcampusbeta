@@ -1,13 +1,13 @@
 'use strict';
 // Only public static code and PWA support files are cached. Pages, sessions, API responses,
 // documents and reservations always use the network and are never stored here.
-const VERSION = 'fds-pwa-20261105-calendarios';
+const VERSION = 'fds-pwa-20261105-calendarios2';
 const CACHE_PREFIX = 'fds-campus-pwa-';
 const CACHE_NAME = CACHE_PREFIX + VERSION;
 const base = new URL('./', self.location.href);
 const OFFLINE_URL = new URL('offline.html', base).href;
 // Solo código público estático; nunca datos, sesiones ni respuestas de la API.
-const STATIC_ASSETS = ['shared/campus-shared.js?v=20261105-apolo','shared/workshops.js?v=20261105-calendarios','shared/workshops.css?v=20261105-calendarios','app/assistant.js?v=20261105-calendarios', 'app/assistant.css?v=20261105-apolo', 'app/daily-core.js?v=20261105-apolo', 'assets/brand/sello-fds.svg?v=20261105-apolo', 'vendor/supabase.js', 'app/app.css?v=20261105-calendarios',
+const STATIC_ASSETS = ['shared/campus-shared.js?v=20261105-apolo','shared/workshops.js?v=20261105-calendarios','shared/workshops.css?v=20261105-calendarios2','app/assistant.js?v=20261105-calendarios', 'app/assistant.css?v=20261105-apolo', 'app/daily-core.js?v=20261105-apolo', 'assets/brand/sello-fds.svg?v=20261105-apolo', 'vendor/supabase.js', 'app/app.css?v=20261105-calendarios',
   'app/mobile-layout.js?v=20261104-mobile', 'app/config.js',
   'app/core.js?v=20261105-apolo', 'app/app.js?v=20261105-calendarios'];
 const CACHE_FIRST = new Set(STATIC_ASSETS.map(path => new URL(path, base).href));
