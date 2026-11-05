@@ -6,7 +6,7 @@ const root=__dirname, scope='https://fdssmartcampus.github.io/fdssmarthcampusbet
 const manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.webmanifest'),'utf8'));
 assert.equal(new URL(manifest.start_url,scope).href,scope+'app/');
 assert.equal(manifest.display,'standalone');
-manifest.icons.forEach(icon=>assert(fs.existsSync(path.join(root,icon.src))));
+manifest.icons.forEach(icon=>assert(fs.existsSync(path.join(root,icon.src.split('?')[0]))));
 const html=fs.readFileSync(path.join(root,'index.html'),'utf8');
 assert(html.includes('rel="manifest" href="./manifest.webmanifest"'));
 assert(html.includes('src="./pwa.js" defer'));
