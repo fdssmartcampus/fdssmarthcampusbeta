@@ -33,7 +33,7 @@ async function testWebsite(){
  const contentFn=block('async function campusCargarContenido()', 'async function campusRecargar(');let selected,keys;
  const q={campusDB:{from:()=>({select:columns=>{selected=columns;return{in:(_,v)=>{keys=v;return []}}}})},campusResultado:async x=>x};
  vm.createContext(q);vm.runInContext(contentFn,q);await q.campusCargarContenido();
- assert.equal(selected,'clave,datos');assert.deepEqual(Array.from(keys),['noticias','inventario','horario','portada']);
+ assert.equal(selected,'clave,datos');assert.deepEqual(Array.from(keys),['noticias','inventario','horario','portada','materia_colores']);
 }
 async function testApp(){
  const fn=app.match(/ async function validateUser\([^\n]+/)[0];let authChecks=0,ids=[];
@@ -51,11 +51,11 @@ async function testCache(){
   fetch:async()=>{network++;return new Response('network')}};
  vm.runInNewContext(fs.readFileSync(root+'/sw.js','utf8'),ctx);let p;events.install({waitUntil:v=>p=v});await p;
  const request=(url,mode='cors',method='GET')=>{let response;events.fetch({request:{url,mode,method},respondWith:r=>response=r});return response};
- assert.equal(await (await request(scope+'app/app.js?v=20261105-owl')).text(),'public asset');assert.equal(network,0);
+ assert.equal(await (await request(scope+'app/app.js?v=20261105-calendarios')).text(),'public asset');assert.equal(network,0);
  assert.equal(await (await request(scope+'vendor/supabase.js')).text(),'public asset');assert.equal(network,0);
  await request(scope+'index.html','navigate');assert.equal(network,1,'private pages always use network');
  for(const url of ['https://project.supabase.co/auth/v1/token','https://project.supabase.co/rest/v1/perfiles',scope+'api/reservas',scope+'app/secret.pdf'])assert.equal(request(url),undefined);
- assert.equal(request(scope+'app/app.js?v=20261105-owl','cors','POST'),undefined);
+ assert.equal(request(scope+'app/app.js?v=20261105-calendarios','cors','POST'),undefined);
 }
 (async()=>{for(const match of html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi))if(!/\bsrc=/.test(match[1]))new vm.Script(match[2]);
  new vm.Script(app);await testWebsite();await testApp();await testCache();
