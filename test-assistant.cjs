@@ -72,10 +72,24 @@ const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/st
 const app=fs.readFileSync(__dirname+'/app/app.js','utf8'),ctx={C:{today:()=> '2026-11-05'}};vm.createContext(ctx);
 vm.runInContext(app.slice(app.indexOf(' function monthDays('),app.indexOf(' function redrawPensions(')),ctx);
 for(const [m,n,offset] of [['2024-02',29,4],['2025-02',28,6],['2026-11',30,0],['2026-08',31,6]]){const cells=ctx.monthDays(m);assert.equal(cells.length%7,0);assert.equal(cells.filter(Boolean).length,n);assert.equal(cells.findIndex(Boolean),offset);assert.equal(cells.filter(Boolean).at(-1),m+'-'+n);}
-const gridContext={S:{blocks:['09:00 - 10:00','10:00 - 11:00','11:20 - 12:10','12:10 - 13:00','14:30 - 15:15','15:15 - 16:00','16:20 - 16:55','16:55 - 17:30'],days:['','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo']},esc:s=>String(s)};vm.createContext(gridContext);vm.runInContext(app.slice(app.indexOf(' const overlaps='),app.indexOf(' function classCell(')),gridContext);
+const gridContext={C:{today:()=> '2026-11-05'},matchMedia:()=>({matches:false}),action:()=>'',S:{blocks:['09:00 - 10:00','10:00 - 11:00','11:20 - 12:10','12:10 - 13:00','14:30 - 15:15','15:15 - 16:00','16:20 - 16:55','16:55 - 17:30'],days:['','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo']},esc:s=>String(s)};vm.createContext(gridContext);vm.runInContext(app.slice(app.indexOf(' const overlaps='),app.indexOf(' function classCell(')),gridContext);
 const grid=gridContext.timetable('Weekly','morning',[],(day,a,b)=>day+':'+a+'-'+b);assert.equal((grid.match(/<tr>/g)||[]).length,6);assert(grid.includes('colspan="6"'));assert(grid.includes('11:00–11:20'));assert(!grid.includes('14:30'));
 const pm=gridContext.timetable('PM','afternoon',[],()=> 'free');assert(pm.includes('16:00–16:20'));assert(!pm.includes('09:00'));
 const split=gridContext.timetable('custom','morning',[{start:'09:30',end:'10:30'}],()=> 'custom');assert(split.includes('09:00–09:30'));assert(split.includes('10:00–10:30'));
 assert(app.includes("const viewUser=()=>previewRole&&user?.rol==='administrador'"));assert(app.includes("readonly:!!previewRole"));assert(app.includes("if(previewRole){e.preventDefault();e.stopImmediatePropagation()"));
 console.log('PASS: month boundaries/leap years, weekly morning/afternoon recess and custom times, administrator-only read-only role preview.');
+}
+
+{
+const a=fs.readFileSync(root+'/app/app.js','utf8'),part=(s,e)=>a.slice(a.indexOf(s),a.indexOf(e,a.indexOf(s)));
+const scope={window:{}};vm.createContext(scope);vm.runInContext(fs.readFileSync(root+'/shared/campus-shared.js','utf8'),scope);const S=scope.window.CampusShared;
+const email=new Function(part(' function campusSignupEmail(', " $('createAccount')")+';return campusSignupEmail;')();assert.equal(email('ALUMNO.01'),'alumno.01@fdssmartcampus.edu.pe');for(const bad of ['a@example.com','a b',''])assert.throws(()=>email(bad));
+const normalize=new Function('S',part(' function normalizeLabReminders(',' function labReminderKey(')+';return normalizeLabReminders;')(S);
+const demo={lab:'enf-01',day:'Lunes',block:'09:00 - 10:00',title:'Prueba'};
+const values=new Map(),storage={getItem:k=>values.get(k),setItem:(k,v)=>values.set(k,v)};
+const isolated=new Function('localStorage','S','D','C','normalizeLabReminders', `let user={id:'A'},previewRole='',personal={reminders:[{id:'A',due:'2026-11-12'}],labReminders:[${JSON.stringify(demo)}]};${part(' function loadPersonal(',' function showAccess(')}savePersonal();user={id:'B'};loadPersonal();if(personal.reminders.length||personal.labReminders.length)throw Error('Cross-user reminder data');personal.reminders=[{id:'B',due:'2026-11-15'}];savePersonal();user={id:'A'};loadPersonal();if(personal.reminders[0].id!=='A'||personal.labReminders.length!==1)throw Error('Own reminders lost');return true;`)(storage,S,{schedule:x=>x||[],tasks:x=>x||[]},{dateValid:x=>/^\\d{4}-\\d{2}-\\d{2}$/.test(x)},normalize);assert(isolated);
+for(const compact of [true,false]){const grid=new Function('S','C','matchMedia','esc','action',part(' const overlaps=',' function classCell(')+";return timetable('Test','morning',[],d=>'day-'+d);")(S,{today:()=> '2026-11-05'},()=>({matches:compact}),String,()=> '');assert.equal((grid.match(/day-\\d/g)||[]).length,compact?4:24);assert(grid.includes('colspan="'+(compact?1:6)+'"'));}
+assert(a.includes("r.usuario_id===user.id&&r.estado==='Aprobado'"));assert(!a.includes("action('refreshShared','Sincronizar'"));assert.equal(JSON.parse(fs.readFileSync(root+'/manifest.webmanifest','utf8')).orientation,'portrait');
+const workshops=fs.readFileSync(root+'/shared/workshops.js','utf8');assert(workshops.includes('data-workshop="confirm-delete"'));assert(workshops.includes(".delete().eq('id',id).select('id').single()"));assert(workshops.includes("row.autor_id===user.id||user.rol==='administrador'"));
+console.log('PASS: institutional signup identifiers, private per-account reminders, compact mobile schedule, own laboratory reminder, portrait manifest and author/admin workshop deletion.');
 }
