@@ -17,7 +17,7 @@ const context={URL,Request,Response,Set,Promise,self:{location:{href:scope+'sw.j
 vm.runInNewContext(fs.readFileSync(path.join(root,'sw.js'),'utf8'),context);
 (async()=>{
  let waiting;events.install({waitUntil:p=>waiting=p});await waiting;
- assert(writes.length>=7);assert(!writes.includes(scope));assert(!writes.some(x=>/index\.html|supabase|auth|reservas/.test(x)));
+ assert(writes.length>=7);assert(!writes.includes(scope));assert(!writes.some(x=>/index\.html|\/auth\/|\/rest\/|reservas/.test(x)));assert(writes.every(x=>x.startsWith(scope)));assert(writes.includes(scope+'vendor/supabase.js'));
  events.activate({waitUntil:p=>waiting=p});await waiting;assert(claimed);assert.deepEqual(deleted,['fds-campus-pwa-old']);
  const request=(url,mode='cors',method='GET')=>{let response;events.fetch({request:{url,mode,method},respondWith:r=>response=r});return response};
  assert.equal(request('https://project.supabase.co/rest/v1/reservas'),undefined);
