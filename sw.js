@@ -1,15 +1,15 @@
 'use strict';
 // Only public static code and PWA support files are cached. Pages, sessions, API responses,
 // documents and reservations always use the network and are never stored here.
-const VERSION = 'fds-pwa-20261106-fidelidad-v2';
+const VERSION = 'fds-pwa-20261106-pantallas-aprobadas';
 const CACHE_PREFIX = 'fds-campus-pwa-';
 const CACHE_NAME = CACHE_PREFIX + VERSION;
 const base = new URL('./', self.location.href);
 const OFFLINE_URL = new URL('offline.html', base).href;
 // Solo código público estático; nunca datos, sesiones ni respuestas de la API.
-const STATIC_ASSETS = ['assets/brand/apolo-mi-dia.png','app/mi-dia.css?v=20261106-fidelidad-v2','app/store.js?v=20261105-tienda','app/store.css?v=20261105-tienda','shared/campus-shared.js?v=20261105-apolo','shared/workshops.js?v=20261105-lanzamiento','shared/workshops.css?v=20261105-lanzamiento','app/assistant.js?v=20261105-calendarios', 'app/assistant.css?v=20261105-apolo', 'app/daily-core.js?v=20261105-apolo', 'assets/brand/sello-fds.svg?v=20261105-apolo', 'vendor/supabase.js', 'app/app.css?v=20261106-fidelidad-v2',
+const STATIC_ASSETS = ['app/screens.css?v=20261106-pantallas-aprobadas','assets/brand/apolo-mi-dia.png','app/mi-dia.css?v=20261106-pantallas-aprobadas','app/store.js?v=20261106-pantallas-aprobadas','app/store.css?v=20261106-pantallas-aprobadas','shared/campus-shared.js?v=20261105-apolo','shared/workshops.js?v=20261106-pantallas-aprobadas','shared/workshops.css?v=20261106-pantallas-aprobadas','app/assistant.js?v=20261106-pantallas-aprobadas', 'app/assistant.css?v=20261105-apolo', 'app/daily-core.js?v=20261105-apolo', 'assets/brand/sello-fds.svg?v=20261105-apolo', 'vendor/supabase.js', 'app/app.css?v=20261106-pantallas-aprobadas',
   'app/mobile-layout.js?v=20261104-mobile', 'app/config.js',
-  'app/core.js?v=20261105-apolo', 'app/app.js?v=20261106-fidelidad-v2'];
+  'app/core.js?v=20261105-apolo', 'app/app.js?v=20261106-pantallas-aprobadas'];
 const CACHE_FIRST = new Set(STATIC_ASSETS.map(path => new URL(path, base).href));
 const PUBLIC_FILES = [...STATIC_ASSETS,'offline.html', 'manifest.webmanifest', 'pwa.css', 'pwa.js',
   'icons/campus-192.png', 'icons/campus-512.png', 'icons/campus-maskable-512.png', 'icons/campus-180.png'];
@@ -55,5 +55,6 @@ self.addEventListener('fetch', event => {
     })());
   }
 });
+
 
 

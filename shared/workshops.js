@@ -6,7 +6,7 @@ window.CampusWorkshops=(()=>{
  async function mount(host,{db,user,readonly=false}){
   host.replaceChildren();if(!allowed(user))return;
   let rows=[],editing='',busy=false;
-  host.innerHTML='<div class="workshop-head"><div><h2>Talleres</h2><p>Indicaciones para los facilitadores de cada actividad.</p></div><button type="button" class="workshop-primary" data-workshop="new">+ Nuevo taller</button></div><p class="workshop-status" role="status"></p><div class="workshop-list"></div><dialog class="workshop-dialog" aria-label="Editar taller"></dialog>';
+  host.innerHTML='<div class="workshop-head"><div><h2>Talleres</h2><p>Indicaciones para los facilitadores de cada actividad.</p></div><button type="button" class="workshop-primary" data-workshop="new">+ Nuevo taller</button></div><p class="workshop-audience">Solo docentes y administración</p><p class="workshop-status" role="status"></p><div class="workshop-list"></div><dialog class="workshop-dialog" aria-label="Editar taller"></dialog>';
   if(readonly)host.querySelector('[data-workshop="new"]').remove();
   const status=host.querySelector('.workshop-status'),list=host.querySelector('.workshop-list'),dialog=host.querySelector('dialog');
   async function validate(){if(readonly)throw Error('La vista de prueba es de solo lectura.');const {data,error}=await db.auth.getUser();if(error||!data.user)throw Error('Vuelve a iniciar sesión.');const r=await db.from('perfiles').select('id,nombre,rol,estado').eq('id',data.user.id).single();if(r.error||!allowed(r.data))throw Error('Esta sección es exclusiva para docentes aprobados.');user=r.data;return user;}
@@ -21,3 +21,4 @@ window.CampusWorkshops=(()=>{
  }
  return{allowed,mount};
 })();
+

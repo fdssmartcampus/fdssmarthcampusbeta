@@ -16,3 +16,4 @@ body.campus-locked #modalLogin input::placeholder{color:#6d8099!important}
 #modalLogin .auth-profile-selector{border-color:#dce5ef}
 
 .campus-role-preview{position:static;inset:auto;z-index:auto;margin:0 0 .85rem;width:fit-content;max-width:100%;box-shadow:none;padding:.45rem .6rem;font-size:.68rem}.campus-role-preview button{font-size:.68rem;padding:.35rem .5rem}.campus-talleres-menu-item{list-style:none;margin:.35rem 0}.campus-talleres-menu-item .campus-group-toggle{color:#254f85!important;background:#f5f8fc!important;border-color:#e0e7f0!important}.workshop-card .workshop-danger,.workshop-actions .workshop-danger{color:#9e3434;border-color:#e9c5c5;background:#fff4f4;margin-left:.4rem}
+
