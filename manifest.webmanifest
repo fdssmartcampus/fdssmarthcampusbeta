@@ -2,21 +2,19 @@
   "id": "./",
   "name": "FDS SMART CAMPUS",
   "short_name": "FDS Campus",
-  "description": "FDS Smart Campus: clases, laboratorios, biblioteca y agenda estudiantil.",
+  "description": "Campus en preparación",
   "lang": "es-PE",
   "start_url": "./app/",
   "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
-  "prefer_related_applications": false,
   "icons": [
     {
-      "src": "assets/brand/sello-fds.svg?v=20261105-apolo",
+      "src": "assets/brand/sello-fds.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
-  ],
-  "orientation": "portrait"
+  ]
 }
