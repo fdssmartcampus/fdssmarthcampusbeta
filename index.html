@@ -809,6 +809,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
  .campus-student-stage{overflow:hidden;max-width:100%}
 }
 </style>
+<link rel="stylesheet" href="./shared/stores.css?v=20261108-tiendas">
 </head>
 <body class="campus-locked">
   <div id="campusEstado" role="status" style="background:#eef4ff;color:#06214c;padding:10px 16px;font:600 14px sans-serif;text-align:center;">Conectando con el campus…</div>
@@ -829,7 +830,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
           </div>
         </a>
 
-        <button class="burger" id="burgerToggle" aria-label="Menú">
+        <button class="burger" id="burgerToggle" aria-label="Menú" aria-expanded="false" aria-controls="mainMenu">
           <i data-lucide="menu"></i>
         </button>
 
@@ -841,6 +842,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#horario-clases">Horario de Clases</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Horario de Clases" aria-controls="campusTopMenu4" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu4" hidden><li><a href="#horario-clases">Consultar clases</a></li><li><a href="#selectAreaHorarioPublico">Elegir área de estudio</a></li></ul></li>
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#noticias">Noticias</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Noticias" aria-controls="campusTopMenu5" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu5" hidden><li><a href="#noticias">Noticias y comunicados</a></li><li><a href="#gridNoticiasPublico">Ver carrusel de noticias</a></li></ul></li>
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#registro">Registro</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Registro" aria-controls="campusTopMenu6" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu6" hidden><li><a href="#registro" data-campus-register="docente">Registro docente</a></li><li><a href="#registro" data-campus-register="estudiante">Registro estudiante</a></li></ul></li>
+<li class="campus-top-dropdown"><div class="campus-top-label"><a href="#campusStores">Tiendas</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Tiendas" aria-controls="campusTopStores" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopStores" hidden><li><a href="#campusStores" data-store-link="antojitos">Antojitos · Venta de comida</a></li><li><a href="#campusStores" data-store-link="bazar">Bazar · Material de escritorio</a></li><li><a href="#campusStores" data-store-link="laboratorio">Laboratorio · Inventario de materiales</a></li></ul></li>
           <li><button class="btn btn-accent btn-sm" onclick="abrirModalLogin()" id="btnTopLogin"><i data-lucide="log-in"></i> Acceso Portal</button></li>
         </ul>
       </div>
@@ -1056,6 +1058,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
     </section>
 
     <!-- APARTADO DE NOTICIAS INSTITUCIONALES -->
+<section id="campusStores" class="cs-shop" data-store="antojitos" aria-label="Tiendas y materiales"><div class="cs-shell"></div></section>
     <section class="sec sec-alt" id="noticias">
       <div class="wrap">
         <div class="sec-title-wrap">
@@ -1704,8 +1707,15 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
       const burger = document.getElementById("burgerToggle");
       const menu = document.getElementById("mainMenu");
       if (burger && menu) {
-        burger.addEventListener("click", () => menu.classList.toggle("open"));
-        menu.querySelectorAll("a").forEach(a => a.addEventListener("click", () => menu.classList.remove("open")));
+        const setMenu=open=>{menu.classList.toggle('open',open);burger.setAttribute('aria-expanded',String(open));document.body.classList.toggle('cs-nav-open',open&&matchMedia('(max-width:1180px)').matches);};
+        burger.addEventListener('click',()=>setMenu(!menu.classList.contains('open')));
+        menu.addEventListener('keydown',e=>{if(e.key==='Escape'){setMenu(false);burger.focus();}});
+        document.addEventListener('click',e=>{if(!e.target.closest('.topbar'))setMenu(false);});
+        matchMedia('(max-width:1180px)').addEventListener('change',()=>setMenu(false));
+        menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
+          if(a.closest('.campus-top-label')&&matchMedia('(max-width:1180px)').matches){e.preventDefault();return;}
+          setMenu(false);
+        }));
       }
       lucide.createIcons();
     });
@@ -3891,10 +3901,10 @@ function campusPrepararMenuSuperior(){
   li.addEventListener('mouseenter',()=>{if(matchMedia('(hover:hover) and (pointer:fine)').matches){hoverOpened=list.hidden;set(true);}});
   li.addEventListener('mouseleave',()=>{closing=setTimeout(()=>{if(!li.contains(document.activeElement)){hoverOpened=false;set(false);}},180);});
   button.addEventListener('click',()=>{if(hoverOpened&&!list.hidden){hoverOpened=false;return;}set(list.hidden);});
-  li.querySelector('.campus-top-label > a').addEventListener('click',event=>{if(!matchMedia('(hover:hover) and (pointer:fine)').matches&&list.hidden){event.preventDefault();set(true);}});
+  li.querySelector('.campus-top-label > a').addEventListener('click',event=>{if(matchMedia('(max-width:1180px)').matches){event.preventDefault();set(list.hidden);}else if(!matchMedia('(hover:hover) and (pointer:fine)').matches&&list.hidden){event.preventDefault();set(true);}});
   li.addEventListener('keydown',event=>{if(event.key==='Escape'){set(false);button.focus();}if(event.key==='ArrowDown'){event.preventDefault();set(true);list.querySelector('a')?.focus();}});
   li.addEventListener('focusout',()=>queueMicrotask(()=>{if(!li.contains(document.activeElement)&&!li.matches(':hover'))set(false);}));
-  list.addEventListener('click',event=>{const link=event.target.closest('a');if(!link)return;set(false);menu.classList.remove('open');if(link.dataset.campusRegister){event.preventDefault();campusSeleccionarAcceso(link.dataset.campusRegister);campusVerRegistro(true,link.dataset.campusRegister);}});
+  list.addEventListener('click',event=>{const link=event.target.closest('a');if(!link)return;set(false);menu.classList.remove('open');document.getElementById('burgerToggle').setAttribute('aria-expanded','false');document.body.classList.remove('cs-nav-open');if(link.dataset.storeLink){event.preventDefault();campusAbrirTienda(link.dataset.storeLink);}if(link.dataset.campusRegister){event.preventDefault();campusSeleccionarAcceso(link.dataset.campusRegister);campusVerRegistro(true,link.dataset.campusRegister);}});
  }
  document.addEventListener('click',e=>{if(!menu.contains(e.target))menu.querySelectorAll('.campus-top-dropdown').forEach(li=>{li.querySelector('ul').hidden=true;li.querySelector('button').setAttribute('aria-expanded','false');});});
 }
@@ -3943,6 +3953,8 @@ const campusLaunchPanel=irAlPanelInterno;irAlPanelInterno=function(){campusLaunc
 document.addEventListener('DOMContentLoaded',campusControlesPrueba);
 </script>
 
+<dialog id="campusStoreDialog" class="cs-dialog" aria-label="Gestión de tiendas y pedidos"></dialog>
+<script src="./shared/stores.js?v=20261108-tiendas"></script>
 </body>
 </html>
 
