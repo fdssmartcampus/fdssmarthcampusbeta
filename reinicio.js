@@ -2,7 +2,7 @@
 // Retira únicamente datos locales y registros de esta versión del campus.
 (async()=>{
  const base=new URL('./',document.currentScript.src);
- const oldKey=key=>key==='fds_hero'||key.startsWith('fds-mi-campus:')||key.startsWith('fds-app-auth-v1')||key.startsWith('fds-app-signup-temporal')||key.startsWith('campus-registro-')||key.startsWith('sb-phzqittbspxclvdgwqsw-');
+ const oldKey=key=>key.startsWith('fds-mi-campus:')||key.startsWith('fds-app-auth-v1')||key.startsWith('fds-app-signup-temporal');
  for(const name of ['localStorage','sessionStorage']){
   try{const storage=window[name];for(const key of Object.keys(storage)){if(oldKey(key))storage.removeItem(key);}}catch{}
  }

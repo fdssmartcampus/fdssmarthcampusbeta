@@ -1,5 +1,5 @@
 # FDS Smart Campus
 
-La versión anterior de la aplicación y del portal fue retirada por solicitud de su propietario.
+Portal web restaurado. La aplicación anterior permanece retirada en `/app/`.
 
-Este repositorio publica únicamente el aviso de reinicio y conserva los recursos de identidad institucional. El proyecto de datos se mantiene vacío para una futura reconstrucción, conservando la cuenta de administrador.
+El portal usa la cuenta administradora conservada y las tablas existentes de Supabase. Los registros eliminados no se recrean con datos de ejemplo. No hay redirección automática ni instalación de la aplicación desde el portal.
