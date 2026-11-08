@@ -811,6 +811,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
 }
 </style>
 <link rel="stylesheet" href="../shared/stores.css?v=20261108-tiendas">
+<link rel="stylesheet" href="../shared/institutional.css?v=20261108-portal-1">
 </head>
 <body class="campus-locked">
   <div id="campusEstado" role="status" style="background:#eef4ff;color:#06214c;padding:10px 16px;font:600 14px sans-serif;text-align:center;">Conectando con el campus…</div>
@@ -827,7 +828,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
           <div class="owl-icon"><img class="fds-brand-image" src="../assets/brand/sello-fds.svg?v=20261105-apolo" alt="Logo FDS SMART CAMPUS" width="64" height="64"></div>
           <div>
             <span>FDS SMART CAMPUS</span>
-            
+            <small class="institutional-subtitle">Portal Institucional</small>
           </div>
         </a>
 
@@ -836,7 +837,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
         </button>
 
         <ul class="menu" id="mainMenu">
-          <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#inicio">Inicio</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Inicio" aria-controls="campusTopMenu0" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu0" hidden><li><a href="#inicio">Portada y carrusel</a></li><li><a href="#video-laboratorios">Video institucional</a></li></ul></li>
+          <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#inicio">Inicio</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Inicio" aria-controls="campusTopMenu0" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu0" hidden><li><a href="#inicio">Portada y carrusel</a></li><li><a href="#video-laboratorios">Video institucional</a></li><li><a href="#motivacion">Palabras que inspiran</a></li><li><a href="#video-motivador">Video motivador</a></li></ul></li>
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#areas">Áreas</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Áreas" aria-controls="campusTopMenu1" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu1" hidden><li><a href="#campusArea0">Enfermería</a></li><li><a href="#campusArea1">Farmacia</a></li><li><a href="#campusArea2">Gastronomía</a></li><li><a href="#campusArea3">Gestión Empresarial</a></li></ul></li>
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#laboratorios">Laboratorios</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Laboratorios" aria-controls="campusTopMenu2" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu2" hidden><li><a href="#gridEnfermeria">Laboratorios de Enfermería</a></li><li><a href="#gridFarmacia">Laboratorios de Farmacia</a></li><li><a href="#laboratorios">Todos los laboratorios</a></li></ul></li>
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#almanaque">Uso de Labs</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Uso de Labs" aria-controls="campusTopMenu3" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu3" hidden><li><a href="#almanaque">Consultar disponibilidad</a></li><li><a href="#selectLabAlmanaquePublico">Elegir laboratorio y turno</a></li></ul></li>
@@ -855,11 +856,12 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
         <span><i data-lucide="shield-check" style="vertical-align:middle;"></i> <b>MODO EDICIÓN ADMINISTRADOR ACTIVO:</b> Puedes editar textos, laboratorios y noticias directamente en la página.</span>
         <div style="display:flex; gap:8px;">
           <button type="button" class="btn btn-primary btn-xs" onclick="campusEditarGaleria()">Editar imágenes del carrusel</button><button class="btn btn-primary btn-xs" onclick="abrirModalEditarHero()"><i data-lucide="edit-3"></i> Editar Portada</button>
-          <button class="btn btn-primary btn-xs" onclick="irAlPanelInterno()"><i data-lucide="layout-dashboard"></i> Volver al Panel Admin</button>
+          <button type="button" class="btn btn-primary btn-xs" data-institutional-edit="frases">Editar frases</button><button type="button" class="btn btn-primary btn-xs" data-institutional-edit="video">Video motivador</button><button class="btn btn-primary btn-xs" onclick="irAlPanelInterno()"><i data-lucide="layout-dashboard"></i> Volver al Panel Admin</button>
         </div>
       </div>
     </div>
 
+    <button id="institutionalBackHome" class="btn btn-white institutional-back-home" type="button" hidden>← Volver al inicio</button>
     <!-- HERO CON VIDEO DE LABORATORIOS -->
     <section class="hero" id="inicio">
       <div class="wrap hero-grid">
@@ -995,7 +997,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
     </section>
 
     <!-- ALMANAQUE ORDENADO DE DISPONIBILIDAD DE LABORATORIOS -->
-    <section class="sec sec-alt" id="almanaque">
+    <section class="sec sec-alt campus-section-off" id="almanaque">
       <div class="wrap">
         <div class="sec-title-wrap">
           <span class="sec-kicker">Turnos mañana y tarde</span>
@@ -1025,7 +1027,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
     </section>
 
     <!-- APARTADO DE HORARIO DE CLASES DE LOS ESTUDIANTES (PÚBLICO) -->
-    <section class="sec" id="horario-clases">
+    <section class="sec campus-section-off" id="horario-clases">
       <div class="wrap">
         <div class="sec-title-wrap">
           <span class="sec-kicker">Calendario Académico Estudiantil</span>
@@ -1057,6 +1059,13 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
 
     <!-- APARTADO DE NOTICIAS INSTITUCIONALES -->
 <section id="campusStores" class="cs-shop" data-store="antojitos" aria-label="Tiendas y materiales"><div class="cs-shell"></div></section>
+
+    <section class="institutional-motivation" id="motivacion" aria-labelledby="institutionalMotivationTitle">
+      <div class="wrap"><div class="institutional-heading"><div><span class="institutional-eyebrow">Crecer cada día</span><h2 id="institutionalMotivationTitle">Palabras que inspiran</h2></div><button type="button" class="btn btn-primary btn-sm institutional-admin-control" data-institutional-edit="frases">Editar frases</button></div><div class="institutional-quotes" id="institutionalQuotes"></div></div>
+    </section>
+    <section class="institutional-video-section" id="video-motivador" aria-labelledby="institutionalVideoTitle">
+      <div class="wrap institutional-video-grid"><div><div class="institutional-video-media" id="institutionalVideoMedia"></div><p id="institutionalVideoError" role="status" class="institutional-video-note" hidden></p></div><div class="institutional-video-copy"><span class="institutional-eyebrow">Inspírate y sigue adelante</span><h2 id="institutionalVideoTitle">Un momento para inspirarte</h2><p id="institutionalVideoDescription"></p><button type="button" class="btn btn-primary btn-sm institutional-admin-control" data-institutional-edit="video">Subir video y editar descripción</button></div></div>
+    </section>
     <section class="sec sec-alt" id="noticias">
       <div class="wrap">
         <div class="sec-title-wrap">
@@ -1073,7 +1082,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
     </section>
 
     <!-- REGISTRO DE CUENTAS BAJO EL DOMINIO @fdssmartcampus.edu.pe -->
-    <section class="register-section" id="registro">
+    <section class="register-section campus-section-off" id="registro">
       <div class="wrap">
         <div class="sec-title-wrap">
           <span class="sec-kicker" style="background:var(--accent); color:var(--primary);">Credenciales Institucionales</span>
@@ -1465,17 +1474,17 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
       <button class="modal-close" onclick="cerrarModal('modalLogin')"><i data-lucide="x"></i></button>
       <div style="text-align:center; margin-bottom:1.2rem;">
         <div class="owl-icon" style="margin:0 auto 10px; width:52px; height:52px;"><img class="fds-brand-image" src="../assets/brand/sello-fds.svg?v=20261105-apolo" alt="Logo FDS SMART CAMPUS" width="64" height="64"></div>
-        <h3 style="font-size:1.5rem;">Ingresar a FDS SMART CAMPUS</h3>
+        <h3 style="font-size:1.5rem;">FDS SMART CAMPUS</h3><p class="institutional-subtitle">Portal Institucional</p><p id="institutionalLoginIntro" style="font-size:.85rem;margin-top:15px">Inicia sesión para acceder a tu campus</p>
         
       </div>
 
       <form onsubmit="iniciarSesionFormulario(event)">
         <div class="form-group">
-          <label style="color:var(--primary);">Usuario del campus o correo registrado</label>
-          <input type="text" id="loginEmail" autocomplete="username" class="form-control" placeholder="usuario@fdssmartcampus.edu.pe" value="" required>
+          <label for="loginEmail" style="color:var(--primary);">Usuario del campus o correo registrado</label>
+          <input type="text" id="loginEmail" autocomplete="username" class="form-control" placeholder="Escribe tu usuario" value="" required>
         </div>
         <div class="form-group">
-          <label style="color:var(--primary);">Contraseña</label>
+          <label for="loginPass" style="color:var(--primary);">Contraseña</label>
           <input type="password" id="loginPass" autocomplete="current-password" class="form-control" value="" required>
         </div>
         <div id="loginErrorBox" style="display:none; background:var(--accent-soft); color:var(--primary); border:1.5px solid var(--accent); padding:10px; border-radius:8px; font-size:0.88rem; font-weight:700; margin-bottom:1rem;"></div>
@@ -1486,7 +1495,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
 <button type="button" class="auth-profile-button" data-login-role="docente" aria-pressed="false"><span>Iniciar sesión como docente</span><span aria-hidden="true">›</span></button>
 <button type="button" class="auth-profile-button" data-login-role="estudiante" aria-pressed="false"><span>Iniciar sesión como estudiante</span><span aria-hidden="true">›</span></button>
 </div><div class="auth-profile-registration" id="campusRegistroPerfil" hidden></div><p class="auth-profile-hint" id="campusPerfilHint">Necesitas una cuenta registrada y aprobada para ingresar.</p></div>
-      <p style="text-align:center;margin:12px 0"><a href="../" style="color:#254f85;font-weight:700">← Volver a la página web</a></p><p id="gateStatus" role="status">Ingresa con tu correo y contraseña del campus.</p>
+      <p id="gateStatus" role="status">Ingresa con tu correo y contraseña del campus.</p>
 
 
     </div>
@@ -2251,7 +2260,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
             </div>
           </div>
           <div class="form-group">
-            <label style="color:var(--primary);">Contraseña</label>
+            <label for="loginPass" style="color:var(--primary);">Contraseña</label>
             <input type="text" name="pass" class="form-control" value="campus2026" required>
           </div>
           <div class="form-group">
@@ -3105,8 +3114,9 @@ async function campusPerfilSesion() {
   CUENTAS=esAdmin()? (await campusTodas('perfiles','fecha')).map(campusPerfil):[USUARIO_ACTUAL];
 }
 async function campusCargarContenido() {
-  const docs=await campusResultado(campusDB.from('campus_contenido').select('clave,datos').in('clave',['noticias','inventario','horario','portada']));
+  const docs=await campusResultado(campusDB.from('campus_contenido').select('clave,datos,actualizado_en').in('clave',['noticias','inventario','horario','portada','motivacion']));
   for(const d of docs||[]) {
+    if(d.clave==='motivacion') window.CampusInstitutional?.receive(d.datos,d.actualizado_en);
     if(d.clave==='noticias' && Array.isArray(d.datos)) NOTICIAS=d.datos;
     if(d.clave==='inventario' && Array.isArray(d.datos)) INVENTARIO=d.datos;
     if(d.clave==='horario' && Array.isArray(d.datos)) HORARIO_CLASES=d.datos;
@@ -3737,6 +3747,7 @@ function campusImprimirDocumento(tipo,id){
  .campus-username-field span { width:100%; padding:8px 12px; }
 }
 </style>
+<link rel="stylesheet" href="../shared/institutional.css?v=20261108-portal-1">
 </head><body><h1>${textoSeguro(data.title)}</h1><p>FDS SMART CAMPUS</p><table>${data.fields.map(([k,v])=>`<tr><th>${textoSeguro(k)}</th><td>${textoSeguro(v)}</td></tr>`).join('')}</table><p>${textoSeguro(data.note)}</p><button type="button" onclick="window.print()">Imprimir o guardar PDF</button><\/body><\/html>`);popup.document.close();popup.focus();popup.print();
  }catch(error){mostrarToast(error.message);}
 }
@@ -3906,7 +3917,7 @@ function campusPrepararMenuSuperior(){
  }
  document.addEventListener('click',e=>{if(!menu.contains(e.target))menu.querySelectorAll('.campus-top-dropdown').forEach(li=>{li.querySelector('ul').hidden=true;li.querySelector('button').setAttribute('aria-expanded','false');});});
 }
-document.addEventListener('DOMContentLoaded',campusPrepararMenuSuperior);
+// Institutional navigation is initialized by shared/institutional.js.
 </script>
 <script>
 let CAMPUS_MATERIA_COLORES={};
@@ -3953,6 +3964,7 @@ document.addEventListener('DOMContentLoaded',campusControlesPrueba);
 
 <dialog id="campusStoreDialog" class="cs-dialog" aria-label="Gestión de tiendas y pedidos"></dialog>
 <script src="../shared/stores.js?v=20261108-tiendas"></script>
+<script src="../shared/institutional.js?v=20261108-portal-1"></script>
 </body>
 </html>
 
