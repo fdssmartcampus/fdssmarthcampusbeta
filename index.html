@@ -7,10 +7,10 @@
   <link rel="icon" href="./assets/brand/sello-fds.svg?v=20261105-apolo">
   <title>FDS SMART CAMPUS</title>
 <meta name="robots" content="index,follow,max-image-preview:large">
-<meta name="description" content="FDS SMART CAMPUS: Portal Institucional con áreas académicas, laboratorios, noticias y acceso para estudiantes, docentes y administración.">
+<meta name="description" content="FDS SMART CAMPUS: Áreas académicas, laboratorios, noticias y acceso para estudiantes, docentes y administración.">
 <link rel="canonical" href="https://fdssmartcampus.github.io/fdssmarthcampusbeta/">
 <link rel="sitemap" type="application/xml" href="https://fdssmartcampus.github.io/fdssmarthcampusbeta/sitemap.xml">
-<meta property="og:type" content="website"><meta property="og:site_name" content="FDS SMART CAMPUS"><meta property="og:title" content="FDS SMART CAMPUS"><meta property="og:description" content="Portal Institucional"><meta property="og:url" content="https://fdssmartcampus.github.io/fdssmarthcampusbeta/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="FDS SMART CAMPUS"><meta property="og:title" content="FDS SMART CAMPUS"><meta property="og:description" content="FDS SMART CAMPUS"><meta property="og:url" content="https://fdssmartcampus.github.io/fdssmarthcampusbeta/">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"FDS SMART CAMPUS","url":"https://fdssmartcampus.github.io/fdssmarthcampusbeta/","inLanguage":"es-PE"}</script>
   
   <link rel="preconnect" href="https://phzqittbspxclvdgwqsw.supabase.co" crossorigin>
@@ -815,8 +815,8 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
  .campus-student-stage{overflow:hidden;max-width:100%}
 }
 </style>
-<link rel="stylesheet" href="./shared/stores.css?v=20261108-tiendas">
-<link rel="stylesheet" href="./shared/institutional.css?v=20261108-portal-1">
+<link rel="stylesheet" href="./shared/stores.css?v=20261108-catalogo-2">
+<link rel="stylesheet" href="./shared/institutional.css?v=20261108-catalogo-2">
 </head>
 <body class="campus-locked">
   <div id="campusEstado" role="status" style="background:#eef4ff;color:#06214c;padding:10px 16px;font:600 14px sans-serif;text-align:center;">Conectando con el campus…</div>
@@ -833,7 +833,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
           <div class="owl-icon"><img class="fds-brand-image" src="./assets/brand/sello-fds.svg?v=20261105-apolo" alt="Logo FDS SMART CAMPUS" width="64" height="64"></div>
           <div>
             <span>FDS SMART CAMPUS</span>
-            <small class="institutional-subtitle">Portal Institucional</small>
+            
           </div>
         </a>
 
@@ -849,7 +849,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#horario-clases">Horario de Clases</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Horario de Clases" aria-controls="campusTopMenu4" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu4" hidden><li><a href="#horario-clases">Consultar clases</a></li><li><a href="#selectAreaHorarioPublico">Elegir área de estudio</a></li></ul></li>
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#noticias">Noticias</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Noticias" aria-controls="campusTopMenu5" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu5" hidden><li><a href="#noticias">Noticias y comunicados</a></li><li><a href="#gridNoticiasPublico">Ver carrusel de noticias</a></li></ul></li>
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#registro">Registro</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Registro" aria-controls="campusTopMenu6" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu6" hidden><li><a href="#registro" data-campus-register="docente">Registro docente</a></li><li><a href="#registro" data-campus-register="estudiante">Registro estudiante</a></li></ul></li>
-<li class="campus-top-dropdown"><div class="campus-top-label"><a href="#campusStores">Tiendas</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Tiendas" aria-controls="campusTopStores" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopStores" hidden><li><a href="#campusStores" data-store-link="antojitos">Antojitos · Venta de comida</a></li><li><a href="#campusStores" data-store-link="bazar">Bazar · Material de escritorio</a></li><li><a href="#campusStores" data-store-link="laboratorio">Laboratorio · Inventario de materiales</a></li></ul></li>
+<li class="campus-top-dropdown"><div class="campus-top-label"><a href="#campusStores">Tiendas</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Tiendas" aria-controls="campusTopStores" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopStores" hidden><li><a href="#campusStores" data-store-link="antojitos">Antojitos · Venta de comida</a></li><li><a href="#campusStores" data-store-link="bazar">Bazar · Material de escritorio</a></li></ul></li>
           <li><button class="btn btn-accent btn-sm" onclick="abrirModalLogin()" id="btnTopLogin"><i data-lucide="log-in"></i> Acceso Portal</button></li>
         </ul>
       </div>
@@ -1063,7 +1063,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
     </section>
 
     <!-- APARTADO DE NOTICIAS INSTITUCIONALES -->
-<section id="campusStores" class="cs-shop" data-store="antojitos" aria-label="Tiendas y materiales"><div class="cs-shell"></div></section>
+<section id="campusStores" class="cs-shop" data-store="antojitos" aria-label="Catálogo del campus"><div class="cs-shell"></div></section>
 
     <section class="institutional-motivation" id="motivacion" aria-labelledby="institutionalMotivationTitle">
       <div class="wrap"><div class="institutional-heading"><div><span class="institutional-eyebrow">Crecer cada día</span><h2 id="institutionalMotivationTitle">Palabras que inspiran</h2></div><button type="button" class="btn btn-primary btn-sm institutional-admin-control" data-institutional-edit="frases">Editar frases</button></div><div class="institutional-quotes" id="institutionalQuotes"></div></div>
@@ -1479,7 +1479,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
       <button class="modal-close" onclick="cerrarModal('modalLogin')"><i data-lucide="x"></i></button>
       <div style="text-align:center; margin-bottom:1.2rem;">
         <div class="owl-icon" style="margin:0 auto 10px; width:52px; height:52px;"><img class="fds-brand-image" src="./assets/brand/sello-fds.svg?v=20261105-apolo" alt="Logo FDS SMART CAMPUS" width="64" height="64"></div>
-        <h3 style="font-size:1.5rem;">FDS SMART CAMPUS</h3><p class="institutional-subtitle">Portal Institucional</p><p id="institutionalLoginIntro" style="font-size:.85rem;margin-top:15px">Inicia sesión para acceder a tu campus</p>
+        <h3 style="font-size:1.5rem;">FDS SMART CAMPUS</h3><p id="institutionalLoginIntro" style="font-size:.85rem;margin-top:15px">Inicia sesión para acceder a tu campus</p>
         
       </div>
 
@@ -3752,7 +3752,7 @@ function campusImprimirDocumento(tipo,id){
  .campus-username-field span { width:100%; padding:8px 12px; }
 }
 </style>
-<link rel="stylesheet" href="./shared/institutional.css?v=20261108-portal-1">
+<link rel="stylesheet" href="./shared/institutional.css?v=20261108-catalogo-2">
 </head><body><h1>${textoSeguro(data.title)}</h1><p>FDS SMART CAMPUS</p><table>${data.fields.map(([k,v])=>`<tr><th>${textoSeguro(k)}</th><td>${textoSeguro(v)}</td></tr>`).join('')}</table><p>${textoSeguro(data.note)}</p><button type="button" onclick="window.print()">Imprimir o guardar PDF</button><\/body><\/html>`);popup.document.close();popup.focus();popup.print();
  }catch(error){mostrarToast(error.message);}
 }
@@ -3967,9 +3967,9 @@ const campusLaunchPanel=irAlPanelInterno;irAlPanelInterno=function(){campusLaunc
 document.addEventListener('DOMContentLoaded',campusControlesPrueba);
 </script>
 
-<dialog id="campusStoreDialog" class="cs-dialog" aria-label="Gestión de tiendas y pedidos"></dialog>
-<script src="./shared/stores.js?v=20261108-tiendas"></script>
-<script src="./shared/institutional.js?v=20261108-portal-1"></script>
+<dialog id="campusStoreDialog" class="cs-dialog" aria-label="Catálogo del campus"></dialog>
+<script src="./shared/stores.js?v=20261108-catalogo-2"></script>
+<script src="./shared/institutional.js?v=20261108-catalogo-2"></script>
 </body>
 </html>
 

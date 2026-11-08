@@ -96,11 +96,11 @@
    finally{button.disabled=false;}
   };
  }
- function closeMenu(){if(panel)panel.hidden=true;if(activeMenu)activeMenu.setAttribute('aria-expanded','false');activeMenu=null;}
+ function closeMenu(){if(panel)panel.hidden=true;if(activeMenu){activeMenu.setAttribute('aria-expanded','false');activeMenu.closest('li')?.querySelector('.campus-top-label>a')?.setAttribute('aria-expanded','false');}activeMenu=null;}
  function openMenu(button){
   if(activeMenu===button&&!panel.hidden){closeMenu();return;}
   closeMenu();const list=button.closest('li')?.querySelector('.campus-top-submenu');if(!list)return;
-  panel.innerHTML=list.innerHTML;panel.hidden=false;activeMenu=button;button.setAttribute('aria-expanded','true');button.setAttribute('aria-controls',panel.id);
+  panel.innerHTML=list.innerHTML;panel.hidden=false;activeMenu=button;button.setAttribute('aria-expanded','true');button.setAttribute('aria-controls',panel.id);button.closest('li')?.querySelector('.campus-top-label>a')?.setAttribute('aria-expanded','true');
   const header=button.closest('.topbar'),rect=button.closest('li').getBoundingClientRect(),left=Math.min(rect.left,innerWidth-355)-header.getBoundingClientRect().left;panel.style.left=Math.max(16,left)+'px';
  }
  function route(target='inicio',scroll=true){
@@ -117,7 +117,8 @@
   const header=document.querySelector('#vistaPublica .topbar');panel=document.createElement('ul');panel.id='institutionalMenuPanel';panel.className='institutional-menu-panel';panel.hidden=true;header.append(panel);
   const gate=byId('gateStatus'),state=byId('campusEstado');
   if(gate&&state){const syncGate=()=>{gate.hidden=campusCargando||campusDisponible;};new MutationObserver(syncGate).observe(state,{childList:true,characterData:true,subtree:true});syncGate();}
-  document.querySelectorAll('.brand-logo').forEach(el=>{const block=el.querySelector(':scope>div:last-child');if(block&&block.querySelector('span')&&!block.querySelector('.institutional-subtitle'))block.insertAdjacentHTML('beforeend','<small class="institutional-subtitle">Portal Institucional</small>');});
+  document.querySelectorAll('.institutional-subtitle').forEach(el=>el.remove());
+  header.querySelectorAll('.campus-top-label>a').forEach(a=>{a.setAttribute('aria-haspopup','true');a.setAttribute('aria-controls',panel.id);a.setAttribute('aria-expanded','false');});
   document.addEventListener('click',event=>{
    const menuButton=event.target.closest('#mainMenu .campus-top-toggle');if(menuButton){event.preventDefault();event.stopImmediatePropagation();openMenu(menuButton);return;}
    const edit=event.target.closest('[data-institutional-edit]');if(edit){event.preventDefault();edit.dataset.institutionalEdit==='frases'?openQuotes():openVideo();return;}
@@ -128,11 +129,12 @@
     if(USUARIO_ACTUAL&&byId('panelInternoView').style.display!=='none')volverSitioPublico();
     if(anchor.dataset.storeLink){campusAbrirTienda(anchor.dataset.storeLink);return;}
     if(anchor.dataset.campusRegister&&document.body.classList.contains('campus-locked')){campusSeleccionarAcceso(anchor.dataset.campusRegister);campusVerRegistro(true,anchor.dataset.campusRegister);return;}
-    route(id);history.replaceState(null,'','#'+id);return;
+    const button=anchor.closest('.campus-top-label')?.querySelector('.campus-top-toggle');
+    route(id);history.replaceState(null,'','#'+id);if(button)openMenu(button);return;
    }
    if(!event.target.closest('.topbar'))closeMenu();
   },true);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&activeMenu){const previous=activeMenu;closeMenu();previous.focus();}});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&activeMenu){const previous=activeMenu.closest('li')?.querySelector('.campus-top-label>a');closeMenu();previous?.focus();}if(e.key==='ArrowDown'&&e.target.matches('#mainMenu .campus-top-label>a')){e.preventDefault();openMenu(e.target.parentElement.querySelector('.campus-top-toggle'));panel.querySelector('a')?.focus();}});
   window.addEventListener('hashchange',()=>route(location.hash||'inicio'));
   window.addEventListener('resize',closeMenu);
   byId('institutionalBackHome')?.addEventListener('click',()=>{route('inicio');history.replaceState(null,'','#inicio');});
