@@ -817,7 +817,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
 </style>
 <link rel="stylesheet" href="./shared/stores.css?v=20261108-catalogo-2">
 <link rel="stylesheet" href="./shared/institutional.css?v=20261108-catalogo-2">
-<link rel="stylesheet" href="./shared/mobile-campus.css?v=20261108-mobile-1">
+<link rel="stylesheet" href="./shared/mobile-campus.css?v=20261109-institucional-2">
 </head>
 <body class="campus-locked">
   <div id="campusEstado" role="status" style="background:#eef4ff;color:#06214c;padding:10px 16px;font:600 14px sans-serif;text-align:center;">Conectando con el campus…</div>
@@ -3754,7 +3754,7 @@ function campusImprimirDocumento(tipo,id){
 }
 </style>
 <link rel="stylesheet" href="./shared/institutional.css?v=20261108-catalogo-2">
-<link rel="stylesheet" href="./shared/mobile-campus.css?v=20261108-mobile-1">
+<link rel="stylesheet" href="./shared/mobile-campus.css?v=20261109-institucional-2">
 </head><body><h1>${textoSeguro(data.title)}</h1><p>FDS SMART CAMPUS</p><table>${data.fields.map(([k,v])=>`<tr><th>${textoSeguro(k)}</th><td>${textoSeguro(v)}</td></tr>`).join('')}</table><p>${textoSeguro(data.note)}</p><button type="button" onclick="window.print()">Imprimir o guardar PDF</button><\/body><\/html>`);popup.document.close();popup.focus();popup.print();
  }catch(error){mostrarToast(error.message);}
 }
@@ -3972,7 +3972,7 @@ document.addEventListener('DOMContentLoaded',campusControlesPrueba);
 <dialog id="campusStoreDialog" class="cs-dialog" aria-label="Catálogo del campus"></dialog>
 <script src="./shared/stores.js?v=20261108-catalogo-2"></script>
 <script src="./shared/institutional.js?v=20261108-catalogo-2"></script>
-<script src="./shared/mobile-campus.js?v=20261108-mobile-1"></script>
+<script src="./shared/mobile-campus.js?v=20261109-institucional-2"></script>
 </body>
 </html>
 
