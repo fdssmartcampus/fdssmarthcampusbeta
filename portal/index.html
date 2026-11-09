@@ -2604,18 +2604,8 @@ document.addEventListener('DOMContentLoaded',()=>{
    return animation;
   }
   preference.addEventListener?.('change',()=>{if(preference.matches) [...animations].forEach(a=>a.cancel());});
-  function enter(element,delay=0,direction='') {
-   if(!element)return;
-   if(!direction){
-    if(element.matches('.institutional-video-copy,.video-card,.modal-box,.cs-hero img'))direction='right';
-    else if(element.matches('.almanaque-toolbar,.campus-filter-panel,#cmDrawer details>div'))direction='up';
-    else if(element.matches('#cmDrawer'))direction='down';
-    else if(element.matches('.area-card,.lab-card,.cs-card,.kpi-card,.institutional-quote'))direction=[...element.parentElement.children].indexOf(element)%2?'right':'left';
-    else direction='left';
-   }
-   const distance=Math.min(110,Math.max(60,innerWidth*.16));
-   const from=direction==='right'?`translate3d(${distance}px,0,0)`:direction==='left'?`translate3d(${-distance}px,0,0)`:direction==='down'?'translate3d(0,-48px,0)':'translate3d(0,48px,0)';
-   play(element,[{transform:from},{transform:'translate3d(0,0,0)'}],{duration:900,delay,fill:'backwards',easing:'cubic-bezier(.2,.75,.25,1)'});
+  function enter(element,delay=0) {
+   play(element,[{opacity:0},{opacity:1}],{duration:1100,delay,fill:'backwards',easing:'ease-in-out'});
   }
   let reveal;const motionSelector='#inicio .hero-grid>div:first-child,.sec-title-wrap,.area-card,.lab-card,.video-card,.news-carousel-host,.institutional-heading,.institutional-quote,.institutional-video-media,.institutional-video-copy,.cs-heading,.cs-tools,.cs-card,.cs-hero-copy,.cs-hero img,.reg-card,.register-boxes,.kpi-card,.footer-grid,.campus-filter-panel,.almanaque-toolbar';
   function observeNewContent(node){if(!reveal||node.nodeType!==1||node.namespaceURI==='http://www.w3.org/2000/svg')return;if(node.matches(motionSelector))reveal.observe(node);node.querySelectorAll(motionSelector).forEach(el=>reveal.observe(el));}
@@ -2639,7 +2629,7 @@ document.addEventListener('DOMContentLoaded',()=>{
    if(!renderTargets.size || renderFrame) return;
    renderFrame=requestAnimationFrame(()=>{
     renderFrame=0;
-    for(const target of renderTargets) play(target,[{transform:'translate3d(36px,0,0)'},{transform:'translate3d(0,0,0)'}],{duration:650});
+    for(const target of renderTargets) play(target,[{opacity:.6},{opacity:1}],{duration:750,easing:'ease-in-out'});
     renderTargets.clear();
    });
   });
@@ -2654,12 +2644,10 @@ document.addEventListener('DOMContentLoaded',()=>{
    },{threshold:.08});
    observeNewContent(document.body);
    let wasLocked=document.body.classList.contains('campus-locked');new MutationObserver(()=>{const locked=document.body.classList.contains('campus-locked');if(wasLocked&&!locked)observeNewContent(document.body);wasLocked=locked;}).observe(document.body,{attributes:true,attributeFilter:['class']});
-   let previousRoute=0;const routeOrder=['inicio','areas','laboratorios','almanaque','horario-clases','noticias','registro','campusStores','motivacion','video-motivador'];
    document.addEventListener('campus:route',event=>requestAnimationFrame(()=>{
     const screen=document.body.dataset.cmScreen;
     const host=screen&&screen!=='home'&&screen!=='panel'?document.getElementById(screen):document.getElementById(event.detail?.target)||document.getElementById('inicio');
-    const position=Math.max(0,routeOrder.indexOf(event.detail?.target));const direction=position<previousRoute?'left':'right';previousRoute=position;
-    if(host?.getClientRects().length){const content=host.matches(motionSelector)?host:host.querySelector('.sec-title-wrap,.institutional-heading,.cs-heading,.almanaque-toolbar,.hero-grid>div:first-child')||host;enter(content,0,direction);}
+    if(host?.getClientRects().length){const content=host.matches(motionSelector)?host:host.querySelector('.sec-title-wrap,.institutional-heading,.cs-heading,.almanaque-toolbar,.hero-grid>div:first-child')||host;enter(content);}
    }));
    document.addEventListener('toggle',event=>{if(event.target.matches?.('dialog[open]'))enter(event.target);else if(event.target.matches?.('#cmDrawer details[open]'))enter(event.target.querySelector('div'));},true);
    const navLinks=[...document.querySelectorAll('.menu a[href^="#"]')];
@@ -2694,7 +2682,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     const open=assistant.style.display==='flex';
     mascot.classList.toggle('assistant-awake',open);
     mascot.setAttribute('aria-expanded',String(open));
-    if(open) play(assistant,[{transform:'translateX(100%)'},{transform:'translateX(0)'}],{duration:650});
+    if(open) play(assistant,[{opacity:0},{opacity:1}],{duration:900,easing:'ease-in-out'});
    };
    new MutationObserver(syncAssistant).observe(assistant,{attributes:true,attributeFilter:['style']});
    syncAssistant();
