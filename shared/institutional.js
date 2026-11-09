@@ -111,6 +111,7 @@
   byId('mainMenu')?.querySelectorAll(':scope > li').forEach(li=>{const link=li.querySelector('.campus-top-label>a');if(link)li.classList.toggle('is-current',chosen==='inicio'?link.hash==='#'+(homeSections.includes(id)?id:'inicio'):link.hash==='#'+chosen);});
   closeMenu();document.body.classList.remove('cs-nav-open');
   if(scroll&&!document.body.classList.contains('campus-locked')){const actual=chosen==='inicio'?(node&&homeSections.some(x=>byId(x)===node||byId(x)?.contains(node))?node:byId('inicio')):byId(chosen);requestAnimationFrame(()=>actual?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'}));}
+  document.dispatchEvent(new CustomEvent('campus:route',{detail:{target:id,route:chosen}}));
   return chosen;
  }
  function setup(){
