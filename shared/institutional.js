@@ -32,12 +32,13 @@
   const host=byId('institutionalVideoMedia');host.replaceChildren();
   const embed=youtubeURL(source);
   if(embed){const frame=document.createElement('iframe');frame.src=embed;frame.title=v.titulo||'Video motivador';frame.loading='lazy';frame.allow='fullscreen; picture-in-picture';frame.referrerPolicy='strict-origin-when-cross-origin';frame.setAttribute('allowfullscreen','');host.append(frame);}
-  else {const video=document.createElement('video');video.controls=true;video.playsInline=true;video.preload='metadata';video.src=source;video.setAttribute('aria-label',v.titulo||'Video motivador');host.append(video);const note=byId('institutionalVideoError');video.addEventListener('error',()=>{note.hidden=false;note.textContent='Este video no pudo reproducirse. Comprueba la conexión o vuelve a cargarlo en formato MP4 o WebM.';},{once:true});}
+  else {const video=document.createElement('video');video.controls=true;video.playsInline=true;video.preload='none';video.src=source;video.setAttribute('aria-label',v.titulo||'Video motivador');host.append(video);const note=byId('institutionalVideoError');video.addEventListener('error',()=>{note.hidden=false;note.textContent='Este video no pudo reproducirse. Comprueba la conexión o vuelve a cargarlo en formato MP4 o WebM.';},{once:true});}
  }
  function render(){
   document.body.classList.toggle('institutional-can-edit',canEdit());
   const quotes=byId('institutionalQuotes');
-  if(quotes)quotes.innerHTML=content.frases.length?content.frases.map(q=>'<blockquote class="institutional-quote"><p>'+esc(q.texto)+'</p>'+(q.autor?'<footer>'+esc(q.autor)+'</footer>':'')+'</blockquote>').join(''):'<p class="institutional-empty-copy">Pronto compartiremos nuevas palabras para acompañarte.</p>';
+  const quoteHTML=content.frases.length?content.frases.map(q=>'<blockquote class="institutional-quote"><p>'+esc(q.texto)+'</p>'+(q.autor?'<footer>'+esc(q.autor)+'</footer>':'')+'</blockquote>').join(''):'<p class="institutional-empty-copy">Pronto compartiremos nuevas palabras para acompañarte.</p>';
+  if(quotes&&quotes.campusQuoteHTML!==quoteHTML){quotes.innerHTML=quoteHTML;quotes.campusQuoteHTML=quoteHTML;}
   if(byId('institutionalVideoTitle'))byId('institutionalVideoTitle').textContent=content.video.titulo;
   if(byId('institutionalVideoDescription'))byId('institutionalVideoDescription').textContent=content.video.descripcion;
   if(byId('institutionalVideoError'))byId('institutionalVideoError').hidden=true;
