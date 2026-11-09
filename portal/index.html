@@ -811,8 +811,8 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
 }
 </style>
 <link rel="stylesheet" href="../shared/stores.css?v=20261108-catalogo-2">
-<link rel="stylesheet" href="../shared/institutional.css?v=20261108-deslizamientos-4">
-<link rel="stylesheet" href="../shared/mobile-campus.css?v=20261109-institucional-2">
+<link rel="stylesheet" href="../shared/institutional.css?v=20261108-educativo-5">
+<link rel="stylesheet" href="../shared/mobile-campus.css?v=20261108-educativo-5">
 </head>
 <body class="campus-locked">
   <div id="campusEstado" role="status" style="background:#eef4ff;color:#06214c;padding:10px 16px;font:600 14px sans-serif;text-align:center;">Conectando con el campus…</div>
@@ -829,7 +829,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
           <div class="owl-icon"><img class="fds-brand-image" src="../assets/brand/sello-fds.svg?v=20261105-apolo" alt="Logo FDS SMART CAMPUS" width="64" height="64"></div>
           <div>
             <span>FDS SMART CAMPUS</span>
-            
+            <small class="fds-portal-label">Portal educativo</small>
           </div>
         </a>
 
@@ -845,7 +845,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#horario-clases">Horario de Clases</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Horario de Clases" aria-controls="campusTopMenu4" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu4" hidden><li><a href="#horario-clases">Consultar clases</a></li><li><a href="#selectAreaHorarioPublico">Elegir área de estudio</a></li></ul></li>
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#noticias">Noticias</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Noticias" aria-controls="campusTopMenu5" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu5" hidden><li><a href="#noticias">Noticias y comunicados</a></li><li><a href="#gridNoticiasPublico">Ver carrusel de noticias</a></li></ul></li>
           <li class="campus-top-dropdown"><div class="campus-top-label"><a href="#registro">Registro</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Registro" aria-controls="campusTopMenu6" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopMenu6" hidden><li><a href="#registro" data-campus-register="docente">Registro docente</a></li><li><a href="#registro" data-campus-register="estudiante">Registro estudiante</a></li></ul></li>
-<li class="campus-top-dropdown"><div class="campus-top-label"><a href="#campusStores">Tiendas</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Tiendas" aria-controls="campusTopStores" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopStores" hidden><li><a href="#campusStores" data-store-link="antojitos">Antojitos · Venta de comida</a></li><li><a href="#campusStores" data-store-link="bazar">Bazar · Material de escritorio</a></li></ul></li>
+<li class="campus-top-dropdown"><div class="campus-top-label"><a href="#campusStores">Novedades</a><button type="button" class="campus-top-toggle" aria-label="Abrir opciones de Novedades" aria-controls="campusTopStores" aria-expanded="false"></button></div><ul class="campus-top-submenu" id="campusTopStores" hidden><li><a href="#campusStores" data-store-link="antojitos">Antojitos · Venta de comida</a></li><li><a href="#campusStores" data-store-link="bazar">Bazar · Material de escritorio</a></li></ul></li>
           <li><button class="btn btn-accent btn-sm" onclick="abrirModalLogin()" id="btnTopLogin"><i data-lucide="log-in"></i> Acceso Portal</button></li>
         </ul>
       </div>
@@ -1059,7 +1059,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
     </section>
 
     <!-- APARTADO DE NOTICIAS INSTITUCIONALES -->
-<section id="campusStores" class="cs-shop" data-store="antojitos" aria-label="Catálogo del campus"><div class="cs-shell"></div></section>
+<section id="campusStores" class="cs-shop" data-store="antojitos" aria-label="Novedades del campus"><div class="cs-shell"></div></section>
 
     <section class="institutional-motivation" id="motivacion" aria-labelledby="institutionalMotivationTitle">
       <div class="wrap"><div class="institutional-heading"><div><span class="institutional-eyebrow">Crecer cada día</span><h2 id="institutionalMotivationTitle">Palabras que inspiran</h2></div><button type="button" class="btn btn-primary btn-sm institutional-admin-control" data-institutional-edit="frases">Editar frases</button></div><div class="institutional-quotes" id="institutionalQuotes"></div></div>
@@ -1183,7 +1183,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
         <div class="footer-col">
           <div class="brand-logo" style="margin-bottom:1rem;">
             <div class="owl-icon" style="width:40px; height:40px;"><img class="fds-brand-image" src="../assets/brand/sello-fds.svg?v=20261105-apolo" alt="Logo FDS SMART CAMPUS" width="64" height="64"></div>
-            <span>FDS SMART CAMPUS</span>
+            <div><span>FDS SMART CAMPUS</span><small class="fds-portal-label">Portal educativo</small></div>
           </div>
           <p style="margin-bottom:1.2rem;">Plataforma integral de supervisión, planificación en almanaque y control de laboratorios académicos.</p>
           
@@ -1222,7 +1222,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
         <div class="owl-icon" style="width:40px; height:40px;"><img class="fds-brand-image" src="../assets/brand/sello-fds.svg?v=20261105-apolo" alt="Logo FDS SMART CAMPUS" width="64" height="64"></div>
         <div>
           <span style="font-size:1.1rem; display:block;">FDS SMART CAMPUS</span>
-          
+          <small class="fds-portal-label">Portal educativo</small>
         </div>
       </div>
 
@@ -1475,7 +1475,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
       <button class="modal-close" onclick="cerrarModal('modalLogin')"><i data-lucide="x"></i></button>
       <div style="text-align:center; margin-bottom:1.2rem;">
         <div class="owl-icon" style="margin:0 auto 10px; width:52px; height:52px;"><img class="fds-brand-image" src="../assets/brand/sello-fds.svg?v=20261105-apolo" alt="Logo FDS SMART CAMPUS" width="64" height="64"></div>
-        <h3 style="font-size:1.5rem;">FDS SMART CAMPUS</h3><p id="institutionalLoginIntro" style="font-size:.85rem;margin-top:15px">Inicia sesión para acceder a tu campus</p>
+        <h3 style="font-size:1.5rem;">FDS SMART CAMPUS</h3><p class="fds-portal-label">Portal educativo</p><p id="institutionalLoginIntro" style="font-size:.85rem;margin-top:15px">Inicia sesión para acceder a tu campus</p>
         
       </div>
 
@@ -3559,7 +3559,7 @@ function campusRenderNoticiasCarrusel(hostId) {
   clearTimeout(timer);timer=null;
   if(!disposed&&count>1&&playing&&visible&&!hover&&!focused&&!modalOpen&&!document.hidden&&!overlayActive()) timer=setTimeout(()=>go(1),5000);
  }
- function render(direction=1) {
+ function render() {
   const slide=slides[index];const n=slide.news;
   const previousSlide=stage.querySelector('.news-carousel-slide:not(.news-transition-out)')?.cloneNode(true);
   stage.setAttribute('aria-label',`${index+1} de ${count}: ${n.titulo}`);
@@ -3571,14 +3571,14 @@ function campusRenderNoticiasCarrusel(hostId) {
     ${esAdmin()?`<div class="news-carousel-admin"><button type="button" class="btn btn-accent btn-sm" data-news-action="edit">Editar texto e imágenes</button><button type="button" class="btn btn-white btn-sm" data-news-action="delete">Eliminar noticia</button></div>`:''}
    </div></article>`;
   const adminTools=stage.querySelector('.news-carousel-admin');if(adminTools)stage.querySelector('article').append(adminTools);
-  campusTransicionNoticia(stage,previousSlide,direction);
+  campusTransicionNoticia(stage,previousSlide);
   dots.forEach((dot,i)=>dot.setAttribute('aria-current',String(i===index)));
   counter.textContent=`${index+1} / ${count}`;
   playButton.textContent=playing?'Ⅱ Pausar':'▶ Reproducir';playButton.setAttribute('aria-label',playing?'Pausar carrusel automático':'Reproducir carrusel automático');
   playButton.disabled=count<2;
   if(dialog) renderDialog();schedule();
  }
- function go(delta) {index=(index+delta+count)%count;render(Math.sign(delta)||1);}
+ function go(delta) {index=(index+delta+count)%count;render();}
  function renderDialog() {
   const slide=slides[index];dialog.querySelector('h3').textContent=slide.news.titulo;
   const img=dialog.querySelector('img');img.src=slide.src;img.alt=slide.news.titulo+` · imagen ${slide.image} de ${slide.total}`;
@@ -3600,7 +3600,7 @@ function campusRenderNoticiasCarrusel(hostId) {
   else {dialog.setAttribute('open','');dialog.style.display='block';dialog.style.position='fixed';dialog.style.inset='3vh 3vw';dialog.querySelector('.news-lightbox-close').onclick=()=>{const node=dialog;dialog=null;modalOpen=false;node.remove();schedule();};}
  }
  root.addEventListener('click',e=>{
-  const dot=e.target.closest('[data-news-index]');if(dot){const next=Number(dot.dataset.newsIndex),direction=next<index?-1:1;index=next;render(direction);return;}
+  const dot=e.target.closest('[data-news-index]');if(dot){index=Number(dot.dataset.newsIndex);render();return;}
   const action=e.target.closest('[data-news-action]')?.dataset.newsAction;
   if(action==='prev')go(-1);if(action==='next')go(1);if(action==='expand')expand();
   if(action==='play'){playing=!playing;focused=false;render();}
@@ -3761,8 +3761,8 @@ function campusImprimirDocumento(tipo,id){
  .campus-username-field span { width:100%; padding:8px 12px; }
 }
 </style>
-<link rel="stylesheet" href="../shared/institutional.css?v=20261108-deslizamientos-4">
-<link rel="stylesheet" href="../shared/mobile-campus.css?v=20261109-institucional-2">
+<link rel="stylesheet" href="../shared/institutional.css?v=20261108-educativo-5">
+<link rel="stylesheet" href="../shared/mobile-campus.css?v=20261108-educativo-5">
 </head><body><h1>${textoSeguro(data.title)}</h1><p>FDS SMART CAMPUS</p><table>${data.fields.map(([k,v])=>`<tr><th>${textoSeguro(k)}</th><td>${textoSeguro(v)}</td></tr>`).join('')}</table><p>${textoSeguro(data.note)}</p><button type="button" onclick="window.print()">Imprimir o guardar PDF</button><\/body><\/html>`);popup.document.close();popup.focus();popup.print();
  }catch(error){mostrarToast(error.message);}
 }
@@ -3842,8 +3842,7 @@ function campusIniciarGaleria(){
  const schedule=()=>{clearTimeout(timer);if(playing&&visible&&!document.hidden&&slides.length>1)timer=setTimeout(()=>show(index+1),5000);};
  function controls(){const credit=root.querySelector('.campus-student-credit');if(credit)credit.textContent=slides.every(s=>!s.src||s.src.startsWith('https://images.unsplash.com/'))?'Fotografías ilustrativas · Unsplash':'Imágenes de la comunidad · FDS SMART CAMPUS';dots.innerHTML=slides.map((_,n)=>`<button type="button" data-student-index="${n}" aria-label="Ver fotografía ${n+1}" aria-current="${n===index}"></button>`).join('');play.textContent=playing?'Ⅱ Pausar':'▶ Reproducir';play.disabled=slides.length<2;}
  function show(next,animate=true){
-  clearTimeout(timer);const direction=next<index?-1:1,serial=++revision;index=(next+slides.length)%slides.length;const slide=slides[index];
-  stage.querySelectorAll('.is-leaving').forEach(el=>el.remove());
+  clearTimeout(timer);const serial=++revision;index=(next+slides.length)%slides.length;const slide=slides[index];
   stage.querySelectorAll('.is-entering').forEach(el=>el.remove());
   const frame=document.createElement('div');frame.className='campus-gallery-frame is-entering';
   if(slide.src){const img=document.createElement('img');img.src=slide.src;img.alt=slide.title;img.decoding='async';frame.append(img);}
@@ -3853,12 +3852,9 @@ function campusIniciarGaleria(){
    if(serial!==revision){frame.remove();return;}
    const old=[...stage.querySelectorAll('.campus-gallery-frame')].filter(el=>el!==frame);
    caption.textContent=slide.title;controls();
-   frame.classList.remove('is-entering');frame.style.zIndex='1';
-   if(reduced.matches||!animate||!frame.animate){old.forEach(el=>el.remove());schedule();return;}
-   const timing={duration:1000,easing:'cubic-bezier(.2,.75,.25,1)'};
-   frame.animate([{transform:`translateX(${direction*100}%)`},{transform:'translateX(0)'}],timing);
-   caption.animate?.([{transform:`translateX(${direction*65}px)`},{transform:'translateX(0)'}],{...timing,duration:850});
-   old.forEach(el=>{el.style.zIndex='0';el.classList.add('is-leaving');el.animate([{transform:'translateX(0)'},{transform:`translateX(${-direction*100}%)`}],{...timing,fill:'forwards'}).finished.then(()=>el.remove()).catch(()=>el.remove());});
+   frame.getBoundingClientRect();frame.classList.remove('is-entering');
+   old.forEach(el=>{el.classList.add('is-leaving');setTimeout(()=>el.remove(),reduced.matches||!animate?0:900);});
+   if(reduced.matches||!animate)frame.style.transition='none';
    schedule();
   };
   const photo=frame.querySelector('img');
@@ -3871,24 +3867,18 @@ function campusIniciarGaleria(){
  campusGaleriaController={setSlides(value){slides=campusNormalizarGaleria(value);index=Math.min(index,slides.length-1);show(index,false);}};
  show(0,false);
 }
-function campusTransicionNoticia(stage,previous,direction=1){
+function campusTransicionNoticia(stage,previous){
  if(!previous||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  const incoming=stage.querySelector('.news-carousel-slide');if(!incoming)return;
  previous.classList.add('news-transition-out');previous.setAttribute('aria-hidden','true');previous.inert=true;previous.removeAttribute('id');previous.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));stage.append(previous);
  let started=false;
- const slide=()=>{
-  if(started)return;started=true;if(!previous.isConnected)return;
-  if(!incoming.animate){previous.remove();return;}
-  const timing={duration:950,easing:'cubic-bezier(.2,.75,.25,1)'};
-  incoming.animate([{transform:`translateX(${direction*100}%)`},{transform:'translateX(0)'}],timing);
-  previous.animate([{transform:'translateX(0)'},{transform:`translateX(${-direction*100}%)`}],{...timing,fill:'forwards'}).finished.then(()=>previous.remove()).catch(()=>previous.remove());
- };
- const photo=incoming.querySelector('img');if(photo&&!photo.complete){photo.addEventListener('load',slide,{once:true});photo.addEventListener('error',slide,{once:true});setTimeout(slide,2500);}else slide();
+ const fade=()=>{if(started)return;started=true;if(!previous.isConnected)return;if(previous.animate){previous.animate([{opacity:1,transform:'scale(1)'},{opacity:0,transform:'scale(1.025)'}],{duration:850,easing:'ease',fill:'forwards'}).finished.then(()=>previous.remove()).catch(()=>previous.remove());}else previous.remove();};
+ const photo=incoming.querySelector('img');if(photo&&!photo.complete){photo.addEventListener('load',fade,{once:true});photo.addEventListener('error',fade,{once:true});setTimeout(fade,2500);}else fade();
 }
 function campusEditarGaleria(){
  if(!esAdmin()){mostrarToast('Solo el administrador puede editar las imágenes de portada.');return;}
  campusGaleriaBorrador=campusNormalizarGaleria(campusPortadaActual.galeria);campusGaleriaCargando=false;
- abrirModalGenerico(`<button type="button" class="modal-close" onclick="cerrarModal('modalDinamico')" aria-label="Cerrar editor">×</button><h3>Imágenes del carrusel de portada</h3><p>Reemplaza el espacio vacío, cambia las imágenes o añade hasta 12. El carrusel cambia cada 5 segundos con un deslizamiento lateral.</p><p style="margin:12px 0;font-size:.9rem">Desde Google Imágenes: abre la imagen original y copia su dirección directa (https://…). También puedes descargarla y subirla desde tus archivos. Un enlace de búsqueda de Google no es una imagen.</p><form id="campusGalleryForm" onsubmit="campusGuardarGaleria(event)"><div id="campusGalleryRows" class="campus-gallery-editor"></div><p id="campusGalleryStatus" role="status"></p><div class="campus-gallery-editor-actions"><button type="button" class="btn btn-white" onclick="campusAnadirImagen()">+ Añadir espacio</button><button type="submit" class="btn btn-accent">Guardar imágenes</button><button type="button" class="btn btn-white" onclick="cerrarModal('modalDinamico')">Cancelar</button></div></form>`);
+ abrirModalGenerico(`<button type="button" class="modal-close" onclick="cerrarModal('modalDinamico')" aria-label="Cerrar editor">×</button><h3>Imágenes del carrusel de portada</h3><p>Reemplaza el espacio vacío, cambia las imágenes o añade hasta 12. El carrusel cambia cada 5 segundos con un fundido suave.</p><p style="margin:12px 0;font-size:.9rem">Desde Google Imágenes: abre la imagen original y copia su dirección directa (https://…). También puedes descargarla y subirla desde tus archivos. Un enlace de búsqueda de Google no es una imagen.</p><form id="campusGalleryForm" onsubmit="campusGuardarGaleria(event)"><div id="campusGalleryRows" class="campus-gallery-editor"></div><p id="campusGalleryStatus" role="status"></p><div class="campus-gallery-editor-actions"><button type="button" class="btn btn-white" onclick="campusAnadirImagen()">+ Añadir espacio</button><button type="submit" class="btn btn-accent">Guardar imágenes</button><button type="button" class="btn btn-white" onclick="cerrarModal('modalDinamico')">Cancelar</button></div></form>`);
  campusPintarEditorGaleria();
 }
 function campusPintarEditorGaleria(){
@@ -3987,10 +3977,10 @@ const campusLaunchPanel=irAlPanelInterno;irAlPanelInterno=function(){campusLaunc
 document.addEventListener('DOMContentLoaded',campusControlesPrueba);
 </script>
 
-<dialog id="campusStoreDialog" class="cs-dialog" aria-label="Catálogo del campus"></dialog>
-<script src="../shared/stores.js?v=20261108-catalogo-2"></script>
+<dialog id="campusStoreDialog" class="cs-dialog" aria-label="Novedades del campus"></dialog>
+<script src="../shared/stores.js?v=20261108-educativo-5"></script>
 <script src="../shared/institutional.js?v=20261108-deslizamientos-4"></script>
-<script src="../shared/mobile-campus.js?v=20261109-institucional-2"></script>
+<script src="../shared/mobile-campus.js?v=20261108-educativo-5"></script>
 </body>
 </html>
 

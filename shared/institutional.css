@@ -62,10 +62,15 @@ body.campus-locked #modalLogin{background:radial-gradient(ellipse at 88% 20%,#63
 
 /* Desplazamientos sólidos: sin fundidos de entrada ni destellos. */
 #inicio .hero-grid>div:first-child>*,.sec-title-wrap,.area-card,.lab-card,.news-card,.reg-card,.kpi-card,.labs-group-header,.almanaque-toolbar,.almanaque-wrap{animation:none!important}
-.campus-gallery-frame,.campus-gallery-frame.is-entering,.campus-gallery-frame.is-leaving{opacity:1!important;transform:none;transition:none!important}
-.campus-gallery-frame.is-entering{visibility:hidden}
 .campus-student-stage,.news-carousel-stage{overflow:hidden;isolation:isolate}
 .news-carousel-slide,.campus-gallery-frame{backface-visibility:hidden}
 .institutional-menu-panel{overflow-x:hidden}
 .ui-ripple{display:none!important}
 @media(prefers-reduced-motion:reduce){.campus-gallery-frame,.news-carousel-slide{transform:none!important}}
+
+/* Identidad adicional, sin reemplazar el nombre del campus. */
+.fds-portal-label{display:block;font-family:var(--font-body);font-size:.76rem;font-weight:600;line-height:1.45;color:#6886a5;letter-spacing:.025em;margin:4px 0 0}
+.topbar .brand-logo .fds-portal-label{font-size:.76rem;color:#6083a5;white-space:nowrap}
+#modalLogin .fds-portal-label{font-size:.82rem;color:#6686a8;margin:6px 0 0}
+.admin-sidebar .fds-portal-label{color:#c4dcf7;font-size:.73rem}
+.site-footer .brand-logo .fds-portal-label{color:#6083a5;font-size:.75rem}

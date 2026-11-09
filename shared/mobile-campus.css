@@ -133,3 +133,13 @@
  body.campus-locked .auth-profile-button{min-height:2.8rem!important;padding:.5rem .3rem!important;border-radius:.7rem!important}
  .news-carousel-slide{min-height:30rem!important;padding:5rem 0 7rem!important}.news-carousel-copy,#noticias .news-carousel-copy{margin-left:2.1rem!important;width:calc(100% - 4.2rem)!important}.news-carousel-copy h3{font-size:1.7rem!important}.news-carousel-copy p{font-size:.95rem!important}
 }
+
+@media(max-width:820px),(max-width:1100px) and (hover:none) and (pointer:coarse){
+ .cm-header .cm-brand>.cm-brand-text,.cm-drawer-head .cm-brand>.cm-brand-text{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+ .cm-header .cm-brand .fds-portal-label,.cm-drawer-head .cm-brand .fds-portal-label{display:block!important;font-family:var(--font-body);font-size:.7rem!important;font-weight:500;line-height:1.4;margin:.15rem 0 0;color:#6b88a5;letter-spacing:.02em;white-space:nowrap}
+ .cm-drawer-head .cm-brand>.cm-brand-text{padding:0;text-transform:none}
+ body.campus-locked #modalLogin .fds-portal-label{font-size:.78rem;margin:.35rem 0 0}
+}
+@media(max-width:820px),(max-width:1100px) and (hover:none) and (pointer:coarse){
+ #inicio #campusStudentGallery.wrap{width:100%!important;max-width:none!important;left:0!important;right:0!important}
+}
