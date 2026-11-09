@@ -24,3 +24,38 @@ body.campus-locked #modalLogin{background:radial-gradient(ellipse at 88% 20%,#63
 @media(max-width:760px){#campusRolePreview.campus-role-preview{inset:auto auto 10px 10px!important;max-width:calc(100vw - 85px);gap:4px;padding:7px 8px;font-size:.63rem}#campusRolePreview button{font-size:.63rem;padding:7px 8px;min-height:32px}.topbar .wrap.nav{padding-top:13px}.topbar .brand-logo .owl-icon{height:40px!important}.topbar .brand-logo{font-size:1rem!important}}
 @media(min-width:1181px){html{scroll-padding-top:100px}.topbar .wrap.nav{flex-wrap:nowrap!important;gap:16px!important;padding:12px 0}.topbar .brand-logo{min-width:220px}.topbar #mainMenu{flex-basis:auto!important;padding-bottom:0!important}.topbar #mainMenu>li{padding-inline:9px!important}.topbar #mainMenu .campus-top-label>a{font-size:.82rem!important}.topbar #btnTopLogin{font-size:.76rem!important;padding:10px 12px!important}}
 @media(max-width:760px){html{scroll-padding-top:125px}}
+
+/* Navegación holgada, alineada a la derecha y movimientos discretos. */
+.institutional-menu-panel{transform-origin:top center;overscroll-behavior:contain}
+.institutional-menu-panel a{transition:background-color .2s ease,color .2s ease,padding-left .2s ease}
+.institutional-menu-panel a:hover,.institutional-menu-panel a:focus-visible{padding-left:19px;color:#0d62a3;background:#eaf5ff}
+.topbar #mainMenu .campus-top-label{transition:background-color .22s ease,box-shadow .22s ease}
+.topbar #mainMenu .campus-top-label:has(a[aria-expanded=true]){background:#edf6ff;box-shadow:inset 0 -3px #ffc400;border-radius:8px 8px 3px 3px}
+.area-card,.lab-card,.cs-card,.institutional-quote,.video-card,.kpi-card{transition:box-shadow .28s ease,border-color .28s ease,background-color .28s ease}
+@media(min-width:1101px),(min-width:821px) and (hover:hover) and (pointer:fine){
+ html{scroll-padding-top:var(--campus-nav-offset,170px)!important}
+ .topbar .wrap.nav{width:calc(100% - 64px);max-width:1760px;gap:18px!important;padding:18px 0 15px!important}
+ .topbar #mainMenu{justify-content:flex-start!important;gap:5px!important;margin-left:auto!important;flex:1 1 auto;scroll-padding-inline:16px}
+ .topbar #mainMenu>li{padding-inline:15px!important}
+ .topbar #mainMenu>li:first-child{padding-left:15px!important;margin-left:auto}
+ .topbar #mainMenu .campus-top-label>a,.topbar #mainMenu .campus-talleres-link{font-size:.88rem!important;padding:14px 6px!important}
+ .topbar #btnTopLogin{padding:12px 17px!important;font-size:.82rem!important}
+ #vistaPublica>.sec{padding-top:88px!important;padding-bottom:80px!important}
+ #vistaPublica>.institutional-motivation,#vistaPublica>.institutional-video-section{padding-top:88px;padding-bottom:80px}
+ #inicio.hero{padding-top:130px!important}
+ .sec-title-wrap{margin-bottom:48px!important}.sec-title{margin-top:18px!important}.institutional-heading{margin-bottom:38px}
+}
+@media(min-width:1101px) and (max-width:1599px),(min-width:821px) and (max-width:1599px) and (hover:hover) and (pointer:fine){
+ .topbar .wrap.nav{flex-wrap:wrap!important;gap:12px!important}
+ .topbar .brand-logo{min-width:0}
+ .topbar #mainMenu>li{padding-inline:11px!important}.topbar #mainMenu>li:first-child{padding-left:11px!important}
+ .topbar #mainMenu .campus-top-label>a,.topbar #mainMenu .campus-talleres-link{font-size:.85rem!important}
+ .topbar #btnTopLogin{max-width:190px;font-size:.76rem!important;padding-inline:12px!important}
+ .topbar #mainMenu{gap:2px!important;flex-basis:100%!important;max-width:100%;padding:10px 0 5px!important;overflow-x:auto!important;overflow-y:hidden!important;border-top:1px solid #e8eef6!important}
+}
+@media(min-width:1600px){
+ .topbar .wrap.nav{flex-wrap:nowrap!important}.topbar .brand-logo{min-width:240px}
+ .topbar #mainMenu{flex-basis:auto!important;overflow-x:auto!important;overflow-y:hidden!important;max-width:100%;padding:0 0 4px!important}
+}
+@media(hover:hover) and (pointer:fine){.area-card:hover,.lab-card:hover,.cs-card:hover,.institutional-quote:hover{box-shadow:0 15px 32px #164d9220;border-color:#8dc4ec}}
+@media(prefers-reduced-motion:reduce){.institutional-menu-panel a,.topbar #mainMenu .campus-top-label,.area-card,.lab-card,.cs-card,.institutional-quote,.video-card,.kpi-card{transition:none!important}}
