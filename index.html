@@ -816,7 +816,7 @@ body.campus-locked #modalLogin .form-group { margin-bottom:14px; }
 }
 </style>
 <link rel="stylesheet" href="./shared/stores.css?v=20261108-catalogo-2">
-<link rel="stylesheet" href="./shared/institutional.css?v=20261108-transiciones-3">
+<link rel="stylesheet" href="./shared/institutional.css?v=20261108-deslizamientos-4">
 <link rel="stylesheet" href="./shared/mobile-campus.css?v=20261109-institucional-2">
 </head>
 <body class="campus-locked">
@@ -3377,17 +3377,29 @@ document.addEventListener('DOMContentLoaded',()=>{
    return animation;
   }
   preference.addEventListener?.('change',()=>{if(preference.matches) [...animations].forEach(a=>a.cancel());});
-  function enter(element,delay=0) { play(element,[{opacity:0,transform:'translateY(20px)'},{opacity:1,transform:'translateY(0)'}],{duration:520,delay}); }
-  let reveal;const motionSelector='.sec-title-wrap,.area-card,.lab-card,.video-card,.news-carousel-host,.institutional-heading,.institutional-quote,.institutional-video-media,.institutional-video-copy,.cs-heading,.cs-tools,.cs-card,.reg-card,.register-boxes,.kpi-card,.footer-grid,.campus-filter-panel,.almanaque-toolbar';
+  function enter(element,delay=0,direction='') {
+   if(!element)return;
+   if(!direction){
+    if(element.matches('.institutional-video-copy,.video-card,.modal-box,.cs-hero img'))direction='right';
+    else if(element.matches('.almanaque-toolbar,.campus-filter-panel,#cmDrawer details>div'))direction='up';
+    else if(element.matches('#cmDrawer'))direction='down';
+    else if(element.matches('.area-card,.lab-card,.cs-card,.kpi-card,.institutional-quote'))direction=[...element.parentElement.children].indexOf(element)%2?'right':'left';
+    else direction='left';
+   }
+   const distance=Math.min(110,Math.max(60,innerWidth*.16));
+   const from=direction==='right'?`translate3d(${distance}px,0,0)`:direction==='left'?`translate3d(${-distance}px,0,0)`:direction==='down'?'translate3d(0,-48px,0)':'translate3d(0,48px,0)';
+   play(element,[{transform:from},{transform:'translate3d(0,0,0)'}],{duration:900,delay,fill:'backwards',easing:'cubic-bezier(.2,.75,.25,1)'});
+  }
+  let reveal;const motionSelector='#inicio .hero-grid>div:first-child,.sec-title-wrap,.area-card,.lab-card,.video-card,.news-carousel-host,.institutional-heading,.institutional-quote,.institutional-video-media,.institutional-video-copy,.cs-heading,.cs-tools,.cs-card,.cs-hero-copy,.cs-hero img,.reg-card,.register-boxes,.kpi-card,.footer-grid,.campus-filter-panel,.almanaque-toolbar';
   function observeNewContent(node){if(!reveal||node.nodeType!==1)return;if(node.matches(motionSelector))reveal.observe(node);node.querySelectorAll(motionSelector).forEach(el=>reveal.observe(el));}
   // Observe visibility only; never replace or wrap the existing business functions.
   const visibility=new MutationObserver(records=>{
    for(const r of records) {
     const element=r.target;
-    if(element.style.display!=='none' && element.getClientRects().length) enter(element);
+    if(element.style.display!=='none' && element.getClientRects().length) enter(element.matches('.modal-backdrop')?element.querySelector('.modal-box'):element);
    }
   });
-  document.querySelectorAll('.panel-tab,#panelInternoView,#vistaPublica,.modal-backdrop').forEach(el=>visibility.observe(el,{attributes:true,attributeFilter:['style']}));
+  document.querySelectorAll('.panel-tab,.modal-backdrop').forEach(el=>visibility.observe(el,{attributes:true,attributeFilter:['style']}));
   const renderTargets=new Set(); let renderFrame=0;
   const renderObserver=new MutationObserver(records=>{
    for(const r of records) {
@@ -3399,7 +3411,7 @@ document.addEventListener('DOMContentLoaded',()=>{
    if(!renderTargets.size || renderFrame) return;
    renderFrame=requestAnimationFrame(()=>{
     renderFrame=0;
-    for(const target of renderTargets) play(target,[{opacity:.65,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:230});
+    for(const target of renderTargets) play(target,[{transform:'translate3d(36px,0,0)'},{transform:'translate3d(0,0,0)'}],{duration:650});
     renderTargets.clear();
    });
   });
@@ -3407,15 +3419,18 @@ document.addEventListener('DOMContentLoaded',()=>{
   // Animate sections when they become visible. Their content stays visible if
   // observers, scripting or animation support is unavailable.
   if('IntersectionObserver' in window) {
+   const introduced=new WeakSet();
    reveal=new IntersectionObserver(entries=>{
     let sequence=0;
-    for(const e of entries) if(e.isIntersecting)enter(e.target,Math.min(sequence++*55,220));
+    for(const e of entries) if(e.isIntersecting&&!introduced.has(e.target)){introduced.add(e.target);enter(e.target,Math.min(sequence++*85,255));}
    },{threshold:.08});
    observeNewContent(document.body);
-   document.addEventListener('campus:route',()=>requestAnimationFrame(()=>{
+   let previousRoute=0;const routeOrder=['inicio','areas','laboratorios','almanaque','horario-clases','noticias','registro','campusStores','motivacion','video-motivador'];
+   document.addEventListener('campus:route',event=>requestAnimationFrame(()=>{
     const screen=document.body.dataset.cmScreen;
-    const host=screen&&screen!=='home'&&screen!=='panel'?document.getElementById(screen):document.querySelector('#vistaPublica>section:not(.campus-section-off)');
-    if(host?.getClientRects().length)enter(host);
+    const host=screen&&screen!=='home'&&screen!=='panel'?document.getElementById(screen):document.getElementById(event.detail?.target)||document.getElementById('inicio');
+    const position=Math.max(0,routeOrder.indexOf(event.detail?.target));const direction=position<previousRoute?'left':'right';previousRoute=position;
+    if(host?.getClientRects().length){const content=host.matches(motionSelector)?host:host.querySelector('.sec-title-wrap,.institutional-heading,.cs-heading,.almanaque-toolbar,.hero-grid>div:first-child')||host;enter(content,0,direction);}
    }));
    document.addEventListener('toggle',event=>{if(event.target.matches?.('dialog[open]'))enter(event.target);else if(event.target.matches?.('#cmDrawer details[open]'))enter(event.target.querySelector('div'));},true);
    const navLinks=[...document.querySelectorAll('.menu a[href^="#"]')];
@@ -3427,20 +3442,11 @@ document.addEventListener('DOMContentLoaded',()=>{
    },{rootMargin:'-15% 0px -65% 0px',threshold:0});
    navLinks.forEach(a=>{const el=document.getElementById(a.getAttribute('href').slice(1));if(el)current.observe(el);});
   }
-  // Feedback stays decorative; original click actions run unchanged.
+  // A small press movement gives feedback without a flash.
   document.addEventListener('click',event=>{
    const button=event.target.closest?.('.btn,.area-tab-btn,.admin-nav-btn');
-   if(!button || button.disabled || preference.matches) return;
-   const rect=button.getBoundingClientRect();
-   const ripple=document.createElement('span');ripple.className='ui-ripple';ripple.setAttribute('aria-hidden','true');
-   const size=Math.max(rect.width,rect.height)*2;
-   ripple.style.width=size+'px';ripple.style.height=size+'px';
-   ripple.style.left=(event.detail?event.clientX-rect.left:rect.width/2)+'px';
-   ripple.style.top=(event.detail?event.clientY-rect.top:rect.height/2)+'px';
-   button.append(ripple);
-   const effect=play(ripple,[{opacity:.6,transform:'translate(-50%,-50%) scale(0)'},{opacity:0,transform:'translate(-50%,-50%) scale(1)'}],{duration:480});
-   if(effect) { effect.addEventListener('finish',()=>ripple.remove(),{once:true});effect.addEventListener('cancel',()=>ripple.remove(),{once:true}); }
-   else ripple.remove();
+   if(!button||button.disabled||preference.matches)return;
+   play(button,[{transform:'translateY(0)'},{transform:'translateY(2px)'},{transform:'translateY(0)'}],{duration:240});
   });
   function themeFilters() {
    document.querySelectorAll('.campus-schedule-filters').forEach(box=>{box.dataset.turno=box.querySelector('select[id^="turno"]')?.value || 'manana';});
@@ -3448,7 +3454,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.addEventListener('change',event=>{
    if(event.target.matches('select')) {
     themeFilters();
-    play(event.target,[{boxShadow:'0 0 0 0 rgba(255,194,14,.45)'},{boxShadow:'0 0 0 7px rgba(255,194,14,0)'}],{duration:450});
+    play(event.target,[{transform:'translateX(5px)'},{transform:'translateX(0)'}],{duration:360});
    }
   });
   themeFilters();
@@ -3459,7 +3465,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     const open=assistant.style.display==='flex';
     mascot.classList.toggle('assistant-awake',open);
     mascot.setAttribute('aria-expanded',String(open));
-    if(open) play(assistant,[{opacity:.25,transform:'translateY(16px) scale(.97)'},{opacity:1,transform:'translateY(0) scale(1)'}],{duration:320});
+    if(open) play(assistant,[{transform:'translateX(100%)'},{transform:'translateX(0)'}],{duration:650});
    };
    new MutationObserver(syncAssistant).observe(assistant,{attributes:true,attributeFilter:['style']});
    syncAssistant();
@@ -3558,7 +3564,7 @@ function campusRenderNoticiasCarrusel(hostId) {
   clearTimeout(timer);timer=null;
   if(!disposed&&count>1&&playing&&visible&&!hover&&!focused&&!modalOpen&&!document.hidden&&!overlayActive()) timer=setTimeout(()=>go(1),5000);
  }
- function render() {
+ function render(direction=1) {
   const slide=slides[index];const n=slide.news;
   const previousSlide=stage.querySelector('.news-carousel-slide:not(.news-transition-out)')?.cloneNode(true);
   stage.setAttribute('aria-label',`${index+1} de ${count}: ${n.titulo}`);
@@ -3570,14 +3576,14 @@ function campusRenderNoticiasCarrusel(hostId) {
     ${esAdmin()?`<div class="news-carousel-admin"><button type="button" class="btn btn-accent btn-sm" data-news-action="edit">Editar texto e imágenes</button><button type="button" class="btn btn-white btn-sm" data-news-action="delete">Eliminar noticia</button></div>`:''}
    </div></article>`;
   const adminTools=stage.querySelector('.news-carousel-admin');if(adminTools)stage.querySelector('article').append(adminTools);
-  campusTransicionNoticia(stage,previousSlide);
+  campusTransicionNoticia(stage,previousSlide,direction);
   dots.forEach((dot,i)=>dot.setAttribute('aria-current',String(i===index)));
   counter.textContent=`${index+1} / ${count}`;
   playButton.textContent=playing?'Ⅱ Pausar':'▶ Reproducir';playButton.setAttribute('aria-label',playing?'Pausar carrusel automático':'Reproducir carrusel automático');
   playButton.disabled=count<2;
   if(dialog) renderDialog();schedule();
  }
- function go(delta) {index=(index+delta+count)%count;render();}
+ function go(delta) {index=(index+delta+count)%count;render(Math.sign(delta)||1);}
  function renderDialog() {
   const slide=slides[index];dialog.querySelector('h3').textContent=slide.news.titulo;
   const img=dialog.querySelector('img');img.src=slide.src;img.alt=slide.news.titulo+` · imagen ${slide.image} de ${slide.total}`;
@@ -3599,7 +3605,7 @@ function campusRenderNoticiasCarrusel(hostId) {
   else {dialog.setAttribute('open','');dialog.style.display='block';dialog.style.position='fixed';dialog.style.inset='3vh 3vw';dialog.querySelector('.news-lightbox-close').onclick=()=>{const node=dialog;dialog=null;modalOpen=false;node.remove();schedule();};}
  }
  root.addEventListener('click',e=>{
-  const dot=e.target.closest('[data-news-index]');if(dot){index=Number(dot.dataset.newsIndex);render();return;}
+  const dot=e.target.closest('[data-news-index]');if(dot){const next=Number(dot.dataset.newsIndex),direction=next<index?-1:1;index=next;render(direction);return;}
   const action=e.target.closest('[data-news-action]')?.dataset.newsAction;
   if(action==='prev')go(-1);if(action==='next')go(1);if(action==='expand')expand();
   if(action==='play'){playing=!playing;focused=false;render();}
@@ -3760,7 +3766,7 @@ function campusImprimirDocumento(tipo,id){
  .campus-username-field span { width:100%; padding:8px 12px; }
 }
 </style>
-<link rel="stylesheet" href="./shared/institutional.css?v=20261108-transiciones-3">
+<link rel="stylesheet" href="./shared/institutional.css?v=20261108-deslizamientos-4">
 <link rel="stylesheet" href="./shared/mobile-campus.css?v=20261109-institucional-2">
 </head><body><h1>${textoSeguro(data.title)}</h1><p>FDS SMART CAMPUS</p><table>${data.fields.map(([k,v])=>`<tr><th>${textoSeguro(k)}</th><td>${textoSeguro(v)}</td></tr>`).join('')}</table><p>${textoSeguro(data.note)}</p><button type="button" onclick="window.print()">Imprimir o guardar PDF</button><\/body><\/html>`);popup.document.close();popup.focus();popup.print();
  }catch(error){mostrarToast(error.message);}
@@ -3841,7 +3847,8 @@ function campusIniciarGaleria(){
  const schedule=()=>{clearTimeout(timer);if(playing&&visible&&!document.hidden&&slides.length>1)timer=setTimeout(()=>show(index+1),5000);};
  function controls(){const credit=root.querySelector('.campus-student-credit');if(credit)credit.textContent=slides.every(s=>!s.src||s.src.startsWith('https://images.unsplash.com/'))?'Fotografías ilustrativas · Unsplash':'Imágenes de la comunidad · FDS SMART CAMPUS';dots.innerHTML=slides.map((_,n)=>`<button type="button" data-student-index="${n}" aria-label="Ver fotografía ${n+1}" aria-current="${n===index}"></button>`).join('');play.textContent=playing?'Ⅱ Pausar':'▶ Reproducir';play.disabled=slides.length<2;}
  function show(next,animate=true){
-  clearTimeout(timer);const serial=++revision;index=(next+slides.length)%slides.length;const slide=slides[index];
+  clearTimeout(timer);const direction=next<index?-1:1,serial=++revision;index=(next+slides.length)%slides.length;const slide=slides[index];
+  stage.querySelectorAll('.is-leaving').forEach(el=>el.remove());
   stage.querySelectorAll('.is-entering').forEach(el=>el.remove());
   const frame=document.createElement('div');frame.className='campus-gallery-frame is-entering';
   if(slide.src){const img=document.createElement('img');img.src=slide.src;img.alt=slide.title;img.decoding='async';frame.append(img);}
@@ -3851,9 +3858,12 @@ function campusIniciarGaleria(){
    if(serial!==revision){frame.remove();return;}
    const old=[...stage.querySelectorAll('.campus-gallery-frame')].filter(el=>el!==frame);
    caption.textContent=slide.title;controls();
-   frame.getBoundingClientRect();frame.classList.remove('is-entering');
-   old.forEach(el=>{el.classList.add('is-leaving');setTimeout(()=>el.remove(),reduced.matches||!animate?0:900);});
-   if(reduced.matches||!animate)frame.style.transition='none';
+   frame.classList.remove('is-entering');frame.style.zIndex='1';
+   if(reduced.matches||!animate||!frame.animate){old.forEach(el=>el.remove());schedule();return;}
+   const timing={duration:1000,easing:'cubic-bezier(.2,.75,.25,1)'};
+   frame.animate([{transform:`translateX(${direction*100}%)`},{transform:'translateX(0)'}],timing);
+   caption.animate?.([{transform:`translateX(${direction*65}px)`},{transform:'translateX(0)'}],{...timing,duration:850});
+   old.forEach(el=>{el.style.zIndex='0';el.classList.add('is-leaving');el.animate([{transform:'translateX(0)'},{transform:`translateX(${-direction*100}%)`}],{...timing,fill:'forwards'}).finished.then(()=>el.remove()).catch(()=>el.remove());});
    schedule();
   };
   const photo=frame.querySelector('img');
@@ -3866,18 +3876,24 @@ function campusIniciarGaleria(){
  campusGaleriaController={setSlides(value){slides=campusNormalizarGaleria(value);index=Math.min(index,slides.length-1);show(index,false);}};
  show(0,false);
 }
-function campusTransicionNoticia(stage,previous){
+function campusTransicionNoticia(stage,previous,direction=1){
  if(!previous||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  const incoming=stage.querySelector('.news-carousel-slide');if(!incoming)return;
  previous.classList.add('news-transition-out');previous.setAttribute('aria-hidden','true');previous.inert=true;previous.removeAttribute('id');previous.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));stage.append(previous);
  let started=false;
- const fade=()=>{if(started)return;started=true;if(!previous.isConnected)return;if(previous.animate){previous.animate([{opacity:1,transform:'scale(1)'},{opacity:0,transform:'scale(1.025)'}],{duration:850,easing:'ease',fill:'forwards'}).finished.then(()=>previous.remove()).catch(()=>previous.remove());}else previous.remove();};
- const photo=incoming.querySelector('img');if(photo&&!photo.complete){photo.addEventListener('load',fade,{once:true});photo.addEventListener('error',fade,{once:true});setTimeout(fade,2500);}else fade();
+ const slide=()=>{
+  if(started)return;started=true;if(!previous.isConnected)return;
+  if(!incoming.animate){previous.remove();return;}
+  const timing={duration:950,easing:'cubic-bezier(.2,.75,.25,1)'};
+  incoming.animate([{transform:`translateX(${direction*100}%)`},{transform:'translateX(0)'}],timing);
+  previous.animate([{transform:'translateX(0)'},{transform:`translateX(${-direction*100}%)`}],{...timing,fill:'forwards'}).finished.then(()=>previous.remove()).catch(()=>previous.remove());
+ };
+ const photo=incoming.querySelector('img');if(photo&&!photo.complete){photo.addEventListener('load',slide,{once:true});photo.addEventListener('error',slide,{once:true});setTimeout(slide,2500);}else slide();
 }
 function campusEditarGaleria(){
  if(!esAdmin()){mostrarToast('Solo el administrador puede editar las imágenes de portada.');return;}
  campusGaleriaBorrador=campusNormalizarGaleria(campusPortadaActual.galeria);campusGaleriaCargando=false;
- abrirModalGenerico(`<button type="button" class="modal-close" onclick="cerrarModal('modalDinamico')" aria-label="Cerrar editor">×</button><h3>Imágenes del carrusel de portada</h3><p>Reemplaza el espacio vacío, cambia las imágenes o añade hasta 12. El carrusel cambia cada 5 segundos con un fundido suave.</p><p style="margin:12px 0;font-size:.9rem">Desde Google Imágenes: abre la imagen original y copia su dirección directa (https://…). También puedes descargarla y subirla desde tus archivos. Un enlace de búsqueda de Google no es una imagen.</p><form id="campusGalleryForm" onsubmit="campusGuardarGaleria(event)"><div id="campusGalleryRows" class="campus-gallery-editor"></div><p id="campusGalleryStatus" role="status"></p><div class="campus-gallery-editor-actions"><button type="button" class="btn btn-white" onclick="campusAnadirImagen()">+ Añadir espacio</button><button type="submit" class="btn btn-accent">Guardar imágenes</button><button type="button" class="btn btn-white" onclick="cerrarModal('modalDinamico')">Cancelar</button></div></form>`);
+ abrirModalGenerico(`<button type="button" class="modal-close" onclick="cerrarModal('modalDinamico')" aria-label="Cerrar editor">×</button><h3>Imágenes del carrusel de portada</h3><p>Reemplaza el espacio vacío, cambia las imágenes o añade hasta 12. El carrusel cambia cada 5 segundos con un deslizamiento lateral.</p><p style="margin:12px 0;font-size:.9rem">Desde Google Imágenes: abre la imagen original y copia su dirección directa (https://…). También puedes descargarla y subirla desde tus archivos. Un enlace de búsqueda de Google no es una imagen.</p><form id="campusGalleryForm" onsubmit="campusGuardarGaleria(event)"><div id="campusGalleryRows" class="campus-gallery-editor"></div><p id="campusGalleryStatus" role="status"></p><div class="campus-gallery-editor-actions"><button type="button" class="btn btn-white" onclick="campusAnadirImagen()">+ Añadir espacio</button><button type="submit" class="btn btn-accent">Guardar imágenes</button><button type="button" class="btn btn-white" onclick="cerrarModal('modalDinamico')">Cancelar</button></div></form>`);
  campusPintarEditorGaleria();
 }
 function campusPintarEditorGaleria(){
@@ -3978,7 +3994,7 @@ document.addEventListener('DOMContentLoaded',campusControlesPrueba);
 
 <dialog id="campusStoreDialog" class="cs-dialog" aria-label="Catálogo del campus"></dialog>
 <script src="./shared/stores.js?v=20261108-catalogo-2"></script>
-<script src="./shared/institutional.js?v=20261108-transiciones-3"></script>
+<script src="./shared/institutional.js?v=20261108-deslizamientos-4"></script>
 <script src="./shared/mobile-campus.js?v=20261109-institucional-2"></script>
 </body>
 </html>

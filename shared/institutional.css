@@ -59,3 +59,13 @@ body.campus-locked #modalLogin{background:radial-gradient(ellipse at 88% 20%,#63
 }
 @media(hover:hover) and (pointer:fine){.area-card:hover,.lab-card:hover,.cs-card:hover,.institutional-quote:hover{box-shadow:0 15px 32px #164d9220;border-color:#8dc4ec}}
 @media(prefers-reduced-motion:reduce){.institutional-menu-panel a,.topbar #mainMenu .campus-top-label,.area-card,.lab-card,.cs-card,.institutional-quote,.video-card,.kpi-card{transition:none!important}}
+
+/* Desplazamientos sólidos: sin fundidos de entrada ni destellos. */
+#inicio .hero-grid>div:first-child>*,.sec-title-wrap,.area-card,.lab-card,.news-card,.reg-card,.kpi-card,.labs-group-header,.almanaque-toolbar,.almanaque-wrap{animation:none!important}
+.campus-gallery-frame,.campus-gallery-frame.is-entering,.campus-gallery-frame.is-leaving{opacity:1!important;transform:none;transition:none!important}
+.campus-gallery-frame.is-entering{visibility:hidden}
+.campus-student-stage,.news-carousel-stage{overflow:hidden;isolation:isolate}
+.news-carousel-slide,.campus-gallery-frame{backface-visibility:hidden}
+.institutional-menu-panel{overflow-x:hidden}
+.ui-ripple{display:none!important}
+@media(prefers-reduced-motion:reduce){.campus-gallery-frame,.news-carousel-slide{transform:none!important}}
