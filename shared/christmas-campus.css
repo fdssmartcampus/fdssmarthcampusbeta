@@ -70,3 +70,11 @@ body.campus-locked #modalLogin .owl-icon{width:42px!important;height:72px!import
 .campus-gallery-admin{display:flex;justify-content:flex-end;margin-bottom:12px}
 .campus-gallery-admin[hidden]{display:none!important}
 @media(max-width:600px){#inicio #campusStudentGallery.wrap{max-width:1200px!important;width:calc(100% - 32px)!important}#inicio .campus-student-stage .campus-student-caption{padding:16px!important}#inicio .campus-student-controls{gap:8px}#inicio .campus-student-dots{order:4;width:100%}}
+
+/* The homepage gallery spans the section and keeps each photograph complete. */
+#inicio #campusStudentGallery.wrap{width:100%!important;max-width:none!important;margin:28px 0 0!important;padding:0 0 28px!important}
+#inicio .campus-student-stage{border-radius:0!important}
+#inicio .campus-student-stage .campus-gallery-frame{aspect-ratio:auto!important;align-self:start}
+#inicio .campus-student-stage .campus-gallery-frame img{position:relative!important;inset:auto!important;width:100%!important;height:auto!important;max-height:none!important;display:block!important;object-fit:contain!important}
+#inicio .campus-gallery-admin{margin-inline:24px}
+@media(max-width:600px){#inicio #campusStudentGallery.wrap{width:100%!important;max-width:none!important;margin:20px 0 0!important}}
