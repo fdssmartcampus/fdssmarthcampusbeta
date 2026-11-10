@@ -30,13 +30,40 @@
    row.insertAdjacentHTML('beforeend','<svg class="section-santa" viewBox="0 0 140 185"><use href="#campusSanta"/></svg>');section.prepend(row);
   }
  }
- function init(){decorate();sync();
+
+ function animateTree(){
+  document.querySelectorAll('.holiday-scene svg').forEach(svg=>{
+   const ribbon=svg.querySelector('.tree-line');
+   if(ribbon&&!svg.querySelector('.tree-running-light')){
+    const light=ribbon.cloneNode(false);light.setAttribute('class','tree-running-light');light.setAttribute('stroke','#fff5be');light.setAttribute('stroke-width','3.2');light.setAttribute('aria-hidden','true');ribbon.after(light);
+   }
+   svg.querySelectorAll('circle[fill]').forEach((bulb,index)=>{
+    if(!/^#/.test(bulb.getAttribute('fill')||''))return;
+    bulb.classList.add('tree-bulb');bulb.style.setProperty('--light-delay',(-index*.65)+'s');
+   });
+  });
+ }
+ function decorateLogos(){
+  document.querySelectorAll('.fds-brand-image,.cm-brand>img').forEach(image=>{
+   let host=image.closest('.owl-icon');
+   if(!host){
+    if(image.parentElement.classList.contains('campus-logo-lit'))return;
+    host=document.createElement('span');host.className='campus-logo-shell';image.before(host);host.append(image);
+   }
+   if(host.classList.contains('campus-logo-lit'))return;
+   host.classList.add('campus-logo-lit');
+   const wire=document.createElement('span');wire.className='campus-logo-lights';wire.setAttribute('aria-hidden','true');
+   for(let i=0;i<10;i++){const bulb=document.createElement('i');bulb.style.setProperty('--bulb',i);wire.append(bulb);}
+   host.append(wire);
+  });
+ }
+ function init(){decorate();sync();animateTree();decorateLogos();
   document.querySelectorAll('.topbar .fds-brand-image,.site-footer .fds-brand-image,.admin-sidebar .fds-brand-image,.cm-brand img').forEach(image=>{image.src=nightLogo;});
   const title=document.getElementById('heroTitleText');
   const formatDefaultTitle=()=>{if(title&&/^FDS SMART CAMPUS\s+CIENCIA E INNOVACIÓN$/i.test(title.textContent.trim())){title.replaceChildren(document.createTextNode('Ciencia e '),document.createElement('br'));const emphasis=document.createElement('span');emphasis.textContent='innovación.';title.append(emphasis);}};
   if(title){formatDefaultTitle();new MutationObserver(formatDefaultTitle).observe(title,{childList:true,characterData:true,subtree:true});}
   // The institutional module creates additional sections at DOMContentLoaded.
-  document.addEventListener('campus:route',decorate);
+  document.addEventListener('campus:route',()=>{decorate();decorateLogos();});
   const host=document.getElementById('vistaPublica');if(host)new MutationObserver(records=>{if(records.some(r=>[...r.addedNodes].some(n=>n.nodeType===1&&n.matches('section'))))decorate();}).observe(host,{childList:true});
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();

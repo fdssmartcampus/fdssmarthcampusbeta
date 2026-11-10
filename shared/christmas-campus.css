@@ -78,3 +78,27 @@ body.campus-locked #modalLogin .owl-icon{width:42px!important;height:72px!import
 #inicio .campus-student-stage .campus-gallery-frame img{position:relative!important;inset:auto!important;width:100%!important;height:auto!important;max-height:none!important;display:block!important;object-fit:contain!important}
 #inicio .campus-gallery-admin{margin-inline:24px}
 @media(max-width:600px){#inicio #campusStudentGallery.wrap{width:100%!important;max-width:none!important;margin:20px 0 0!important}}
+
+/* Continuous Christmas lighting, with slow staggered pulses. */
+.holiday-scene .tree-line{animation:campusTreeRibbonGlow 4s ease-in-out infinite}
+.holiday-scene .tree-running-light{stroke-dasharray:3 32;animation:campusTreeLightsTravel 7s linear infinite;filter:drop-shadow(0 0 4px #ffe79b)}
+.holiday-scene .tree-star{transform-box:fill-box;transform-origin:center;animation:campusTreeStarPulse 3.2s ease-in-out infinite}
+.holiday-scene .tree-bulb{animation:campusTreeBulbPulse 2.8s ease-in-out infinite;animation-delay:var(--light-delay,0s);transform-box:fill-box;transform-origin:center}
+.holiday-scene .tree-twinkle{animation:campusTreeSparkle 3.6s ease-in-out infinite;animation-delay:var(--delay,0s)}
+@keyframes campusTreeLightsTravel{from{stroke-dashoffset:0}to{stroke-dashoffset:-280}}
+@keyframes campusTreeRibbonGlow{0%,100%{filter:drop-shadow(0 0 1px #e8bb69);opacity:.7}50%{filter:drop-shadow(0 0 7px #ffe29b);opacity:1}}
+@keyframes campusTreeStarPulse{0%,100%{opacity:.65;transform:scale(.95);filter:drop-shadow(0 0 2px #ffd573)}50%{opacity:1;transform:scale(1.12);filter:drop-shadow(0 0 13px #ffe6a0)}}
+@keyframes campusTreeBulbPulse{0%,100%{opacity:.3;filter:drop-shadow(0 0 0 transparent);transform:scale(.85)}50%{opacity:1;filter:drop-shadow(0 0 8px #ffdc85);transform:scale(1.15)}}
+@keyframes campusTreeSparkle{0%,100%{opacity:.2}50%{opacity:1;filter:drop-shadow(0 0 5px #fff0ba)}}
+.campus-logo-lit{position:relative!important;overflow:visible!important;isolation:isolate}
+.campus-logo-shell{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:58px}
+.cm-brand>.campus-logo-shell{width:32px;height:56px}
+.campus-logo-shell img{width:100%!important;height:100%!important;object-fit:contain!important}
+.campus-logo-lights{position:absolute;inset:-5px;pointer-events:none;z-index:2;border:1px solid #8eac844d;border-radius:45%;transform:rotate(-6deg)}
+.campus-logo-lights i{position:absolute;display:block;width:4px;height:5px;border-radius:50%;background:#ffe18a;color:#ffe18a;box-shadow:0 0 6px currentColor;animation:campusLogoLightPulse 2.8s ease-in-out infinite;animation-delay:calc(var(--bulb)*-.47s)}
+.campus-logo-lights i:nth-child(3n+1){color:#ff8981;background:currentColor}
+.campus-logo-lights i:nth-child(3n+2){color:#8ce2b8;background:currentColor}
+.campus-logo-lights i:nth-child(1){left:22%;top:0}.campus-logo-lights i:nth-child(2){right:22%;top:0}.campus-logo-lights i:nth-child(3){right:1%;top:22%}.campus-logo-lights i:nth-child(4){right:-3%;top:46%}.campus-logo-lights i:nth-child(5){right:4%;bottom:19%}.campus-logo-lights i:nth-child(6){right:27%;bottom:-2%}.campus-logo-lights i:nth-child(7){left:22%;bottom:0}.campus-logo-lights i:nth-child(8){left:0;bottom:23%}.campus-logo-lights i:nth-child(9){left:-3%;top:42%}.campus-logo-lights i:nth-child(10){left:1%;top:19%}
+@keyframes campusLogoLightPulse{0%,15%,85%,100%{opacity:.2;box-shadow:0 0 0 currentColor}40%,60%{opacity:1;box-shadow:0 0 7px 1px currentColor}}
+html[data-campus-motion=paused] .tree-running-light,html[data-campus-motion=paused] .tree-bulb,html[data-campus-motion=paused] .tree-line,html[data-campus-motion=paused] .campus-logo-lights i{animation-play-state:paused!important}
+@media(prefers-reduced-motion:reduce){.holiday-scene .tree-running-light,.holiday-scene .tree-star,.holiday-scene .tree-bulb,.holiday-scene .tree-line,.holiday-scene .tree-twinkle,.campus-logo-lights i{animation:none!important;transform:none!important;opacity:1;filter:none}.campus-logo-lights i{box-shadow:0 0 3px currentColor}}
