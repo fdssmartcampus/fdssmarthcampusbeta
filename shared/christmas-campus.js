@@ -4,7 +4,9 @@
  const root=document.documentElement;
  const nightLogo=new URL('../assets/brand/sello-fds-nocturno.svg?v=20261110-1',document.currentScript.src).href;
  let season='christmas',paused=matchMedia('(prefers-reduced-motion:reduce)').matches;
- try{season=localStorage.getItem('fds-season')==='classic'?'classic':'christmas';paused=paused||localStorage.getItem('fds-season-paused')==='true';}catch{}
+ // Keep Christmas decorations enabled; respect the device's reduced-motion setting.
+ const motion=matchMedia('(prefers-reduced-motion:reduce)');
+ motion.addEventListener?.('change',event=>{paused=event.matches;sync();});
  function sync(){root.dataset.season=season;root.dataset.campusMotion=paused?'paused':'running';document.querySelectorAll('[data-campus-season]').forEach(b=>{b.setAttribute('aria-pressed',String(season==='christmas'));b.textContent=season==='christmas'?'Navidad activada':'Activar Navidad';});document.querySelectorAll('button[data-campus-motion]').forEach(b=>{b.setAttribute('aria-pressed',String(paused));b.textContent=paused?'Reanudar adornos':'Pausar adornos';});}
  sync();
  const presents=[['El regalo de aprender','Cada idea nueva amplía lo que puedes hacer. Sigue dando tu próximo paso.'],['El regalo de compartir','Lo que sabes puede ayudar a alguien más. Crecemos cuando aprendemos juntos.'],['El regalo de la constancia','Un pequeño esfuerzo cada día puede convertirse en una gran oportunidad.'],['El regalo de creer en ti','Reconoce lo que has avanzado. Todavía tienes mucho por descubrir.']];
@@ -39,3 +41,4 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
+
