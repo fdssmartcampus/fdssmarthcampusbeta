@@ -2,6 +2,7 @@
 /* Seasonal presentation: no credentials, session changes, database writes or demo records. */
 (()=>{
  const root=document.documentElement;
+ const nightLogo=new URL('../assets/brand/sello-fds-nocturno.svg?v=20261110-1',document.currentScript.src).href;
  let season='christmas',paused=matchMedia('(prefers-reduced-motion:reduce)').matches;
  try{season=localStorage.getItem('fds-season')==='classic'?'classic':'christmas';paused=paused||localStorage.getItem('fds-season-paused')==='true';}catch{}
  function sync(){root.dataset.season=season;root.dataset.campusMotion=paused?'paused':'running';document.querySelectorAll('[data-campus-season]').forEach(b=>{b.setAttribute('aria-pressed',String(season==='christmas'));b.textContent=season==='christmas'?'Navidad activada':'Activar Navidad';});document.querySelectorAll('button[data-campus-motion]').forEach(b=>{b.setAttribute('aria-pressed',String(paused));b.textContent=paused?'Reanudar adornos':'Pausar adornos';});}
@@ -28,6 +29,7 @@
   }
  }
  function init(){decorate();sync();
+  document.querySelectorAll('.topbar .fds-brand-image,.site-footer .fds-brand-image,.admin-sidebar .fds-brand-image,.cm-brand img').forEach(image=>{image.src=nightLogo;});
   const title=document.getElementById('heroTitleText');
   const formatDefaultTitle=()=>{if(title&&/^FDS SMART CAMPUS\s+CIENCIA E INNOVACIÓN$/i.test(title.textContent.trim())){title.replaceChildren(document.createTextNode('Ciencia e '),document.createElement('br'));const emphasis=document.createElement('span');emphasis.textContent='innovación.';title.append(emphasis);}};
   if(title){formatDefaultTitle();new MutationObserver(formatDefaultTitle).observe(title,{childList:true,characterData:true,subtree:true});}
