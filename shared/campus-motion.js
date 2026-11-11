@@ -9,8 +9,8 @@
   const target=node.querySelector(':scope > .wrap')||node.querySelector('.sec-title-wrap,.cm-greeting,.institutional-heading')||node;
   stop(target);
   if(reduced.matches)return;
-  if(window.gsap){active.set(target,gsap.fromTo(target,{autoAlpha:.35,y:16},{autoAlpha:1,y:0,duration:.42,ease:'power2.out',clearProps:'transform,opacity,visibility',overwrite:true}));}
-  else if(target.animate)active.set(target,target.animate([{opacity:.35,transform:'translateY(16px)'},{opacity:1,transform:'translateY(0)'}],{duration:420,easing:'cubic-bezier(.22,1,.36,1)'}));
+  if(window.gsap){active.set(target,gsap.fromTo(target,{autoAlpha:0,y:20},{autoAlpha:1,y:0,duration:.55,ease:'power2.out',clearProps:'transform,opacity,visibility',overwrite:true}));}
+  else if(target.animate)active.set(target,target.animate([{opacity:0,transform:'translateY(20px)'},{opacity:1,transform:'translateY(0)'}],{duration:550,easing:'cubic-bezier(.22,1,.36,1)'}));
  }
  function open(drawer,fresh=true){
   stop(drawer);
@@ -29,8 +29,8 @@
   stop(drawer);
   window.gsap?.killTweensOf([...drawer.querySelectorAll('.cm-menu-row,summary,.cm-drawer-head')]);
   if(immediate||reduced.matches){done();return;}
-  if(window.gsap)active.set(drawer,gsap.to(drawer,{opacity:0,y:-16,duration:.18,ease:'power2.in',onComplete:done,overwrite:true}));
-  else if(drawer.animate){const effect=drawer.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-16px)'}],{duration:180,easing:'ease-in'});active.set(drawer,effect);effect.finished.then(done).catch(()=>{});}
+  if(window.gsap)active.set(drawer,gsap.to(drawer,{opacity:0,y:-16,duration:.18,ease:'power2.out',onComplete:done,overwrite:true}));
+  else if(drawer.animate){const effect=drawer.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(-16px)'}],{duration:180,easing:'ease-out'});active.set(drawer,effect);effect.finished.then(done).catch(()=>{});}
   else done();
  }
  function clear(drawer){stop(drawer);drawer.style.removeProperty('opacity');drawer.style.removeProperty('visibility');drawer.style.removeProperty('transform');}
@@ -54,3 +54,4 @@
   requestAnimationFrame(()=>screen(document.getElementById(event.detail.target)||document.getElementById(event.detail.route)));
  });
 })();
+

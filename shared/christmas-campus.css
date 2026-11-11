@@ -79,6 +79,39 @@ body.campus-locked #modalLogin .owl-icon{width:42px!important;height:72px!import
 #inicio .campus-gallery-admin{margin-inline:24px}
 @media(max-width:600px){#inicio #campusStudentGallery.wrap{width:100%!important;max-width:none!important;margin:20px 0 0!important}}
 
+/* Menú continuo: el panel toca la cabecera y conserva su zona de selección. */
+.institutional-menu-panel{top:calc(100% - 2px);touch-action:pan-y;transform-origin:top left}
+
+/* Noticias a todo el ancho, con la imagen completa dentro del banner. */
+#noticias > .wrap{width:100%!important;max-width:none!important}
+#noticias .sec-title-wrap{max-width:1280px;width:calc(100% - 48px);margin-inline:auto}
+#noticias .news-carousel{width:100%;border-radius:0!important;box-shadow:none}
+#noticias .news-carousel-slide{height:clamp(420px,42vw,760px)!important;min-height:0!important}
+#noticias .news-carousel-figure img{object-fit:contain!important;object-position:center;background:#0c2e49}
+#noticias .news-carousel-copy{max-width:700px}
+
+/* Comunidad académica: una fila de fotografías estable y controles visibles. */
+#inicio .campus-student-stage{position:relative!important;display:grid!important;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;overflow:hidden;touch-action:pan-y pinch-zoom}
+#inicio .campus-student-stage .campus-gallery-frame{grid-area:1/1;position:relative!important;inset:auto!important;aspect-ratio:16/7!important;width:100%;height:clamp(240px,40vw,680px);align-self:stretch;opacity:1;background:#0b2944;transition:opacity .6s ease!important}
+#inicio .campus-student-stage .campus-gallery-frame.is-entering,#inicio .campus-student-stage .campus-gallery-frame.is-leaving{opacity:0}
+#inicio .campus-student-stage .campus-gallery-frame img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-height:none!important;object-fit:contain!important}
+#inicio .campus-student-stage .campus-student-caption{grid-area:2/1;max-width:none!important;padding:24px clamp(20px,5vw,96px)!important}
+.campus-gallery-placeholder{display:grid;place-items:center;height:100%;padding:24px;text-align:center;color:#fff;font-size:26px}
+#inicio .campus-student-controls{display:flex!important;position:relative!important;inset:auto!important;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;padding:0 20px;min-height:52px}
+#inicio .campus-student-controls button{min-height:44px;min-width:44px;border:1px solid #b6ceda66;border-radius:4px;background:#ffffff10;color:#fff;cursor:pointer;transition:background-color .18s ease,transform .18s ease}
+#inicio .campus-student-controls button:hover{background:#ffffff25}
+#inicio .campus-student-controls button:active{transform:scale(.97)!important}
+#inicio .campus-student-controls button:focus-visible{outline:3px solid #ffdb79;outline-offset:3px}
+#inicio .campus-student-controls button:disabled{opacity:.45;cursor:default}
+#inicio .campus-student-controls .campus-student-play{padding:8px 14px;font-size:18px}
+#inicio .campus-student-dots{display:flex;gap:2px}
+#inicio .campus-student-dots button{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:0;background:transparent!important;padding:0}
+#inicio .campus-student-dots button::before{content:'';width:8px;height:8px;border-radius:50%;background:#93afbf;transition:background-color .18s ease,transform .18s ease}
+#inicio .campus-student-dots button[aria-current=true]::before{background:#ffdb79;transform:scale(1.4)}
+.campus-student-counter{color:#e2edf3;font-size:17px;font-variant-numeric:tabular-nums;min-width:44px;text-align:center}
+@media(max-width:760px){#noticias .news-carousel-slide{height:auto!important;min-height:570px!important}#noticias .sec-title-wrap{width:calc(100% - 36px)}#inicio .campus-student-stage .campus-gallery-frame{height:clamp(230px,63vw,470px);aspect-ratio:16/10!important}#inicio .campus-student-controls{gap:6px}#inicio .campus-student-dots{order:4;width:100%;flex-wrap:wrap;justify-content:center}}
+@media(prefers-reduced-motion:reduce){#inicio .campus-student-stage .campus-gallery-frame,#inicio .campus-student-controls button{transition:none!important}}
+
 /* Continuous Christmas lighting, with slow staggered pulses. */
 .holiday-scene .tree-line{animation:campusTreeRibbonGlow 4s ease-in-out infinite}
 .holiday-scene .tree-running-light{stroke-dasharray:3 32;animation:campusTreeLightsTravel 7s linear infinite;filter:drop-shadow(0 0 4px #ffe79b)}
@@ -102,3 +135,4 @@ body.campus-locked #modalLogin .owl-icon{width:42px!important;height:72px!import
 @keyframes campusLogoLightPulse{0%,15%,85%,100%{opacity:.2;box-shadow:0 0 0 currentColor}40%,60%{opacity:1;box-shadow:0 0 7px 1px currentColor}}
 html[data-campus-motion=paused] .tree-running-light,html[data-campus-motion=paused] .tree-bulb,html[data-campus-motion=paused] .tree-line,html[data-campus-motion=paused] .campus-logo-lights i{animation-play-state:paused!important}
 @media(prefers-reduced-motion:reduce){.holiday-scene .tree-running-light,.holiday-scene .tree-star,.holiday-scene .tree-bulb,.holiday-scene .tree-line,.holiday-scene .tree-twinkle,.campus-logo-lights i{animation:none!important;transform:none!important;opacity:1;filter:none}.campus-logo-lights i{box-shadow:0 0 3px currentColor}}
+

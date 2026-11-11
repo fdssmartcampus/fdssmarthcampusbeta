@@ -52,7 +52,7 @@
 <link rel="stylesheet" href="./shared/institutional.css?v=20261109-speed-1">
 <link rel="stylesheet" href="./shared/mobile-campus.css?v=20261109-speed-1">
 <link rel="stylesheet" href="./shared/christmas-fonts.css?v=20261110-1">
-<link rel="stylesheet" href="./shared/christmas-campus.css?v=20261111-1">
+<link rel="stylesheet" href="./shared/christmas-campus.css?v=20261111-interaction-3">
 <script src="./shared/campus-semesters.js?v=20261110-1"></script>
 <link rel="stylesheet" href="./shared/christmas-luxe.css?v=20261111-2">
 </head>
@@ -132,8 +132,15 @@
 
       </div>
 <div class="festive-shelf" aria-label="Regalos navideños"><svg class="santa-character" viewBox="0 0 140 185" aria-hidden="true"><use href="#campusSanta"/></svg><div class="gift-group"><span aria-hidden="true" class="gift-wrap pattern" style="--w:42px;--h:40px;--gift:#c19c44;--gift-light:#f2d38c;--gift-dark:#91732a"><i class="gift-ribbon" aria-hidden="true"></i></span><button type="button" data-gift="1" aria-label="Abrir regalo navideño 2" class="gift-wrap gift-button" style="--w:55px;--h:57px;--gift:#326fa4;--gift-light:#8bb8df;--gift-dark:#194a79"><i class="gift-ribbon" aria-hidden="true"></i></button><span aria-hidden="true" class="gift-wrap" style="--w:39px;--h:49px;--gift:#8e569d;--gift-light:#c79bd0;--gift-dark:#603d74"><i class="gift-ribbon" aria-hidden="true"></i></span><button type="button" data-gift="3" aria-label="Abrir regalo navideño 4" class="gift-wrap gift-button pattern" style="--w:48px;--h:38px;--gift:#36a2ad;--gift-light:#8ed3da;--gift-dark:#216d7b"><i class="gift-ribbon" aria-hidden="true"></i></button><span aria-hidden="true" class="gift-wrap" style="--w:57px;--h:63px;--gift:#a9324b;--gift-light:#e17c85;--gift-dark:#772239"><i class="gift-ribbon" aria-hidden="true"></i></span><span aria-hidden="true" class="gift-wrap" style="--w:38px;--h:45px;--gift:#237968;--gift-light:#70b9a1;--gift-dark:#155244"><i class="gift-ribbon" aria-hidden="true"></i></span><span aria-hidden="true" class="gift-wrap pattern" style="--w:47px;--h:54px;--gift:#c19c44;--gift-light:#f2d38c;--gift-dark:#91732a"><i class="gift-ribbon" aria-hidden="true"></i></span><span aria-hidden="true" class="gift-wrap" style="--w:43px;--h:35px;--gift:#326fa4;--gift-light:#8bb8df;--gift-dark:#194a79"><i class="gift-ribbon" aria-hidden="true"></i></span></div><svg class="santa-character mirror" viewBox="0 0 140 185" aria-hidden="true"><use href="#campusSanta"/></svg></div><p class="campus-christmas-note"><span aria-hidden="true">✧</span> Que esta Navidad nos encuentre aprendiendo juntos.</p>
-      <section class="wrap campus-student-gallery" id="campusStudentGallery" role="region" aria-roledescription="carrusel" aria-label="Comunidad académica">
-        <div class="campus-gallery-admin" data-gallery-admin hidden><button type="button" class="btn btn-accent btn-sm" onclick="campusEditarGaleria()">Añadir o cambiar imágenes</button></div><div class="campus-student-stage"><img id="campusStudentImage" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=85" alt="Grupo de estudiantes aprendiendo juntos" loading="lazy" decoding="async"><div class="campus-student-caption"><span>Comunidad académica</span><h2 id="campusStudentCaption">Aprender y compartir conocimiento</h2></div></div>
+      <section class="wrap campus-student-gallery" id="campusStudentGallery" data-fallback-image="./poster.jpg" tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Comunidad académica">
+        <div class="campus-gallery-admin" data-gallery-admin hidden><button type="button" class="btn btn-accent btn-sm" onclick="campusEditarGaleria()">Añadir o cambiar imágenes</button></div><div class="campus-student-stage" id="campusStudentStage" role="group" aria-roledescription="diapositiva"><img id="campusStudentImage" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=85" alt="Grupo de estudiantes aprendiendo juntos" loading="lazy" decoding="async"><div class="campus-student-caption"><span>Comunidad académica</span><h2 id="campusStudentCaption">Aprender y compartir conocimiento</h2></div></div>
+        <div class="campus-student-controls" role="group" aria-label="Controles del carrusel de la comunidad">
+          <button type="button" class="campus-student-arrow" data-student-step="-1" aria-label="Foto anterior de la comunidad" aria-controls="campusStudentStage">❮</button>
+          <div class="campus-student-dots" aria-label="Elegir foto de la comunidad"></div>
+          <button type="button" class="campus-student-arrow" data-student-step="1" aria-label="Foto siguiente de la comunidad" aria-controls="campusStudentStage">❯</button>
+          <span class="campus-student-counter" data-student-counter aria-live="off"></span>
+          <button type="button" class="campus-student-play" id="campusStudentPlay" aria-pressed="true">Ⅱ Pausar</button>
+        </div>
         </section>
 
     </section>
@@ -2593,8 +2600,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 (() => {
  'use strict';
  function boot() {
-  if(document.documentElement.dataset.campusMotion) return;
-  document.documentElement.dataset.campusMotion='ready';
+  if(document.documentElement.dataset.campusReveals) return;
+  document.documentElement.dataset.campusReveals='ready';
   const preference=window.matchMedia('(prefers-reduced-motion: reduce)');
   const animations=new Set();
   const perElement=new WeakMap();
@@ -2609,18 +2616,28 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
   preference.addEventListener?.('change',()=>{if(preference.matches) [...animations].forEach(a=>a.cancel());});
   function enter(element,delay=0) {
-   play(element,[{opacity:0},{opacity:1}],{duration:1100,delay,fill:'backwards',easing:'ease-in-out'});
+   if(preference.matches||document.body.classList.contains('campus-locked')||!element?.getClientRects().length)return false;
+   if(window.gsap){
+    perElement.get(element)?.cancel();
+    let effect;const clean=()=>{animations.delete(effect);if(perElement.get(element)===effect)perElement.delete(element);};
+    const tween=gsap.fromTo(element,{autoAlpha:0,y:18},{autoAlpha:1,y:0,duration:.65,delay:delay/1000,ease:'power2.out',overwrite:'auto',clearProps:'transform,opacity,visibility',onComplete:clean});
+    effect={cancel(){tween.progress(1).kill();clean();}};perElement.set(element,effect);animations.add(effect);
+   }else play(element,[{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'translateY(0)'}],{duration:650,delay,fill:'backwards',easing:'cubic-bezier(.22,1,.36,1)'});
+   return true;
   }
   let reveal;const motionSelector='#inicio .hero-grid>div:first-child,.sec-title-wrap,.area-card,.lab-card,.video-card,.news-carousel-host,.institutional-heading,.institutional-quote,.institutional-video-media,.institutional-video-copy,.cs-heading,.cs-tools,.cs-card,.cs-hero-copy,.cs-hero img,.reg-card,.register-boxes,.kpi-card,.footer-grid,.campus-filter-panel,.almanaque-toolbar';
   function observeNewContent(node){if(!reveal||node.nodeType!==1||node.namespaceURI==='http://www.w3.org/2000/svg')return;if(node.matches(motionSelector))reveal.observe(node);node.querySelectorAll(motionSelector).forEach(el=>reveal.observe(el));}
   // Observe visibility only; never replace or wrap the existing business functions.
+  const visibilityState=new WeakMap();
   const visibility=new MutationObserver(records=>{
    for(const r of records) {
-    const element=r.target;
-    if(element.style.display!=='none' && element.getClientRects().length) enter(element.matches('.modal-backdrop')?element.querySelector('.modal-box'):element);
+    const element=r.target,display=element.style.display;
+    if(visibilityState.get(element)===display)continue;
+    visibilityState.set(element,display);
+    if(display!=='none' && element.getClientRects().length) enter(element.matches('.modal-backdrop')?element.querySelector('.modal-box'):element);
    }
   });
-  document.querySelectorAll('.panel-tab,.modal-backdrop').forEach(el=>visibility.observe(el,{attributes:true,attributeFilter:['style']}));
+  document.querySelectorAll('.panel-tab,.modal-backdrop').forEach(el=>{visibilityState.set(el,el.style.display);visibility.observe(el,{attributes:true,attributeFilter:['style']});});
   const renderTargets=new Set(); let renderFrame=0;
   const renderObserver=new MutationObserver(records=>{
    if(document.body.classList.contains('campus-locked'))return;
@@ -2644,11 +2661,12 @@ document.addEventListener('DOMContentLoaded',()=>{
    const introduced=new WeakSet();
    reveal=new IntersectionObserver(entries=>{
     let sequence=0;
-    for(const e of entries) if(e.isIntersecting&&!introduced.has(e.target)){introduced.add(e.target);enter(e.target,Math.min(sequence++*85,255));}
+    for(const e of entries) if(e.isIntersecting&&!introduced.has(e.target)&&enter(e.target,Math.min(sequence++*70,210))){introduced.add(e.target);reveal.unobserve(e.target);}
    },{threshold:.08});
    observeNewContent(document.body);
-   let wasLocked=document.body.classList.contains('campus-locked');new MutationObserver(()=>{const locked=document.body.classList.contains('campus-locked');if(wasLocked&&!locked)observeNewContent(document.body);wasLocked=locked;}).observe(document.body,{attributes:true,attributeFilter:['class']});
+   let wasLocked=document.body.classList.contains('campus-locked');new MutationObserver(()=>{const locked=document.body.classList.contains('campus-locked');if(wasLocked&&!locked){document.querySelectorAll(motionSelector).forEach(el=>{if(!introduced.has(el)){reveal.unobserve(el);reveal.observe(el);}});}wasLocked=locked;}).observe(document.body,{attributes:true,attributeFilter:['class']});
    document.addEventListener('campus:route',event=>requestAnimationFrame(()=>{
+    if(window.CampusMotion)return;
     const screen=document.body.dataset.cmScreen;
     const host=screen&&screen!=='home'&&screen!=='panel'?document.getElementById(screen):document.getElementById(event.detail?.target)||document.getElementById('inicio');
     if(host?.getClientRects().length){const content=host.matches(motionSelector)?host:host.querySelector('.sec-title-wrap,.institutional-heading,.cs-heading,.almanaque-toolbar,.hero-grid>div:first-child')||host;enter(content);}
@@ -3065,36 +3083,67 @@ function campusIniciarGaleria(){
  const root=document.getElementById('campusStudentGallery');if(!root)return;
  if(campusGaleriaController){campusGaleriaController.setSlides(campusNormalizarGaleria(campusPortadaActual.galeria));return;}
  const stage=root.querySelector('.campus-student-stage'),caption=document.getElementById('campusStudentCaption');
- stage.querySelector('img')?.remove();
- const reduced=matchMedia('(prefers-reduced-motion: reduce)');let slides=campusDiapositivasVisibles(campusPortadaActual.galeria),index=0,timer,visible=false,playing=!reduced.matches,revision=0,pending=true;
- const schedule=()=>{clearTimeout(timer);if(playing&&visible&&!document.hidden&&!document.body.classList.contains('campus-locked')&&slides.length>1)timer=setTimeout(()=>show(index+1),5000);};
- function controls(){const adminTools=root.querySelector('[data-gallery-admin]');if(adminTools)adminTools.hidden=!esAdmin();}
+ const initial=stage.querySelector(':scope > img');
+ if(initial){const frame=document.createElement('div');frame.className='campus-gallery-frame';initial.before(frame);frame.append(initial);}
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ const dots=root.querySelector('.campus-student-dots'),counter=root.querySelector('[data-student-counter]'),play=root.querySelector('#campusStudentPlay');
+ let slides=campusDiapositivasVisibles(campusPortadaActual.galeria),index=0,timer,visible=false,playing=!reduced.matches,revision=0,pending=true,hovered=false,focused=false,touchStart=null;
+ const schedule=()=>{clearTimeout(timer);if(playing&&visible&&!hovered&&!focused&&!document.hidden&&!document.body.classList.contains('campus-locked')&&slides.length>1)timer=setTimeout(()=>show(index+1),6000);};
+ function controls(){
+  const admin=root.querySelector('[data-gallery-admin]');if(admin)admin.hidden=!esAdmin();
+  if(dots&&dots.children.length!==slides.length){dots.innerHTML=slides.map((_,n)=>'<button type="button" data-student-index="'+n+'" aria-label="Ver foto '+(n+1)+' de la comunidad" aria-controls="campusStudentStage"></button>').join('');}
+  dots?.querySelectorAll('button').forEach((b,n)=>b.setAttribute('aria-current',String(n===index)));
+  if(counter)counter.textContent=(index+1)+' / '+slides.length;
+  if(play){play.textContent=playing?'Ⅱ Pausar':'▶ Reproducir';play.setAttribute('aria-label',playing?'Pausar carrusel de la comunidad':'Reproducir carrusel de la comunidad');play.setAttribute('aria-pressed',String(playing));play.disabled=slides.length<2;}
+  root.querySelectorAll('[data-student-step]').forEach(b=>{b.disabled=slides.length<2;});
+ }
  function show(next,animate=true){
-  clearTimeout(timer);index=(next+slides.length)%slides.length;const slide=slides[index];if(!visible||document.body.classList.contains('campus-locked')){pending=true;caption.textContent=slide.title;controls();return;}pending=false;const serial=++revision;
-  stage.querySelectorAll('.is-entering').forEach(el=>el.remove());
-  const frame=document.createElement('div');frame.className='campus-gallery-frame is-entering';
-  if(slide.src){const img=document.createElement('img');img.src=campusFotoResponsiva(slide.src);img.alt=slide.title;img.decoding='async';img.fetchPriority='high';frame.append(img);}
-  else frame.innerHTML='<div class="campus-gallery-placeholder"><span>FDS SMART CAMPUS</span></div>';
-  stage.prepend(frame);
+  clearTimeout(timer);index=(next+slides.length)%slides.length;controls();const slide=slides[index];
+  if(!visible||document.body.classList.contains('campus-locked')){pending=true;return;}
+  pending=false;const serial=++revision;
+  stage.querySelectorAll('.is-entering,.is-leaving').forEach(el=>el.remove());
+  const frame=document.createElement('div');frame.className='campus-gallery-frame is-entering';frame.setAttribute('aria-hidden','true');
+  const photo=document.createElement('img');photo.alt=slide.title;photo.decoding='async';photo.fetchPriority='high';frame.append(photo);
+  let settled=false,fallback=false;
   const reveal=()=>{
+   if(settled)return;settled=true;
    if(serial!==revision){frame.remove();return;}
    const old=[...stage.querySelectorAll('.campus-gallery-frame')].filter(el=>el!==frame);
-   caption.textContent=slide.title;controls();
-   frame.getBoundingClientRect();frame.classList.remove('is-entering');
-   old.forEach(el=>{el.classList.add('is-leaving');setTimeout(()=>el.remove(),reduced.matches||!animate?0:900);});
+   caption.textContent=slide.title;frame.setAttribute('aria-hidden','false');
    if(reduced.matches||!animate)frame.style.transition='none';
-   schedule();
+   frame.getBoundingClientRect();frame.classList.remove('is-entering');
+   old.forEach(el=>{el.classList.add('is-leaving');el.setAttribute('aria-hidden','true');setTimeout(()=>el.remove(),reduced.matches||!animate?0:650);});
+   controls();schedule();
   };
-  const photo=frame.querySelector('img');
-  if(photo&&!photo.complete){photo.addEventListener('load',reveal,{once:true});photo.addEventListener('error',()=>{photo.remove();frame.innerHTML='<div class="campus-gallery-placeholder"><span>FDS SMART CAMPUS</span></div>';reveal();},{once:true});}
-  else reveal();
+  photo.addEventListener('load',reveal,{once:true});
+  photo.addEventListener('error',()=>{
+   if(serial!==revision){frame.remove();return;}
+   if(!fallback&&root.dataset.fallbackImage){fallback=true;photo.src=new URL(root.dataset.fallbackImage,document.baseURI).href;return;}
+   photo.remove();const message=document.createElement('div');message.className='campus-gallery-placeholder';message.textContent='Comunidad académica · FDS SMART CAMPUS';frame.append(message);reveal();
+  });
+  stage.prepend(frame);photo.src=campusFotoResponsiva(slide.src);
+  if(photo.complete&&photo.naturalWidth>0)reveal();
  }
-
- document.addEventListener('visibilitychange',schedule);reduced.addEventListener?.('change',()=>{playing=!reduced.matches;schedule();});
+ root.addEventListener('click',e=>{
+  const step=e.target.closest('[data-student-step]'),dot=e.target.closest('[data-student-index]');
+  if(step)show(index+Number(step.dataset.studentStep));
+  else if(dot)show(Number(dot.dataset.studentIndex));
+  else if(e.target.closest('#campusStudentPlay')){playing=!playing;controls();schedule();}
+ });
+ root.addEventListener('keydown',e=>{if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();show(index+(e.key==='ArrowRight'?1:-1));}});
+ root.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch'){hovered=true;schedule();}});
+ root.addEventListener('pointerleave',()=>{hovered=false;schedule();});
+ root.addEventListener('focusin',()=>{focused=true;schedule();});
+ root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget)){focused=false;schedule();}});
+ stage.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&e.isPrimary)touchStart={x:e.clientX,y:e.clientY};});
+ stage.addEventListener('pointerup',e=>{if(!touchStart)return;const dx=e.clientX-touchStart.x,dy=e.clientY-touchStart.y;touchStart=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)show(index+(dx<0?1:-1));});
+ stage.addEventListener('pointercancel',()=>{touchStart=null;});
+ document.addEventListener('visibilitychange',schedule);
+ reduced.addEventListener?.('change',()=>{if(reduced.matches)playing=false;controls();schedule();});
  if('IntersectionObserver' in window)new IntersectionObserver(entries=>{visible=entries.some(e=>e.isIntersecting);if(visible&&pending)show(index,false);else schedule();},{threshold:0}).observe(root);else visible=true;
  new MutationObserver(()=>{if(visible&&pending&&!document.body.classList.contains('campus-locked'))show(index,false);else schedule();}).observe(document.body,{attributes:true,attributeFilter:['class']});
  campusGaleriaController={setSlides(value){slides=campusDiapositivasVisibles(value);index=Math.min(index,slides.length-1);show(index,false);}};
- show(0,false);
+ controls();show(0,false);
 }
 function campusTransicionNoticia(stage,previous){
  if(!previous||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -3209,13 +3258,14 @@ document.addEventListener('DOMContentLoaded',campusControlesPrueba);
 
 <dialog id="campusStoreDialog" class="cs-dialog" aria-label="Novedades del campus"></dialog>
 <script src="./shared/stores.js?v=20261109-speed-1"></script>
-<script src="./shared/institutional.js?v=20261109-speed-1"></script>
+<script src="./shared/institutional.js?v=20261111-interaction-3"></script>
 <script src="./vendor/gsap.min.js?v=3.15.1"></script>
-<script src="./shared/campus-motion.js?v=20261111-1"></script>
+<script src="./shared/campus-motion.js?v=20261111-interaction-3"></script>
 <script src="./shared/mobile-campus.js?v=20261111-1"></script>
 <script src="./shared/christmas-campus.js?v=20261110-6"></script>
 <script src="./shared/christmas-luxe.js?v=20261111-2"></script>
 </body>
 </html>
+
 
 
