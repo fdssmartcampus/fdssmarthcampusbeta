@@ -3210,6 +3210,120 @@ document.addEventListener('DOMContentLoaded',campusControlesPrueba);
 <script src="../shared/mobile-campus.js?v=20261111-1"></script>
 <script src="../shared/christmas-campus.js?v=20261110-6"></script>
 <script src="../shared/christmas-luxe.js?v=20261111-2"></script>
+
+<style id="campus-typography-clarity">
+/* FDS SMART CAMPUS: legibilidad, contraste y trazos definidos. */
+:root {
+  --campus-type: Arial, "Helvetica Neue", sans-serif;
+  --font-body: var(--campus-type);
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --text: #102f46;
+  --text-muted: #354d60;
+}
+body {
+  color: var(--text);
+  font-weight: 400;
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+body :is(h1,h2,h3,h4,h5,h6),
+#inicio #heroTitleText,
+#inicio #heroTitleText span {
+  font-family: var(--font-display) !important;
+  font-weight: 600 !important;
+}
+body :is(h1,h2,h3,h4,h5,h6,p,label,small,blockquote,cite,summary),
+.news-carousel-copy p {
+  text-shadow: none !important;
+}
+/* Texto continuo y controles: trazos limpios, sin transparencias añadidas. */
+body :is(p,li,td,input,textarea,select) { font-weight: 400; }
+body :is(label,summary,.btn,.auth-profile-button,.campus-talleres-link) {
+  font-weight: 600 !important;
+}
+.sec-subtitle, .institutional-description,
+.area-card p, .lab-content p, .cs-card p,
+.schedule-note, .kpi-lab {
+  color: #354d60 !important;
+}
+.sec-kicker, .institutional-eyebrow { color: #735017 !important; }
+.form-control::placeholder,
+input::placeholder, textarea::placeholder {
+  color: #526578 !important;
+  opacity: 1;
+}
+.form-control, input[type=text], input[type=password], input[type=email], select, textarea {
+  color: #102f46 !important;
+}
+body.campus-locked #modalLogin :is(label,#institutionalLoginIntro,#gateStatus),
+body.campus-locked #modalLogin .auth-profile-selector > p,
+body.campus-locked #modalLogin .auth-profile-hint {
+  color: #264357 !important;
+  opacity: 1;
+}
+body.campus-locked #modalLogin .fds-portal-label { color: #735017 !important; }
+body.campus-locked #modalLogin .auth-profile-hint,
+body.campus-locked #modalLogin #gateStatus {
+  font-size: 16px !important;
+  line-height: 1.55 !important;
+}
+body.campus-locked #modalLogin .auth-profile-selector > p,
+body.campus-locked #modalLogin #institutionalLoginIntro,
+body.campus-locked #modalLogin label {
+  font-size: 17px !important;
+  line-height: 1.5 !important;
+}
+body.campus-locked #modalLogin input,
+body.campus-locked #modalLogin input::placeholder { font-size: 17px !important; }
+body.campus-locked #modalLogin .auth-profile-button::after {
+  color: #173e55 !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+}
+.topbar .brand-logo, .cm-brand strong, .cm-drawer-head .cm-brand strong {
+  font-weight: 700 !important;
+}
+.cm-greeting p, .cm-greeting #cmRole,
+.cm-tile small, .cm-news-preview p, .cm-campus-card small,
+.cm-menu-account small, .cm-menu-group h3, .cm-menu-footer,
+.cm-scroll-hint, .cs-card small, .cs-status {
+  color: #354d60 !important;
+}
+.cm-tile strong { font-weight: 700; }
+.cm-tile small, .cm-campus-card small, .cm-menu-account small {
+  font-size: max(14px, .82rem) !important;
+  line-height: 1.5 !important;
+}
+.cm-menu-group h3, .cm-menu-footer, .cs-status {
+  font-size: max(14px, .82rem) !important;
+}
+/* Texto sobre los fondos azul oscuro existentes. */
+#inicio #heroDescText,
+.site-footer :is(p,a,h4),
+.cm-header .cm-brand .fds-portal-label,
+.cm-drawer-head .cm-brand .fds-portal-label {
+  color: #f3f7fb !important;
+}
+#inicio #heroTitleText span {
+  background: none !important;
+  -webkit-text-fill-color: #ffdb79 !important;
+  color: #ffdb79 !important;
+}
+#inicio .campus-student-credit { color: #e4eef5 !important; }
+.campus-season-controls button { color: #ecf3f7; }
+#modalLogin .campus-season-controls button { color: #264357 !important; }
+.campus-christmas-note { color: #f8e6ba; }
+@media (max-width: 700px) {
+  body { font-size: 18px !important; }
+  .sec-subtitle, .institutional-description,
+  .area-card p, .lab-content p, .cs-card p,
+  .news-carousel-copy p, .institutional-video-copy p {
+    font-size: 18px !important;
+    line-height: 1.6 !important;
+  }
+}
+
+</style>
 </body>
 </html>
 
