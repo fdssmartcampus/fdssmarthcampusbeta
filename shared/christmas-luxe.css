@@ -1,0 +1,65 @@
+/* Photoreal material atlas: navy glass, burgundy velvet, emerald spiral, gold glass. */
+.campus-luxe-trim,.campus-luxe-hanging,.campus-drawer-season{position:relative;isolation:isolate;pointer-events:none;contain:layout style;overflow:hidden!important}
+.section-season-banner.campus-luxe-trim{width:calc(100% - 40px);max-width:1200px;min-height:0;height:163px;margin:0 auto 24px!important;padding:0;flex:none}
+.campus-luxe-trim.campus-luxe-compact{height:112px}
+#inicio.hero{padding-top:172px!important}
+#inicio > .bauble-row.campus-luxe-hanging{height:163px!important;z-index:1!important;max-width:1440px;left:50%;transform:translateX(-50%)}
+.campus-evergreen{position:absolute;left:0;right:0;top:0;width:100%;height:42px;opacity:.9;z-index:1}
+.campus-gold-cord{position:absolute;left:0;right:0;top:7px;height:18px;border-top:1px solid #b99b57;border-radius:50%;opacity:.65}
+.campus-ornament{position:absolute;left:var(--ornament-x);top:0;width:var(--ornament-size);height:calc(var(--ornament-size) + var(--ornament-drop));margin-left:calc(var(--ornament-size) / -2);transform-origin:50% 0;animation:campusLuxurySway var(--ornament-period,7s) ease-in-out infinite;animation-delay:var(--ornament-delay,0s);animation-play-state:paused}
+.campus-ornament:before{content:'';position:absolute;left:50%;top:0;width:1px;height:calc(var(--ornament-drop) + var(--ornament-size) * .065);background:linear-gradient(#e2c57d55,#e8d5a5);z-index:-1}
+.campus-ornament-sprite{position:absolute;left:0;top:var(--ornament-drop);width:var(--ornament-size);height:var(--ornament-size);background-image:url('../assets/christmas/ornaments-atlas.webp');background-size:200% 200%;background-repeat:no-repeat;filter:drop-shadow(1px 4px 4px #09283b26)}
+.campus-ornament-0{background-position:0 0}.campus-ornament-1{background-position:100% 0}.campus-ornament-2{background-position:0 100%}.campus-ornament-3{background-position:100% 100%}
+.campus-ornament-glint{position:absolute;left:25%;top:calc(var(--ornament-drop) + var(--ornament-size) * .32);width:4px;height:4px;border-radius:50%;background:#fff4ce;box-shadow:0 0 6px 2px #ffefb0;opacity:0;animation:campusLuxuryGlint 4.7s ease-in-out infinite;animation-delay:var(--ornament-delay,0s);animation-play-state:paused}
+.campus-trim-light{position:absolute;top:12px;width:4px;height:6px;border-radius:50%;background:#ffdf91;box-shadow:0 0 8px 2px #ffd67d66;z-index:2;animation:campusTrimTwinkle 3.7s ease-in-out infinite;animation-delay:var(--light-delay,0s);animation-play-state:paused}
+[data-season-visible=true] .campus-ornament,[data-season-visible=true] .campus-ornament-glint,[data-season-visible=true] .campus-trim-light{animation-play-state:running}
+.campus-drawer-season{height:105px;flex:0 0 105px;background:linear-gradient(110deg,#f7f0df,#fffdf6 50%,#edf4ed);border-bottom:1px solid #e5d7b5}
+.cm-drawer-head .cm-menu-close{color:#ffdf91!important}
+.cm-drawer[open]{will-change:transform,opacity}
+.cm-drawer::backdrop{background:#092a4740!important;backdrop-filter:blur(3px)!important}
+.cm-menu-toggle{transition:transform .18s ease,background-color .18s ease!important;touch-action:manipulation}
+.cm-menu-toggle:active{transform:scale(.93)}
+.cm-menu-row,.cm-menu-disclosure>summary{transition:background-color .16s ease,color .16s ease!important;touch-action:manipulation}
+.cm-menu-row:active,.cm-menu-disclosure>summary:active{background:#f7edcf!important}
+.cm-menu-disclosure>summary:after{content:'+';display:block!important;margin-left:auto;font-family:Arial,sans-serif;font-size:22px;color:#aa8640;transition:transform .2s ease}
+.cm-menu-disclosure[open]>summary:after{transform:rotate(45deg)}
+.cm-drawer #cmDrawerBody{flex:1;min-height:0}
+.admin-content > .panel-tab > .campus-luxe-trim{width:100%;margin:0 auto 15px!important}
+.site-footer > .campus-luxe-trim{width:min(760px,100%);margin:0 auto 20px!important}
+#modalLogin .modal-box > .campus-luxe-hanging{height:98px!important}
+body.campus-locked #modalLogin .modal-box{padding-top:112px!important}
+@keyframes campusLuxurySway{0%,100%{transform:rotate(-2.6deg)}50%{transform:rotate(2.6deg)}}
+@keyframes campusLuxuryGlint{0%,36%,66%,100%{opacity:0;transform:scale(.6)}50%{opacity:.8;transform:scale(1.25)}}
+@keyframes campusTrimTwinkle{0%,100%{opacity:.35}50%{opacity:1}}
+html[data-campus-motion=paused] .campus-ornament,html[data-campus-motion=paused] .campus-ornament-glint,html[data-campus-motion=paused] .campus-trim-light,html[data-holiday-visibility=hidden] .campus-ornament,html[data-holiday-visibility=hidden] .campus-ornament-glint,html[data-holiday-visibility=hidden] .campus-trim-light{animation-play-state:paused!important}
+@media(max-width:820px){
+ #inicio.hero{padding-top:132px!important}
+ #inicio > .bauble-row.campus-luxe-hanging{height:124px!important}
+ .section-season-banner.campus-luxe-trim{width:100%;height:119px;margin:0 auto 18px!important}
+ .campus-luxe-trim .campus-ornament,.campus-luxe-hanging .campus-ornament{--ornament-size:80px!important;--ornament-drop:16px!important}
+
+ .campus-luxe-trim.campus-luxe-compact{height:104px}
+ .campus-ornament-sprite{filter:drop-shadow(0 3px 3px #09283b20)}
+ .campus-evergreen{height:29px}
+ #campusMobileHome > .campus-luxe-trim{width:100%;margin-top:-10px!important}
+}
+@media(max-width:480px){
+ .campus-luxe-trim:not(.campus-luxe-compact) .campus-ornament,.campus-luxe-hanging:not(.small) .campus-ornament{--ornament-size:76px!important}
+ .campus-luxe-trim:not(.campus-luxe-compact) [data-ornament="0"],.campus-luxe-hanging:not(.small) [data-ornament="0"]{left:12.5%}
+ .campus-luxe-trim:not(.campus-luxe-compact) [data-ornament="1"],.campus-luxe-hanging:not(.small) [data-ornament="1"]{left:37.5%}
+ .campus-luxe-trim:not(.campus-luxe-compact) [data-ornament="2"],.campus-luxe-hanging:not(.small) [data-ornament="2"]{left:62.5%}
+ .campus-luxe-trim:not(.campus-luxe-compact) [data-ornament="3"],.campus-luxe-hanging:not(.small) [data-ornament="3"]{left:87.5%}
+ .campus-luxe-trim [data-ornament="4"],.campus-luxe-trim [data-ornament="5"],.campus-luxe-hanging [data-ornament="4"],.campus-luxe-hanging [data-ornament="5"]{display:none}
+}
+@media(prefers-reduced-motion:reduce){.campus-ornament,.campus-ornament-glint,.campus-trim-light{animation:none!important;transform:none!important}.campus-ornament-glint{opacity:.3}.cm-menu-toggle,.cm-menu-row,.cm-menu-disclosure>summary,.cm-menu-disclosure>summary:after{transition:none!important}}
+
+/* Nine additional handcrafted materials; every section uses its own collection. */
+.campus-ornament-4{background-image:url('../assets/christmas/ornaments-variety.webp');background-size:300% 300%;background-position:0% 0%}
+.campus-ornament-5{background-image:url('../assets/christmas/ornaments-variety.webp');background-size:300% 300%;background-position:50% 0%}
+.campus-ornament-6{background-image:url('../assets/christmas/ornaments-variety.webp');background-size:300% 300%;background-position:100% 0%}
+.campus-ornament-7{background-image:url('../assets/christmas/ornaments-variety.webp');background-size:300% 300%;background-position:0% 50%}
+.campus-ornament-8{background-image:url('../assets/christmas/ornaments-variety.webp');background-size:300% 300%;background-position:50% 50%}
+.campus-ornament-9{background-image:url('../assets/christmas/ornaments-variety.webp');background-size:300% 300%;background-position:100% 50%}
+.campus-ornament-10{background-image:url('../assets/christmas/ornaments-variety.webp');background-size:300% 300%;background-position:0% 100%}
+.campus-ornament-11{background-image:url('../assets/christmas/ornaments-variety.webp');background-size:300% 300%;background-position:50% 100%}
+.campus-ornament-12{background-image:url('../assets/christmas/ornaments-variety.webp');background-size:300% 300%;background-position:100% 100%}

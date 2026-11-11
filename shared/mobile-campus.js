@@ -6,7 +6,7 @@
  const icons={home:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/>',calendar:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-13 4h1m6 0h1m-8 3h1"/>',lab:'<path d="M9 3h6m-5 0v7L4 19a1.3 1.3 0 0 0 1 2h14a1.3 1.3 0 0 0 1-2l-6-9V3M7 15h10"/><path d="M10 18h.1m4-1h.1"/>',news:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h3m-3 4h8m-8 3h8m-1-7h1"/>',shop:'<path d="M5 7h14l2 14H3L5 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/>',grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/>',play:'<rect x="3" y="4" width="18" height="16" rx="3"/><path d="m10 8 6 4-6 4Z"/>',heart:'<path d="M20 5a5 5 0 0 0-8 1 5 5 0 0 0-8-1c-4 5 2 10 8 15 6-5 12-10 8-15Z"/>',edit:'<path d="m15 4 5 5M4 20l5-1L21 7a2 2 0 0 0-5-5L4 14l-1 7Z"/>',exit:'<path d="M9 3H4v18h5m5-5 5-4-5-4m-6 4h12"/>',book:'<path d="M12 5v16M3 4q5-2 9 1 4-3 9-1v15q-5-2-9 2-4-4-9-2Z"/>'};
  const icon=name=>'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(icons[name]||icons.grid)+'</svg>';
  const labels={home:'Inicio','horario-clases':'Mis clases',almanaque:'Uso de laboratorios',laboratorios:'Laboratorios',areas:'Áreas académicas',noticias:'Noticias',campusStores:'Novedades',motivacion:'Palabras que inspiran','video-motivador':'Video motivador',registro:'Registro',portada:'Nuestro campus',panel:'Mi panel'};
- let header,home,bottom,drawer,tour,tourMarker,ready=false,screen='home',lastFocus=null,drawerPanelButtons=[],queued=false;
+ let header,home,bottom,drawer,tour,tourMarker,ready=false,screen='home',lastFocus=null,drawerPanelButtons=[],queued=false,drawerClosing=false,drawerRevision=0,restoreDrawerFocus=true;
  const byId=id=>document.getElementById(id),approved=()=>!!USUARIO_ACTUAL&&!document.body.classList.contains('campus-locked');
  const canEdit=()=>approved()&&!!esAdmin()&&!campusVistaPrueba;
  function adminIdentity(){return typeof campusPerfilAdministrador!=='undefined'&&campusPerfilAdministrador?.rol==='administrador'||USUARIO_ACTUAL?.rol==='administrador';}
@@ -17,21 +17,26 @@
   return 'home';
  }
  function applyScreen(id,{scroll=false}={}){
-  screen=resolve(id);document.body.dataset.cmScreen=screen;
+  const previousScreen=screen;screen=resolve(id);document.body.dataset.cmScreen=screen;
   if(!ready)return;
   header.querySelector('[data-cm-context]').textContent='';
   bottom.querySelectorAll('[data-cm-route]').forEach(b=>{const active=screen===b.dataset.cmRoute;b.classList.toggle('is-active',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');});
   bottom.querySelector('[data-cm-open]').classList.toggle('is-active',!['home','horario-clases'].includes(screen));
   if(mobile.matches&&scroll)requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'auto'}));
+  if(mobile.matches&&previousScreen!==screen)requestAnimationFrame(()=>{const target=byId(screen==='home'?'campusMobileHome':screen==='portada'?'inicio':screen==='panel'?'panelInternoView':screen);window.CampusMotion?.screen(target);});
  }
  function navigate(id){
   if(!approved())return;
-  closeDrawer();if(id==='panel'){irAlPanelInterno();applyScreen('panel',{scroll:true});return;}
-  if(byId('panelInternoView').style.display!=='none')volverSitioPublico();
-  const target=id==='home'||id==='portada'?'inicio':id;
-  window.CampusInstitutional.route(target,false);applyScreen(id,{scroll:true});
-  history.replaceState(null,'','#'+(id==='home'?'inicio':id));
+  closeDrawer({restoreFocus:false,after:()=>{
+   if(!approved())return;
+   if(id==='panel'){irAlPanelInterno();applyScreen('panel',{scroll:true});return;}
+   if(byId('panelInternoView').style.display!=='none')volverSitioPublico();
+   const target=id==='home'||id==='portada'?'inicio':id;
+   window.CampusInstitutional.route(target,false);applyScreen(id,{scroll:true});
+   history.replaceState(null,'','#'+(id==='home'?'inicio':id));
+  }});
  }
+
  function queueRender(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;renderHome();});}
  function renderHome(){
   if(!ready)return;document.body.classList.toggle('cm-signed-in',approved());
@@ -64,11 +69,23 @@
   byId('cmDrawerBody').innerHTML=html;
  }
  function openDrawer(manage=false){
-  if(!mobile.matches||!approved())return;renderDrawer();lastFocus=document.activeElement;if(!drawer.open)drawer.showModal();document.body.classList.add('cm-menu-open');
+  if(!mobile.matches||!approved())return;
+  const fresh=!drawer.open;
+  if(!fresh&&!drawerClosing)return;
+  drawerRevision++;drawerClosing=false;restoreDrawerFocus=true;
+  if(fresh){renderDrawer();lastFocus=document.activeElement;drawer.showModal();}
+  document.body.classList.add('cm-menu-open');
   header.querySelector('[data-cm-open]').setAttribute('aria-expanded','true');bottom.querySelector('[data-cm-open]').setAttribute('aria-expanded','true');
+  window.CampusMotion?.open(drawer,fresh);
   if(manage){drawer.querySelector('.cm-account-menu').open=true;drawer.querySelector('#cmContentTools button')?.focus();}
  }
- function closeDrawer(){if(drawer?.open){drawer.close();document.body.classList.remove('cm-menu-open');header?.querySelector('[data-cm-open]')?.setAttribute('aria-expanded','false');bottom?.querySelector('[data-cm-open]')?.setAttribute('aria-expanded','false');}}
+ function closeDrawer({immediate=false,restoreFocus=true,after=null}={}){
+  if(!drawer?.open){after?.();return;}
+  const revision=++drawerRevision;drawerClosing=true;restoreDrawerFocus=restoreFocus;
+  const finish=()=>{if(revision!==drawerRevision)return;drawerClosing=false;drawer.close();window.CampusMotion?.clear(drawer);after?.();};
+  if(window.CampusMotion)window.CampusMotion.close(drawer,finish,immediate||!approved());else finish();
+ }
+
  function action(event){
   const b=event.target.closest('[data-cm-route],[data-cm-open],[data-cm-close],[data-cm-manage],[data-cm-action],[data-cm-panel],[data-cm-preview]');if(!b)return;
   if(b.hasAttribute('data-cm-route')){navigate(b.dataset.cmRoute);return;}
@@ -85,7 +102,7 @@
  function screenChanged(){
   const video=byId('video-laboratorios');if(tour&&video){if(mobile.matches)tour.querySelector('.wrap').append(video);else tourMarker.after(video);}
   document.body.classList.toggle('cm-device',mobile.matches);
-  if(!mobile.matches){closeDrawer();return;}
+  if(!mobile.matches){closeDrawer({immediate:true});return;}
   if(byId('panelInternoView')?.style.display!=='none')applyScreen('panel');else applyScreen(screen);
  }
  function init(){
@@ -101,8 +118,9 @@
   bottom=document.createElement('nav');bottom.className='cm-only cm-bottom';bottom.id='cmBottom';bottom.setAttribute('aria-label','Navegación móvil principal');bottom.innerHTML='<button type="button" data-cm-route="home">'+icon('home')+'<span>Inicio</span></button><button type="button" data-cm-route="horario-clases">'+icon('calendar')+'<span>Mis clases</span></button><button type="button" data-cm-open aria-controls="cmDrawer" aria-expanded="false">'+icon('menu')+'<span>Menú</span></button>';document.body.append(bottom);
   drawer=document.createElement('dialog');drawer.id='cmDrawer';drawer.className='cm-drawer';drawer.setAttribute('aria-label','Menú de FDS SMART CAMPUS');drawer.innerHTML='<div class="cm-drawer-head"><button type="button" class="cm-brand" data-cm-route="home" aria-label="FDS SMART CAMPUS, ir al inicio"><img src="'+esc(logo)+'" alt="Logo FDS SMART CAMPUS"><span class="cm-brand-text"><strong>FDS SMART CAMPUS</strong><small class="fds-portal-label">Portal educativo</small></span></button><button type="button" class="cm-menu-close" data-cm-close aria-label="Cerrar menú"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m4 4 16 16M20 4 4 20"/></svg></button></div><div id="cmDrawerBody"></div>';document.body.append(drawer);
   for(const el of [header,home,bottom,drawer])el.addEventListener('click',action);
-  drawer.addEventListener('close',()=>{document.body.classList.remove('cm-menu-open');header.querySelector('[data-cm-open]').setAttribute('aria-expanded','false');bottom.querySelector('[data-cm-open]').setAttribute('aria-expanded','false');if(lastFocus?.isConnected)lastFocus.focus();});
-  drawer.addEventListener('click',e=>{if(e.target===drawer){const r=drawer.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeDrawer();}});
+  drawer.addEventListener('close',()=>{document.body.classList.remove('cm-menu-open');header.querySelector('[data-cm-open]').setAttribute('aria-expanded','false');bottom.querySelector('[data-cm-open]').setAttribute('aria-expanded','false');drawerClosing=false;window.CampusMotion?.clear(drawer);if(restoreDrawerFocus&&lastFocus?.isConnected&&lastFocus.getClientRects().length)lastFocus.focus();});
+  drawer.addEventListener('cancel',e=>{e.preventDefault();closeDrawer();});
+  drawer.addEventListener('click',e=>{const summary=e.target.closest('.cm-menu-disclosure > summary');if(summary&&window.CampusMotion){e.preventDefault();window.CampusMotion.disclosure(summary.parentElement);return;}if(e.target===drawer){const r=drawer.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeDrawer();}});
   const quoteHost=byId('institutionalQuotes');if(quoteHost)new MutationObserver(queueRender).observe(quoteHost,{childList:true,subtree:true});
   for(const id of ['contenedorHorarioClasesPublico','contenedorAlmanaquePublico']){const parent=byId(id)?.parentElement;if(parent&&!parent.querySelector('.cm-scroll-hint')){const hint=document.createElement('p');hint.className='cm-only cm-scroll-hint';hint.textContent='Desliza el horario hacia los lados para ver todos los días.';byId(id).before(hint);}}
   document.querySelectorAll('[data-login-role]').forEach(b=>b.dataset.cmLabel=({administrador:'Admin',docente:'Docente',estudiante:'Estudiante'}[b.dataset.loginRole]||''));
@@ -115,3 +133,4 @@
  const oldLogout=cerrarSesion;cerrarSesion=async function(...args){const value=await oldLogout.apply(this,args);if(!USUARIO_ACTUAL){closeDrawer();queueRender();}return value;};
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
+
