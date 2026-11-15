@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' blob: data: https:; connect-src 'self' https://phzqittbspxclvdgwqsw.supabase.co wss://phzqittbspxclvdgwqsw.supabase.co; frame-src https://www.youtube.com https://www.youtube-nocookie.com https://player.vimeo.com; object-src 'none'; base-uri 'none'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="../assets/brand/sello-fds-transparente.svg?v=20261110-1">
@@ -2287,6 +2289,7 @@
     }
 
 </script>
+<script src="../shared/security.js?v=20261115-1"></script>
 <script src="../vendor/supabase.js"></script>
 <script>
 /* Supabase. Solo URL y clave publicable; nunca claves secretas. */
@@ -2314,6 +2317,7 @@ function campusError(err) {
   if(err?.code==='PGRST202'||err?.code==='42P01') return 'Falta ejecutar preparar_base.sql en Supabase.';
   if(/invalid login/i.test(err?.message||'')) return 'Correo o contraseña incorrectos.';
   if(/email not confirmed/i.test(err?.message||'')) return 'La cuenta sigue pendiente de confirmación en el servicio de acceso. Contacta al administrador para habilitarla sin correo.';
+  if(err?.code || err?.status) return 'No se pudo completar la operación. Revisa tus permisos o inténtalo más tarde.';
   return err?.message || 'No se pudo completar la operación. Revisa la conexión e inténtalo de nuevo.';
 }
 async function campusResultado(promise) {
@@ -2344,15 +2348,34 @@ async function campusTodas(tabla,orden) {
     if(lote.length<200) return filas;
   }
 }
+function campusLimpiarDatosPrivados() {
+  USUARIO_ACTUAL=null; CUENTAS=[]; REQUERIMIENTOS=[]; SEPARACIONES=[]; INVENTARIO=[];
+  campusDatosListos=false; campusDisponible=false; campusUltimaCarga=0;
+  for(const id of ['tbodyCuentas','tbodySeparaciones','tbodyRequerimientosArea','tbodyInventarioArea','modalDinamicoContent']) document.getElementById(id)?.replaceChildren();
+  document.getElementById('loginPass')?.setAttribute('value','');
+  const pass=document.getElementById('loginPass');if(pass)pass.value='';
+  const notify=mostrarToast;mostrarToast=()=>{};
+  try{campusOriginal.cerrarSesion();}finally{mostrarToast=notify;}
+  document.querySelectorAll('video').forEach(video=>video.pause());
+  document.querySelectorAll('.modal-backdrop').forEach(modal=>{modal.style.display='none';});
+  campusMostrarAcceso();
+  document.dispatchEvent(new CustomEvent('campus:security-lock'));
+}
 async function campusPerfilSesion() {
+  const expected=campusSession;
   if(!campusSession) { USUARIO_ACTUAL=null; CUENTAS=[]; return; }
   const p=await campusResultado(campusDB.from('perfiles').select('*').eq('id',campusSession.user.id).single());
-  if(p.estado!=='Aprobado') throw new Error('Tu cuenta está '+p.estado+'. Espera la aprobación del administrador.');
+  if(!CampusSecurity.sameSession(expected,campusSession))return;
+  if(p.estado!=='Aprobado'){campusLimpiarDatosPrivados();throw new Error('Tu cuenta no tiene acceso aprobado. Contacta al administrador.');}
   USUARIO_ACTUAL=campusPerfil(p);
-  CUENTAS=esAdmin()? (await campusTodas('perfiles','fecha')).map(campusPerfil):[USUARIO_ACTUAL];
+  const accounts=esAdmin()? (await campusTodas('perfiles','fecha')).map(campusPerfil):[USUARIO_ACTUAL];
+  if(!CampusSecurity.sameSession(expected,campusSession))return;
+  CUENTAS=accounts;
 }
 async function campusCargarContenido() {
+  const expected=campusSession;
   const docs=await campusResultado(campusDB.from('campus_contenido').select('clave,datos,actualizado_en').in('clave',['noticias','inventario','horario','portada','motivacion']));
+  if(!CampusSecurity.sameSession(expected,campusSession))return;
   for(const d of docs||[]) {
     if(d.clave==='motivacion') window.CampusInstitutional?.receive(d.datos,d.actualizado_en);
     if(d.clave==='noticias' && Array.isArray(d.datos)) NOTICIAS=d.datos;
@@ -2365,9 +2388,11 @@ async function campusCargarContenido() {
 async function campusRecargar({silencioso=false,perfilVerificado=false}={}) {
   if(campusCargando || !campusDB) return;
   campusCargando=true; campusDatosListos=false;
+  const expected=campusSession;
   campusMensaje('Actualizando datos…');
   try {
     if(campusSession && !perfilVerificado) await campusPerfilSesion();
+    if(!CampusSecurity.sameSession(expected,campusSession))return;
     // Perfil aprobado antes de consultar; las lecturas independientes comparten la espera.
     const [,ocupados,propias,reqs]=await Promise.all([
       campusCargarContenido(),
@@ -2375,6 +2400,7 @@ async function campusRecargar({silencioso=false,perfilVerificado=false}={}) {
       USUARIO_ACTUAL ? campusTodas('reservas','created_at') : Promise.resolve([]),
       USUARIO_ACTUAL ? campusTodas('requerimientos','created_at') : Promise.resolve([])
     ]);
+    if(!CampusSecurity.sameSession(expected,campusSession))return;
     const conocidas=new Set(propias.map(campusClave));
     SEPARACIONES=[...propias.map(r=>({...r,id:String(r.id),labId:r.laboratorio})),
       ...(ocupados||[]).filter(r=>!conocidas.has(campusClave(r))).map((r,i)=>({...r,id:'ocupado-'+i,labId:r.laboratorio,docente:'',curso:'Turno reservado',soloDisponibilidad:true}))];
@@ -2384,6 +2410,7 @@ async function campusRecargar({silencioso=false,perfilVerificado=false}={}) {
     campusRenderTodo();
   } catch(err) {
     campusDisponible=false;
+    if(expected && CampusSecurity.sameSession(expected,campusSession))campusLimpiarDatosPrivados();
     campusMensaje(campusError(err),true);
     if(!silencioso) mostrarToast(campusError(err));
     campusRenderTodo();
@@ -2517,6 +2544,18 @@ campusPersistirFuncion('confirmarEliminarNoticia','noticias',()=>NOTICIAS,x=>NOT
 campusPersistirFuncion('guardarItemInventario','inventario',()=>INVENTARIO,x=>INVENTARIO=x);
 campusPersistirFuncion('eliminarItemInventario','inventario',()=>INVENTARIO,x=>INVENTARIO=x);
 guardarHero=async function(e){await campusAccion(e,async()=>{campusExigir(true);const f=new FormData(e.target);const d={...campusPortadaActual,l1:f.get('l1').trim(),l2:f.get('l2').trim(),desc:f.get('desc').trim()};await campusGuardarContenido('portada',d);aplicarHero(d);cerrarModal('modalDinamico');mostrarToast('Portada guardada en Supabase.');});};
+// Cierre local por inactividad; no guarda datos ni contraseñas en localStorage.
+let campusUltimaActividad=Date.now();
+for(const type of ['pointerdown','keydown','touchstart']) document.addEventListener(type,event=>{if(event.isTrusted)campusUltimaActividad=Date.now();},{passive:true});
+async function campusComprobarInactividad(){
+ if(!campusSession||!CampusSecurity.isIdle(campusUltimaActividad,Date.now()))return;
+ campusSession=null;campusLimpiarDatosPrivados();
+ try {await campusDB.auth.signOut({scope:'local'});}catch{}
+ campusMensaje('Sesión cerrada por inactividad. Vuelve a iniciar sesión.');
+}
+setInterval(campusComprobarInactividad,15000);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')campusComprobarInactividad();});
+
 // Para el botón público de actualización y el regreso desde otra pestaña.
 window.campusActualizar=()=>campusRecargar();
 window.addEventListener('focus',()=>{if(Date.now()-campusUltimaCarga>30000)campusRecargar({silencioso:true});});
@@ -2526,7 +2565,8 @@ document.addEventListener('DOMContentLoaded',async()=>{
  campusDB.auth.onAuthStateChange((evento,sesion)=>{
    campusSession=sesion;
    // No hacemos llamadas asíncronas dentro del callback de Auth.
-   if(evento==='SIGNED_OUT') {USUARIO_ACTUAL=null;CUENTAS=[];REQUERIMIENTOS=[];SEPARACIONES=[];campusDatosListos=false;campusOriginal.cerrarSesion();}
+   if(evento==='SIGNED_OUT')campusLimpiarDatosPrivados();
+   if(evento==='SIGNED_IN')campusUltimaActividad=Date.now();
    if(evento==='TOKEN_REFRESHED') setTimeout(()=>campusRecargar({silencioso:true}),0);
  });
  try {
@@ -3261,6 +3301,7 @@ document.addEventListener('DOMContentLoaded',campusControlesPrueba);
 <script src="../shared/christmas-luxe.js?v=20261111-2"></script>
 </body>
 </html>
+
 
 
 
