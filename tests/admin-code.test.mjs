@@ -1,0 +1,30 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {createHandler} from '../supabase/functions/campus-admin-code/handler.mjs';
+const uid='11111111-1111-4111-8111-111111111111';
+function setup(options={}){
+ const calls=[];const json=(value,status=200)=>new Response(JSON.stringify(value),{status});
+ const fetcher=async(url,init={})=>{calls.push({url,init});
+  if(url.endsWith('/auth/v1/user'))return json({id:uid,email:'admin@example.test'},options.expired?401:200);
+  if(url.includes('/rest/v1/perfiles'))return json([{rol:options.role||'administrador',estado:options.state||'Aprobado'}]);
+  if(url.endsWith('/rpc/campus_code_attempt'))return json(!options.limited);
+  if(url.includes('/auth/v1/token'))return options.wrong?json({},400):json({user:{id:options.otherUser?'different':uid},access_token:'temporary-token'});
+  if(url.includes('/auth/v1/logout'))return new Response(null,{status:204});
+  if(url.endsWith('/commits/main'))return json({sha:'a'.repeat(40)});
+  if(url.includes('api.github.com'))return json({sha:'b'.repeat(40),truncated:false,tree:[{type:'blob',mode:'100644',path:'index.html',size:30},{type:'blob',mode:'100644',path:'poster.jpg',size:10}]});
+  if(url.includes('raw.githubusercontent.com'))return new Response('<script>alert(1)</script>');
+  throw Error('Unexpected request');
+ };
+ const handler=createHandler({url:'https://example.supabase.co',anonKey:'public-key',serviceKey:'server-secret',fetcher});
+ const request=(auth='Bearer valid',body={password:'example-password'},origin='https://fdssmartcampus.github.io')=>new Request('https://example.test',{method:'POST',headers:{...(auth?{Authorization:auth}:{}),Origin:origin},body:JSON.stringify(body)});
+ return {handler,request,calls};
+}
+test('anonymous request cannot trigger password checks or read source',async()=>{const s=setup();assert.equal((await s.handler(s.request(''))).status,401);assert.equal(s.calls.length,0);});
+test('invalid session rejected',async()=>{const s=setup({expired:true});assert.equal((await s.handler(s.request())).status,401);assert.equal(s.calls.length,1);});
+for(const opts of [{role:'estudiante'},{role:'docente'},{state:'Pendiente'}])test('server profile denies '+JSON.stringify(opts),async()=>{const s=setup(opts);assert.equal((await s.handler(s.request('Bearer valid',{password:'x',rol:'administrador'}))).status,403);assert.ok(!s.calls.some(c=>c.url.includes('/token')));});
+test('wrong password cannot fetch repository',async()=>{const s=setup({wrong:true});assert.equal((await s.handler(s.request())).status,403);assert.ok(!s.calls.some(c=>c.url.includes('github')));});
+test('persistent throttle stops password attempts before authentication',async()=>{const s=setup({limited:true});assert.equal((await s.handler(s.request())).status,429);assert.ok(!s.calls.some(c=>c.url.includes('/token')));});
+test('password for another identity is denied',async()=>{const s=setup({otherUser:true});assert.equal((await s.handler(s.request())).status,403);assert.ok(s.calls.some(c=>c.url.includes('/logout?scope=local')));assert.ok(!s.calls.some(c=>c.url.includes('github')));});
+test('valid admin gets immutable current source, not secrets or temporary tokens',async()=>{const s=setup();const r=await s.handler(s.request());assert.equal(r.status,200);assert.match(r.headers.get('cache-control'),/no-store/);const body=await r.json();assert.equal(body.files[0].content,'<script>alert(1)</script>');assert.deepEqual(body.assets,['poster.jpg']);assert.ok(s.calls.find(c=>c.url.includes('/'+ 'a'.repeat(40)+'/index.html')));assert.ok(!JSON.stringify(body).includes('server-secret'));assert.ok(!JSON.stringify(body).includes('temporary-token'));});
+test('unapproved origin rejected before processing',async()=>{const s=setup();assert.equal((await s.handler(s.request('Bearer valid',{},'https://evil.test'))).status,403);assert.equal(s.calls.length,0);});
+test('password required, no repository on missing password',async()=>{const s=setup();assert.equal((await s.handler(s.request('Bearer valid',{}))).status,400);assert.ok(!s.calls.some(c=>c.url.includes('github')));});
