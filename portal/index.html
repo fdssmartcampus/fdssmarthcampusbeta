@@ -130,13 +130,6 @@
 <div class="festive-shelf" aria-label="Regalos navideños"><svg class="santa-character" viewBox="0 0 140 185" aria-hidden="true"><use href="#campusSanta"/></svg><div class="gift-group"><span aria-hidden="true" class="gift-wrap pattern" style="--w:42px;--h:40px;--gift:#c19c44;--gift-light:#f2d38c;--gift-dark:#91732a"><i class="gift-ribbon" aria-hidden="true"></i></span><button type="button" data-gift="1" aria-label="Abrir regalo navideño 2" class="gift-wrap gift-button" style="--w:55px;--h:57px;--gift:#326fa4;--gift-light:#8bb8df;--gift-dark:#194a79"><i class="gift-ribbon" aria-hidden="true"></i></button><span aria-hidden="true" class="gift-wrap" style="--w:39px;--h:49px;--gift:#8e569d;--gift-light:#c79bd0;--gift-dark:#603d74"><i class="gift-ribbon" aria-hidden="true"></i></span><button type="button" data-gift="3" aria-label="Abrir regalo navideño 4" class="gift-wrap gift-button pattern" style="--w:48px;--h:38px;--gift:#36a2ad;--gift-light:#8ed3da;--gift-dark:#216d7b"><i class="gift-ribbon" aria-hidden="true"></i></button><span aria-hidden="true" class="gift-wrap" style="--w:57px;--h:63px;--gift:#a9324b;--gift-light:#e17c85;--gift-dark:#772239"><i class="gift-ribbon" aria-hidden="true"></i></span><span aria-hidden="true" class="gift-wrap" style="--w:38px;--h:45px;--gift:#237968;--gift-light:#70b9a1;--gift-dark:#155244"><i class="gift-ribbon" aria-hidden="true"></i></span><span aria-hidden="true" class="gift-wrap pattern" style="--w:47px;--h:54px;--gift:#c19c44;--gift-light:#f2d38c;--gift-dark:#91732a"><i class="gift-ribbon" aria-hidden="true"></i></span><span aria-hidden="true" class="gift-wrap" style="--w:43px;--h:35px;--gift:#326fa4;--gift-light:#8bb8df;--gift-dark:#194a79"><i class="gift-ribbon" aria-hidden="true"></i></span></div><svg class="santa-character mirror" viewBox="0 0 140 185" aria-hidden="true"><use href="#campusSanta"/></svg></div><p class="campus-christmas-note"><span aria-hidden="true">✧</span> Que esta Navidad nos encuentre aprendiendo juntos.</p>
       <section class="wrap campus-student-gallery" id="campusStudentGallery" data-fallback-image="../poster.jpg" tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Comunidad académica">
         <div class="campus-gallery-admin" data-gallery-admin hidden><button type="button" class="btn btn-accent btn-sm" onclick="campusEditarGaleria()">Añadir o cambiar imágenes</button></div><div class="campus-student-stage" id="campusStudentStage" role="group" aria-roledescription="diapositiva"><img id="campusStudentImage" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&q=85" alt="Grupo de estudiantes aprendiendo juntos" loading="lazy" decoding="async"><div class="campus-student-caption"><span>Comunidad académica</span><h2 id="campusStudentCaption">Aprender y compartir conocimiento</h2></div></div>
-        <div class="campus-student-controls" role="group" aria-label="Controles del carrusel de la comunidad">
-          <button type="button" class="campus-student-arrow" data-student-step="-1" aria-label="Foto anterior de la comunidad" aria-controls="campusStudentStage">❮</button>
-          <div class="campus-student-dots" aria-label="Elegir foto de la comunidad"></div>
-          <button type="button" class="campus-student-arrow" data-student-step="1" aria-label="Foto siguiente de la comunidad" aria-controls="campusStudentStage">❯</button>
-          <span class="campus-student-counter" data-student-counter aria-live="off"></span>
-          <button type="button" class="campus-student-play" id="campusStudentPlay" aria-pressed="true">Ⅱ Pausar</button>
-        </div>
         </section>
 
     </section>
@@ -711,14 +704,14 @@
 
       </div>
 
-      <form onsubmit="iniciarSesionFormulario(event)">
+      <form onsubmit="iniciarSesionFormulario(event)" autocomplete="off">
         <div class="form-group">
           <label for="loginEmail" style="color:var(--primary);">Usuario del campus o correo registrado</label>
-          <input type="text" id="loginEmail" autocomplete="username" class="form-control" placeholder="Escribe tu usuario" value="" required>
+          <input type="text" id="loginEmail" autocomplete="off" class="form-control" placeholder="Escribe tu usuario" value="" required>
         </div>
         <div class="form-group">
           <label for="loginPass" style="color:var(--primary);">Contraseña</label>
-          <input type="password" id="loginPass" autocomplete="current-password" class="form-control" value="" required>
+          <input type="password" id="loginPass" autocomplete="new-password" class="form-control" value="" required>
         </div>
         <div id="loginErrorBox" style="display:none; background:var(--accent-soft); color:var(--primary); border:1.5px solid var(--accent); padding:10px; border-radius:8px; font-size:0.88rem; font-weight:700; margin-bottom:1rem;"></div>
         <button type="submit" class="btn btn-primary" style="width:100%; margin-bottom:1.2rem;"><i data-lucide="log-in"></i> Iniciar Sesión</button>
@@ -1908,11 +1901,24 @@
     /* =========================================================================
        AUTENTICACIÓN Y SEPARACIÓN ESTRICTA DE FUNCIONES POR ROL
        ========================================================================= */
+    // Always start a fresh login without retaining credentials from a prior visit.
+    function campusLimpiarAcceso() {
+      for (const id of ['loginEmail', 'loginPass']) {
+        const field = document.getElementById(id);
+        if (field) { field.defaultValue = ''; field.value = ''; }
+      }
+      const password = document.getElementById('loginPass');
+      if (password) password.type = 'password';
+    }
+    campusLimpiarAcceso();
+    window.addEventListener('pageshow', campusLimpiarAcceso);
+
     function abrirModalLogin() {
       if (USUARIO_ACTUAL) {
         irAlPanelInterno();
         return;
       }
+      campusLimpiarAcceso();
       document.getElementById("loginErrorBox").style.display = "none";
       document.getElementById("modalLogin").style.display = "grid";
       lucide.createIcons();
@@ -2549,6 +2555,7 @@ function campusVerRegistro(ver) {
   window.scrollTo(0,0);
 }
 function campusMostrarAcceso() {
+  campusLimpiarAcceso();
   document.body.classList.add('campus-locked');
   campusVerRegistro(false);
   const registro=document.getElementById('registro');
